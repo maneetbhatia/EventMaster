@@ -1,0 +1,18 @@
+{
+  "name": "server",
+  "version": "1.0.0",
+  "description": "events app",
+  "main": "server.js",
+  "author": "Maneet Bhatia",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.18.1",
+    "mongodb": "^4.8.1"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.19"
+  },
+  "scripts": {
+    "start": "nodemon ./server.js"
+  }
+}
