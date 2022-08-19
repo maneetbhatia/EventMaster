@@ -2,7 +2,7 @@
 
 const express =  require("express");
 const morgan = require("morgan");
-const {getEvents} =  require("./EventHandlers.js");
+const {getEvents, getEventByCategory} =  require("./EventHandlers.js");
 
 
 const PORT = process.env.PORT || 8000;
@@ -18,11 +18,11 @@ express()
 // get events
 .get("/events", getEvents)
 
-
-
+// getEventByCategory
+.get("/event/:id", getEventByCategory)
 
 
 // handle 404s
-    .use((req, res) => res.status(404).type("txt").send("🤷‍♂️"))
+    .use((req, res) => res.status(404).type("txt").send("🤷‍♂️ Invalid Url"))
 
     .listen(PORT, () => console.log(`Listening on port ${PORT}`));
