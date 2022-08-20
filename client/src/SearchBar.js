@@ -8,7 +8,7 @@ const SearchBar = () => {
 }
 
 const Main = styled.div`
-width: 85%;
+width: 60%;
 margin: auto;
 `
 

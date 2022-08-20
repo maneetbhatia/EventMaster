@@ -2,7 +2,7 @@
 
 const express =  require("express");
 const morgan = require("morgan");
-const {getEvents, getEventByCategory} =  require("./EventHandlers.js");
+const {getEvents, getEventByCategory, getEventByID} =  require("./EventHandlers.js");
 
 
 const PORT = process.env.PORT || 8000;
@@ -18,8 +18,11 @@ express()
 // get events
 .get("/events", getEvents)
 
-// getEventByCategory
-.get("/event/:id", getEventByCategory)
+// get event by category
+.get("/event/category/:type", getEventByCategory)
+
+// get event by id
+.get("/event/id/:id", getEventByID)
 
 
 // handle 404s

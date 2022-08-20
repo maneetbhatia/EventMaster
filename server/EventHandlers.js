@@ -39,8 +39,8 @@ const getEvents = async (req, res) => {
   const getEventByCategory = async (req, res) => {
     // creates a new client
     const client = new MongoClient(MONGO_URI, options);
-    const type = req.params.id
-    console.log(type)
+    const type = req.params.type
+    
     // connect to the client
     await client.connect();
     
@@ -49,10 +49,10 @@ const getEvents = async (req, res) => {
     
     const event = await db.collection("events").find({"type" : type}).toArray();
 
-    if(event === null){
+    if(event.length === 0){
       res.status(404).send({
           status: 404,
-          message: "Invalid ID"
+          message: "Invalid type"
       })
   }else{
       res.status(200).send({
@@ -65,4 +65,34 @@ const getEvents = async (req, res) => {
     client.close();
   };
 
-module.exports = {getEvents, getEventByCategory}
+
+  const getEventByID = async (req, res) => {
+    // creates a new client
+    const client = new MongoClient(MONGO_URI, options);
+    const id = Number(req.params.id)
+    console.log(id)
+    // connect to the client
+    await client.connect();
+    
+    // connect to the database (db name is provided as an argument to the function)
+    const db = client.db("final-project");
+    
+    const event = await db.collection("events").findOne({"id": id});
+
+    if(event === null){
+      res.status(404).send({
+          status: 404,
+          message: "Invalid id"
+      })
+  }else{
+      res.status(200).send({
+          status: 200,
+          data: event
+      })
+  }
+
+    // close the connection to the database server
+    client.close();
+  };
+
+module.exports = {getEvents, getEventByCategory, getEventByID}

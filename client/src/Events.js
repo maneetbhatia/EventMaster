@@ -1,25 +1,16 @@
 import { useState, useEffect } from "react";
 import moment from 'moment';
 import styled from "styled-components"
+import {useNavigate} from "react-router-dom";
 
 const Events = () => {
     const [datas, setDatas] = useState(null);
 
+    const navigate = useNavigate();
     const handleClick = (id) => {
         console.log(id)
+       navigate(`/event/detail/${id}`)
     }
-
-    useEffect(() => {
-        fetch("/event/sports")
-        .then((res) => res.json())
-        .then((data) => {
-            console.log(data);
-            // setDatas(data)
-        }).catch((err) => {
-            console.log("error", err);
-        }) 
-    }, [])
-
     useEffect(() => {
         fetch("/events")
         .then((res) => res.json())
