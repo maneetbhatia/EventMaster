@@ -5,12 +5,27 @@ import styled from "styled-components"
 const Events = () => {
     const [datas, setDatas] = useState(null);
 
+    const handleClick = (id) => {
+        console.log(id)
+    }
+
+    useEffect(() => {
+        fetch("/event/sports")
+        .then((res) => res.json())
+        .then((data) => {
+            console.log(data);
+            // setDatas(data)
+        }).catch((err) => {
+            console.log("error", err);
+        }) 
+    }, [])
+
     useEffect(() => {
         fetch("/events")
         .then((res) => res.json())
         .then((data) => {
-            console.log(data.data[0].events);
-            setDatas(data.data[0].events)
+            // console.log(data.data);
+            setDatas(data.data)
         }).catch((err) => {
             console.log("error", err);
         }) 
@@ -19,15 +34,14 @@ const Events = () => {
     return (
         <>
             {datas !== null ? <Main>
-                {/* <h1>Events:</h1> */}
                 {datas !== null && datas.map((data, index) => {
                     return(
                         (data?.performers[0]?.image !== null) &&
-                            <Wrapper key={index}>
+                            <Wrapper key={index} onClick={() => handleClick(data.id)}>
                             <Img src={data?.performers[0]?.image} alt="event"/>
-                            <Title>{data.title}</Title>
-                            <Type>{data?.type}</Type>
-                            <Time>{moment(data.datetime_local).format('MMMM Do YYYY, h:mm:ss a')}</Time>
+                            <Title>{data.short_title}</Title>
+                            <Type>{data?.venue.name} - {moment(data.datetime_local).format('MMM DD')}</Type>
+                            {data?.stats?.lowest_price !== null ? <Prize>From: ${data?.stats?.lowest_price}</Prize> : <Prize>Find tickets </Prize>}
                             </Wrapper>
                     )
                 })}
@@ -39,26 +53,21 @@ const Events = () => {
 export default Events;
 
 const Main = styled.div`
+    display: flex;
     width: 90%;
     margin: auto;
+    flex-wrap: wrap;
 `
 
 const Wrapper = styled.div`
-width: 25%;
-background-color: ghostwhite;
-padding: 15px;
-height: 380px;
-margin: 40px 2.8%;
-justify-content: space-between;
+height: 340px;
+margin: 20px 2.5%;
 border-radius: 15px;
-box-shadow: 1px 1px 10px 1px #888888;
-display: inline-grid;
-grid-template-columns: auto;
-text-align: center;
+padding: 1.5%;
 cursor: pointer;
-
+box-shadow: 1px 1px 10px 1px #888888;
+width: 25%;
 &:hover{
-    zoom: 1px;
 }
 `
 
@@ -67,13 +76,17 @@ width: 100%;
 `
 
 const Title = styled.p`
-padding-top: 20px;
+font-weight: bold;
+font-size: 18px;
+padding-top: 15px;
 `
 
 const Type = styled.p`
-padding-top: 20px;
+padding-top: 10px;
+color: grey;
 `
 
-const Time = styled.div`
-padding-top: 20px;
+const Prize = styled.p`
+font-size: 18px;
+padding-top: 10px;
 `

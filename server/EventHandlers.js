@@ -47,9 +47,9 @@ const getEvents = async (req, res) => {
     // connect to the database (db name is provided as an argument to the function)
     const db = client.db("final-project");
     
-    const events = await db.collection("events").findOne({"data?.events?.id" : type});
-    console.log(events)
-    if(events === null){
+    const event = await db.collection("events").find({"type" : type}).toArray();
+
+    if(event === null){
       res.status(404).send({
           status: 404,
           message: "Invalid ID"
@@ -57,7 +57,7 @@ const getEvents = async (req, res) => {
   }else{
       res.status(200).send({
           status: 200,
-          data: events
+          data: event
       })
   }
 

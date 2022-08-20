@@ -1,8 +1,8 @@
-import fetch from 'node-fetch';
+const fetch = require('node-fetch');
 
-import { MongoClient } from "mongodb";
+const { MongoClient } = require("mongodb");
 
-import 'dotenv/config';
+require("dotenv").config();
 const { MONGO_URI, API_KEY } = process.env;
 
 const options = {
@@ -15,31 +15,29 @@ const batchImport = async () => {
     const client = new MongoClient(MONGO_URI, options);
     let result;
 
-  try{
+  // try{
 
     const response = await fetch(`https://api.seatgeek.com/2/events?per_page=300&client_id=${API_KEY}`);
     const data = await response.json();
 
-    const events = [data];
-
     // connect to the client
     await client.connect();
   
-    // connect to the database (db name is provided as an argument to the function)
+  //   // connect to the database (db name is provided as an argument to the function)
     const db = client.db("final-project");
     console.log("connected!");
 
-    result = await db.collection("events").insertMany(events);
-  }catch (err){
-    console.log(err)
-  }
+    result = await db.collection("events").insertMany(data.events);
+  // }catch (err){
+  //   console.log(err)
+  // }
 
 
     // close the connection to the database server
-    client.close();
+    // client.close();
     console.log("disconnected!");
 
-    return result;
+    // return result;
   };
   
 batchImport();
