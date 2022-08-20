@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom";
 import moment from "moment";
 import styled from "styled-components";
 import mapImg from './Assests/5d0f4ffc9c6546dda58e65c348d753b0.jpg'
+
 const EventDetails = () => {
     const [event, setEvent] =useState(null)
     const {eventID} = useParams();
@@ -11,8 +12,8 @@ const EventDetails = () => {
         fetch(`/event/id/${eventID}`)
             .then((res) => res.json())
             .then((data) => {
-                console.log(data.data);
-                setEvent(data.data)
+                console.log(data.data.events[0]);
+                setEvent(data.data.events[0])
             }).catch((err) => {
                 console.log("error", err);
         }) 
@@ -28,19 +29,19 @@ const EventDetails = () => {
             </Event>
             <div>
             <EventInfo>
-                <h2>Event</h2>
+                <h2>{event.type}</h2>
                 <p>{event.title}</p>
-                <p>{event.type} - {moment(event.datetime_local).format('MMM DD')}</p>
+                <p> {moment(event.datetime_local).format('MMM DD')}</p>
                 {event?.stats?.lowest_price !== null ? 
                 <p>From: ${event?.stats?.lowest_price}</p> : 
                 <p>Find tickets </p>}
             </EventInfo>
             <Venue>
                 <h2>Venue</h2>
-                <p>venue: {event.venue.name}</p>
-                <p>Address: {event.venue.address}
+                <p>Venue: {event.venue.name}</p>
+                <p>Address: {event.venue.address+" "}
                 {event.venue.extended_address} {event.venue.country}</p>
-                <p>Timezone: {event.venue.timezone}</p>
+                <p>Time-zone: {event.venue.timezone}</p>
             </Venue>
             </div>
         </Main> 

@@ -2,7 +2,7 @@
 
 const express =  require("express");
 const morgan = require("morgan");
-const {getEvents, getEventByCategory, getEventByID} =  require("./EventHandlers.js");
+const {getEvents, getEventByCategory, getEventByID} = require('./GetEvents')
 
 
 const PORT = process.env.PORT || 8000;

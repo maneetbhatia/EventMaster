@@ -1,45 +1,84 @@
 const fetch = require('node-fetch');
 
-const { MongoClient } = require("mongodb");
-
 require("dotenv").config();
-const { MONGO_URI, API_KEY } = process.env;
+const { API_KEY } = process.env;
 
-const options = {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-  };
-
-const batchImport = async () => {
-    // creates a new client
-    const client = new MongoClient(MONGO_URI, options);
+const getEvents = async (req, res) => {
     let result;
 
-  // try{
+  try{
+    const response = await fetch(`https://api.seatgeek.com/2/events?per_page=30&client_id=${API_KEY}`);
+    result = await response.json();
+  }catch (err){
+    console.log(err)
+  }
 
-    const response = await fetch(`https://api.seatgeek.com/2/events?per_page=300&client_id=${API_KEY}`);
-    const data = await response.json();
+  if(result === null){
+    res.status(404).send({
+        status: 404,
+        message: "no events found"
+    })
+  }else{
+    res.status(200).send({
+        status: 200,
+        data: result
+    })
+  }
 
-    // connect to the client
-    await client.connect();
+};
+
+const getEventByCategory = async (req, res) => {
+  const type = req.params.type;
+  let result;
   
-  //   // connect to the database (db name is provided as an argument to the function)
-    const db = client.db("final-project");
-    console.log("connected!");
 
-    result = await db.collection("events").insertMany(data.events);
-  // }catch (err){
-  //   console.log(err)
-  // }
-
-
-    // close the connection to the database server
-    // client.close();
-    console.log("disconnected!");
-
-    // return result;
-  };
+  try{
+    const response = await fetch(`https://api.seatgeek.com/2/events?taxonomies.name=${type}&client_id=${API_KEY}`);
+    result = await response.json();
+  }catch (err){
+    console.log(err)
+  }
   
-batchImport();
+  if(result === null){
+    res.status(404).send({
+        status: 404,
+        message: "Invalid type"
+    })
+}else{
+    res.status(200).send({
+        status: 200,
+        data: result
+    })
+}
+};
 
-// module.exports={getEvents}
+
+const getEventByID = async (req, res) => {
+  const id = Number(req.params.id)
+  console.log(id)
+  
+  let result;
+
+
+  try{
+    const response = await fetch(`https://api.seatgeek.com/2/events/?id=${id}&client_id=${API_KEY}`);
+    result = await response.json();
+  }catch (err){
+    console.log(err)
+  }
+
+  if(result === null){
+    res.status(404).send({
+        status: 404,
+        message: "Invalid event id"
+    })
+}else{
+    res.status(200).send({
+        status: 200,
+        data: result
+    })
+}
+
+};
+  
+module.exports = {getEvents, getEventByCategory, getEventByID}

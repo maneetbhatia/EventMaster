@@ -7,15 +7,19 @@ const Header = () => {
     const handleClick = () => {
         navigate("/");
     }
+
+    const getCategory = (e) => {
+        navigate(`/category/${e.target.innerText}`);
+    }
     return(
         <Wrapper>
         <Main>
             <H1 onClick={handleClick}>Events</H1>
             <Ul>
-                <Li>Comedy</Li>
-                <Li>Sports</Li>
-                <Li>Music</Li>
-                <Li>Concert</Li>
+                <Li onClick={getCategory}>Comedy</Li>
+                <Li onClick={getCategory}>Sports</Li>
+                <Li onClick={getCategory}>Music</Li>
+                <Li onClick={getCategory}>Concert</Li>
             </Ul>
         </Main>
             <SearchBar />
