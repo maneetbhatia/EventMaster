@@ -1,6 +1,7 @@
 import { useNavigate } from "react-router-dom"
 import styled from "styled-components"
 import SearchBar from './SearchBar'
+import Banner from './Banner'
 
 const Header = () => {
     const navigate = useNavigate()
@@ -15,14 +16,18 @@ const Header = () => {
         <Wrapper>
         <Main>
             <H1 onClick={handleClick}>Events</H1>
-            <Ul>
-                <Li onClick={getCategory}>Comedy</Li>
-                <Li onClick={getCategory}>Sports</Li>
-                <Li onClick={getCategory}>Music</Li>
-                <Li onClick={getCategory}>Concert</Li>
-            </Ul>
-        </Main>
             <SearchBar />
+            <Categories>
+                <P>Categories</P>
+                <Menu>
+                    <Category onClick={getCategory}>Comedy</Category>
+                    <Category onClick={getCategory}>Sports</Category>
+                    <Category onClick={getCategory}>Music</Category>
+                    <Category onClick={getCategory}>Music</Category>
+                </Menu>
+            </Categories>
+        </Main>
+        <Banner />
         </Wrapper>
     )
 }
@@ -44,15 +49,40 @@ const H1 = styled.h1`
 float: left;
 width: 20%;
 cursor: pointer;
+padding-top: 15px;
 `
 
-const Ul = styled.ul`
-list-style: none;
-padding: 10px 0px 0px 0px;
-width: 90%;
+const Categories = styled.div`
+margin: 22px 0px 0px 0px;
+position: relative;
+&:focus{
+    opacity: 1;
+}
 `
 
-const Li = styled.li`
+const Menu = styled.div`
+position: absolute;
+top: 30px;
+background-color: white;
+padding: .75rem;
+color: black;
+width: 100%;
+border-radius: .25rem;
+opacity: 1;
+`
+
+const Category = styled.p`
+padding: 1%;
+font-size: 18px;
+
+&:hover{
+    background-color: grey;
+    color: white;
+}
+
+`
+
+const P = styled.span`
 float: right;
 margin-left: 10%;
 font-size: 20px;
