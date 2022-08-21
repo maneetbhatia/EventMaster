@@ -2,12 +2,12 @@ import styled from "styled-components"
 import bannerImg from './Assests/bannerjpg.jpg'
 
 const Banner = () => {
-   return(
-    <>
-      <BannerImg src={bannerImg} alt="banner" />
-      <p>Categories</p>
-    </>
-   )
+    return(
+      <>
+        <BannerImg src={bannerImg} alt="banner" />
+        <p>Categories</p>
+      </>
+    )
 }
 
 const BannerImg = styled.img`

@@ -1,9 +1,11 @@
-import { useNavigate } from "react-router-dom"
+import { useNavigate, useSearchParams } from "react-router-dom"
 import styled from "styled-components"
 import SearchBar from './SearchBar'
 import Banner from './Banner'
+import { useState } from "react"
 
 const Header = () => {
+    const [showCategories, setShowCategories] = useState(false);
     const navigate = useNavigate()
     const handleClick = () => {
         navigate("/");
@@ -12,18 +14,32 @@ const Header = () => {
     const getCategory = (e) => {
         navigate(`/category/${e.target.innerText}`);
     }
+    
+    const handleMenu =() => {
+        setShowCategories(true);
+    }
+    
+    const handleMenus = () => {
+        setShowCategories(false);
+    }
+
     return(
         <Wrapper>
         <Main>
             <H1 onClick={handleClick}>Events</H1>
             <SearchBar />
             <Categories>
-                <P>Categories</P>
-                <Menu>
+                <P 
+                    onMouseOver={handleMenu}
+                    >
+                    Categories
+                </P>
+                <Menu onMouseLeave={handleMenus} showCategories={showCategories}>
                     <Category onClick={getCategory}>Comedy</Category>
                     <Category onClick={getCategory}>Sports</Category>
                     <Category onClick={getCategory}>Music</Category>
-                    <Category onClick={getCategory}>Music</Category>
+                    <Category onClick={getCategory}>NHL</Category>
+                    <Category onClick={getCategory}>NBA</Category>
                 </Menu>
             </Categories>
         </Main>
@@ -47,7 +63,7 @@ display: flex;
 
 const H1 = styled.h1`
 float: left;
-width: 20%;
+width: 7%;
 cursor: pointer;
 padding-top: 15px;
 `
@@ -55,9 +71,6 @@ padding-top: 15px;
 const Categories = styled.div`
 margin: 22px 0px 0px 0px;
 position: relative;
-&:focus{
-    opacity: 1;
-}
 `
 
 const Menu = styled.div`
@@ -68,12 +81,13 @@ padding: .75rem;
 color: black;
 width: 100%;
 border-radius: .25rem;
-opacity: 1;
+opacity: ${props => (props.showCategories ? 1 : 0)};
 `
 
 const Category = styled.p`
 padding: 1%;
 font-size: 18px;
+cursor: pointer;
 
 &:hover{
     background-color: grey;
