@@ -2,7 +2,12 @@
 
 const express =  require("express");
 const morgan = require("morgan");
-const {getEvents, getEventByCategory, getEventByID} = require('./GetEvents')
+const {getEvents, 
+    getEventByCategory, 
+    getEventByID, 
+    getEventsRecommendation, 
+    getArtistByID,
+    getArtistEventsList} = require('./GetEvents')
 
 
 const PORT = process.env.PORT || 8000;
@@ -23,6 +28,15 @@ express()
 
 // get event by id
 .get("/event/id/:id", getEventByID)
+
+// get event by id
+.get("/event/recommendations", getEventsRecommendation)
+
+// get artist by id
+.get("/artist/id/:id", getArtistByID)
+
+// get artist by id
+.get("/artist/events/:artistName", getArtistEventsList)
 
 
 // handle 404s
