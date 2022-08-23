@@ -1,8 +1,8 @@
-import { useNavigate, useSearchParams } from "react-router-dom"
+import { useNavigate } from "react-router-dom"
 import styled from "styled-components"
-import SearchBar from './SearchBar'
 import Banner from './Banner'
 import { useState } from "react"
+import LoginLogo from './Assests/login logopng.png'
 
 const Header = () => {
     const [showCategories, setShowCategories] = useState(false);
@@ -27,19 +27,27 @@ const Header = () => {
         <Wrapper>
         <Main>
             <H1 onClick={handleClick}>Events</H1>
-            <SearchBar />
             <Categories>
                 <P 
                     onMouseOver={handleMenu}
                     >
-                    Categories
+                    Login
                 </P>
                 <Menu onMouseLeave={handleMenus} showCategories={showCategories}>
-                    <Category onClick={getCategory}>Comedy</Category>
-                    <Category onClick={getCategory}>Sports</Category>
-                    <Category onClick={getCategory}>Music</Category>
-                    <Category onClick={getCategory}>NHL</Category>
+                    <Category onClick={getCategory}>Concerts</Category>
+                    <Category onClick={getCategory}>NFL</Category>
+                    <Category onClick={getCategory}>MLB</Category>
                     <Category onClick={getCategory}>NBA</Category>
+                    <Category onClick={getCategory}>NHL</Category>
+                    <Category onClick={getCategory}>MLS</Category>
+                    <Category onClick={getCategory}>Broadway</Category>
+                    <Category onClick={getCategory}>Comedy</Category>
+                    <Category onClick={getCategory}>NCAA</Category>
+                    <Category onClick={getCategory}>NCAA BB</Category>
+                    <Category onClick={getCategory}>NCAA FB</Category>
+                    <Category onClick={getCategory}>WWE</Category>
+                    <Category onClick={getCategory}>Tennis</Category>
+                    <Category onClick={getCategory}>Golf</Category>
                 </Menu>
             </Categories>
         </Main>
@@ -61,9 +69,14 @@ color: white;
 display: flex;
 `
 
+const Img = styled.img`
+background-color: black;
+width: 20%;
+`
+
 const H1 = styled.h1`
 float: left;
-width: 7%;
+width: 95%;
 cursor: pointer;
 padding-top: 15px;
 `
@@ -97,7 +110,7 @@ cursor: pointer;
 `
 
 const P = styled.span`
-float: right;
+display: right;
 margin-left: 10%;
 font-size: 20px;
 cursor: pointer;

@@ -8,14 +8,22 @@ const SearchBar = () => {
 }
 
 const Main = styled.div`
-width: 62%;
-margin: auto;
+/* width: 95%;
+margin: auto; */
 `
 
 const Input = styled.input`
-padding: 1%;
-margin-top: 2%;
-width: 100%;
+position: absolute;
+top: 300px;
+left: 200px;
+padding: 2%;
+margin-top: 3%;
+width: 65%;
+background-color: white;
+font-weight: bolder;
+border-radius: 10px;
+outline: none;
+font-size: 15px;
 `
 
 export default SearchBar;

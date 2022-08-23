@@ -81,6 +81,7 @@ width: 50%;
 
 const ArtistImg = styled.img`
 width: 100%;
+border-radius: 15px;
 `
 
 const Section2 = styled.div`
