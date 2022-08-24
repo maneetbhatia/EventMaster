@@ -16,7 +16,7 @@ function App() {
           <Routes>
             <Route exact path="/" element={<Home />} />
             <Route exact path="/event/id/:eventID" element={<EventDetails />} />
-            <Route exact path="/category/:category" element={<Category />} />
+            {/* <Route exact path="/category/:category" element={<Category />} /> */}
             <Route exact path="/artist/id/:artistID" element={<ArtistDetail />} />
             {/* <Route exact path="/items" element={<ListingPage />} />
             <Route exact path="/checkout" element={<OrderForm />} />

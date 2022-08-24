@@ -7,7 +7,7 @@ const getEvents = async (req, res) => {
     let result;
 
   try{
-    const response = await fetch(`https://api.seatgeek.com/2/events?per_page=30&client_id=${API_KEY}`);
+    const response = await fetch(`https://api.seatgeek.com/2/events?per_page=10&client_id=${API_KEY}`);
     result = await response.json();
   }catch (err){
     console.log(err)

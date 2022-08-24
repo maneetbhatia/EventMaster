@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import styled from "styled-components"
 import {useNavigate} from "react-router-dom";
 import moment from 'moment';
+import Category from "./Category";
 
 const Home = () => {
   const [recommendations, setRecommendations] = useState(null);
@@ -24,8 +25,9 @@ const Home = () => {
 
     return(
       <>
+      <Category />
       <Main>
-      <H1>Recommended Artists</H1>
+      <H1>Artists</H1>
       {recommendations !== null ? <Artists>
                 {recommendations !== null && recommendations.map((data, index) => {
                     return(
@@ -61,6 +63,7 @@ const Wrapper = styled.div`
   cursor: pointer;
   text-align: center;
   width: 22%;
+  box-shadow: 1px 1px 8px 1px grey;
 
   &:hover{
 
