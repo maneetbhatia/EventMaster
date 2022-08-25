@@ -4,14 +4,15 @@ import {useParams, useNavigate} from "react-router-dom";
 import moment from 'moment';
 
 const CategoryDetail = () => {
-    const [events, setEvents] = useState(null)
+    const [events, setEvents] = useState(null);
+    const [favorite, setFavorite] = useState([])
     const {category} = useParams();
 
     useEffect(() => {
         fetch(`/event/category/${category}`)
         .then((res) => res.json())
         .then((data) => {
-            console.log(data.data.events);
+            // console.log(data.data.events);
             setEvents(data.data.events)
         }).catch((err) => {
             console.log("error", err);
@@ -23,19 +24,38 @@ const CategoryDetail = () => {
       navigate(`/event/id/${id}`)
     }
 
+    const handlefav =(data) => {
+      // post call to add favorite in database
+      // CLEAN DATA BEFORE POST CALL
+
+      fetch("/event", {
+        method: "POST",
+        headers: {"Accept": "application/json","Content-Type": "application/json"},
+        body: JSON.stringify(data),
+      }).then(res =>  res.json())
+      .catch(e => {
+          console.log("error", e);
+      });
+    }
+
+    // console.log(favorite)
+
     return( 
         <>
         
         <Events>
             {events !== null ?<Main>
-                {events.map((event, index) => {
+                {events.map((data, index) => {
                 return (
-                    (event.performers[0].image !== null) && 
-                        <Wrapper key={index} onClick={() => handleClick(event?.id)}>
-                        <Img src={event.performers[0].image} />
-                        <Title>{event?.title}</Title>
-                        <Genre>{moment(event?.datetime_local).format("MMM DD")} - {event?.venue?.name}</Genre>
-                        {event?.stats?.lowest_price !== null ? <EventCount>${event?.stats?.lowest_price}</EventCount>: <EventCount>Find Tickets</EventCount>}
+                    (data.performers[0].image !== null) && 
+                        <Wrapper key={index} onClick={() => handleClick(data?.id)}>
+                        <Img src={data.performers[0].image} />
+                        <Title>{data?.title}</Title>
+                        <Genre>{moment(data?.datetime_local).format("MMM DD")} - {data?.venue?.name}</Genre>
+                        {data?.stats?.lowest_price !== null ? <EventCount>${data?.stats?.lowest_price}</EventCount>: <EventCount>Find Tickets</EventCount>}
+                        <span onClick={(event) => {event.stopPropagation();
+
+                          handlefav(data)}}>Fav</span>
                         </Wrapper>
                 )
             })}

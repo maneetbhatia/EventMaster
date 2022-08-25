@@ -10,6 +10,8 @@ const {getTaxonomies,
     getArtistEventsList,
     getSearchValue} = require('./GetEvents')
 
+const {addedNewEvent}  = require('./FavoriteListHandlers')
+
 
 const PORT = process.env.PORT || 8000;
 
@@ -30,17 +32,20 @@ express()
 // get event by id
 .get("/event/id/:id", getEventByID)
 
-// get event by id
+// get event recommendations
 .get("/event/recommendations", getEventsRecommendation)
 
 // get artist by id
 .get("/artist/id/:id", getArtistByID)
 
-// get artist by id
+// get artist by name
 .get("/artist/events/:artistName", getArtistEventsList)
 
 // get search value
 .get("/search/:searchValue", getSearchValue)
+
+// post event to favorite list
+.post("/event", addedNewEvent)
 
 
 // handle 404s
