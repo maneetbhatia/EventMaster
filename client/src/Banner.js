@@ -10,7 +10,6 @@ const Banner = () => {
           <P>Your next best-night-ever is waiting.</P>
           <P>And we have the tickets.</P>
         </Heading>
-        <SearchBar />
         <p>Categories</p>
       </>
     )
@@ -28,7 +27,7 @@ position: absolute;
 padding: 30px 0px;
 opacity: 0.8;
 border-radius: 20%;
-top: 20%;
+top: 15%;
 left: 22%;
 width: 55%;
 color: white;

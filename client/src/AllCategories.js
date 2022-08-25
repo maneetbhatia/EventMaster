@@ -2,23 +2,23 @@ import { useEffect, useState } from 'react';
 import styled from "styled-components"
 import {useNavigate} from "react-router-dom";
 
-const Category = () => {
+const AllCategories = () => {
     const [events, setEvents] = useState(null)
 
     
     const navigate = useNavigate();
-    const handleClick = (id) => {
-        navigate(`/event/id/${id}`)
+    const handleClick = (category) => {
+        navigate(`/category/${category}`)
     }
 
-    const categories = ["Concerts", "Broadway Shows", "Comedy", "Music Festivals"]
+    const categories = ["Comedy", "Concerts", "WWE", "Golf"]
     
     useEffect(() => {
-        fetch(`/events`)
+        fetch(`/taxonomies`)
         .then((res) => res.json())
         .then((data) => {
-            console.log(data.data);
-            setEvents(data.data.events)
+            console.log(data.data.taxonomies);
+            setEvents(data.data.taxonomies)
         }).catch((err) => {
             console.log("error", err);
         }) 
@@ -42,10 +42,11 @@ const Category = () => {
             {events !== null ? <Main>
                 {events !== null && events.map((data, index) => {
                     return(
-                        (data?.performers[0]?.image !== null) &&
-                            <Wrapper className='slideLeft' key={index} onClick={() => handleClick(data.id)}>
-                            <Img src={data?.performers[0]?.image} alt="event"/>
-                            <Title>{data?.taxonomies[0].name}</Title>
+                        (categories.includes(data?.name)) &&
+                        
+                            <Wrapper className='slideLeft' key={index} onClick={() => handleClick(data?.name)}>
+                            <Img src={events[index].image} alt="event"/>
+                            <Title>{events[index].name}</Title>
                             </Wrapper>
                         )
                 })}
@@ -57,12 +58,11 @@ const Category = () => {
     )
 }
 
-export default Category;
+export default AllCategories;
 
 const Categories = styled.div`
     position: relative;
     margin: 0px 60px;
-    background-color: aliceblue;
 `
 
 const Slider = styled.div`
@@ -124,7 +124,7 @@ const Title = styled.span`
 font-weight: bold;
 font-size: 18px;
 position: absolute;
-color: red;
+color: white;
 left: 5%;
 top: 80%;
 background-color: black;

@@ -1,8 +1,7 @@
 import { useEffect, useState } from "react";
 import styled from "styled-components"
 import {useNavigate} from "react-router-dom";
-import moment from 'moment';
-import Category from "./Category";
+import Category from "./AllCategories";
 
 const Home = () => {
   const [recommendations, setRecommendations] = useState(null);

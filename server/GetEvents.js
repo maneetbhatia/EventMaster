@@ -3,11 +3,11 @@ const fetch = require('node-fetch');
 require("dotenv").config();
 const { API_KEY } = process.env;
 
-const getEvents = async (req, res) => {
+const getTaxonomies = async (req, res) => {
     let result;
 
   try{
-    const response = await fetch(`https://api.seatgeek.com/2/events?per_page=10&client_id=${API_KEY}`);
+    const response = await fetch(`https://api.seatgeek.com/2/taxonomies?client_id=${API_KEY}`);
     result = await response.json();
   }catch (err){
     console.log(err)
@@ -16,7 +16,7 @@ const getEvents = async (req, res) => {
   if(result === null){
     res.status(404).send({
         status: 404,
-        message: "no events found"
+        message: "no taxonomies found"
     })
   }else{
     res.status(200).send({
@@ -157,5 +157,33 @@ const getArtistEventsList = async (req, res) => {
   }
 
 };
+
+const getSearchValue = async (req, res) => {
+  const searchValue = req.params.searchValue;
+  let updatedSearchValue = "";
+  let result;
+
+  console.log(searchValue)
   
-module.exports = {getEvents, getEventByCategory, getEventByID, getEventsRecommendation, getArtistByID, getArtistEventsList}
+    if(searchValue !== ""){
+      updatedSearchValue = searchValue.split(" ").join("+");
+
+      const response = await fetch(`https://api.seatgeek.com/2/events?q=${updatedSearchValue}&client_id=${API_KEY}`);
+      result = await response.json();
+    }
+
+  if(result.events.length === 0){
+    res.status(404).send({
+        status: 404,
+        message: "No events found, search something else"
+    })
+  }else{
+      res.status(200).send({
+          status: 200,
+          data: result
+      })
+  }
+
+};
+  
+module.exports = {getSearchValue, getTaxonomies, getEventByCategory, getEventByID, getEventsRecommendation, getArtistByID, getArtistEventsList}
