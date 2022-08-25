@@ -34,7 +34,7 @@ const CategoryDetail = () => {
                         </Wrapper>
                     )
                 })}
-            </Main> : "Loading..."}
+            </Main> : <p>"Loading..."</p>}
             </Events>
         </>
     )

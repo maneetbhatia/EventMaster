@@ -15,31 +15,29 @@ const Home = () => {
       fetch(`/event/recommendations`)
           .then((res) => res.json())
           .then((data) => {
-              console.log(data.data.recommendations);
-              setRecommendations(data.data.recommendations)
+            console.log(data.data.recommendations);
+            setRecommendations(data.data.recommendations)
           }).catch((err) => {
-              console.log("error", err);
+            console.log("error", err);
       }) 
   }, [])
 
     return(
       <>
-      <Category />
-      <Main>
-      <H1>Artists</H1>
-      {recommendations !== null ? <Artists>
-                {recommendations !== null && recommendations.map((data, index) => {
-                    return(
-                      <Wrapper key={index} onClick={() => handleClick(data.performer.id)}>
-                      <Img src={data?.performer?.image} alt="event"/>
-                      <Title>{data?.performer?.name}</Title>
-                      <Genre>Genre: {data.performer.genres[0].name}</Genre>
-                      <EventCount>Upcoming events: {data?.performer?.num_upcoming_events}</EventCount>
-                      </Wrapper>
-                    )
-                })}
+        <Category />
+        <Main>
+          <H1>Artists</H1>
+            {recommendations !== null ? <Artists>
+              {recommendations !== null && recommendations.map((data, index) => {
+                return(
+                  <Wrapper key={index} onClick={() => handleClick(data.performer.id)}>
+                    <Img src={data?.performer?.image} alt="event"/>
+                    <Title>{data?.performer?.name}</Title>
+                  </Wrapper>
+                )
+              })}
             </Artists>: <p> Loading....</p>}
-            </Main>
+        </Main>
       </>
     )
 }
@@ -56,17 +54,13 @@ const Artists = styled.div`
 `
 
 const Wrapper = styled.div`
-  height: 320px;
   margin: 20px 1.5%;
   border-radius: 15px;
   cursor: pointer;
   text-align: center;
   width: 22%;
-  box-shadow: 1px 1px 8px 1px grey;
+  position: relative;
 
-  &:hover{
-
-  }
 `
 
 const H1 = styled.h1`
@@ -78,20 +72,14 @@ const Img = styled.img`
   border-radius: 15px;
 `
 
-const Title = styled.p`
+const Title = styled.span`
   font-weight: bold;
   font-size: 18px;
   padding-top: 15px;
-`
-
-const Genre = styled.p`
-  font-size: 15px;
-  padding-top: 10px;
-`
-
-const EventCount = styled.p`
-  font-size: 15px;
-  padding-top: 10px;
+  position: absolute;
+  bottom: 10px;
+  left: 10px;
+  color: white;
 `
 
 export default Home;
