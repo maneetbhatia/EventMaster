@@ -10,7 +10,7 @@ const {getTaxonomies,
     getArtistEventsList,
     getSearchValue} = require('./GetEvents')
 
-const {addedNewEvent}  = require('./FavoriteListHandlers')
+const {addedNewEvent, getFavoriteList}  = require('./FavoriteListHandlers')
 
 
 const PORT = process.env.PORT || 8000;
@@ -23,7 +23,7 @@ express()
     .use("/", express.static(__dirname + "/"))
 
 // ```````````````EVENTS ENDPOINTS``````````````````
-// get events
+// get taxonomies
 .get("/taxonomies", getTaxonomies)
 
 // get event by category
@@ -43,6 +43,10 @@ express()
 
 // get search value
 .get("/search/:searchValue", getSearchValue)
+
+//~~~~~~~~~~~~~~~~~~~~~FAVORITE LIST~~~~~~~~~~~~~~~~~~~~~~
+// post event to favorite list
+.get("/events", getFavoriteList)
 
 // post event to favorite list
 .post("/event", addedNewEvent)

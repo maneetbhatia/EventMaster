@@ -25,13 +25,18 @@ const CategoryDetail = () => {
     }
 
     const handlefav =(data) => {
-      // post call to add favorite in database
-      // CLEAN DATA BEFORE POST CALL
+      const event = {
+        _id: data?.id,
+        title: data?.title,
+        venue: data?.venue?.name,
+        image: data.performers[0].image,
+        ticket: data.stats.lowest_price,
+      };
 
       fetch("/event", {
         method: "POST",
         headers: {"Accept": "application/json","Content-Type": "application/json"},
-        body: JSON.stringify(data),
+        body: JSON.stringify(event),
       }).then(res =>  res.json())
       .catch(e => {
           console.log("error", e);

@@ -10,22 +10,20 @@ const Header = () => {
         navigate("/");
     }
     
-    const handleMenu =() => {
-        setShowCategories(true);
+    const handleFavorites =() => {
+        navigate("/events");
     }
-    
-    const handleMenus = () => {
-        setShowCategories(false);
-    }
+
 
     return(
         <Wrapper>
         <Main>
             <H1 onClick={handleClick}>Events</H1>
             <Categories>
-                <P 
-                    onMouseOver={handleMenu}
-                    >
+                <Favorites onClick={handleFavorites}>
+                    Favorites
+                </Favorites>
+                <P>
                     Login
                 </P>
             </Categories>
@@ -50,7 +48,7 @@ display: flex;
 
 const H1 = styled.h1`
 float: left;
-margin-right: 85%;
+margin-right: 75%;
 cursor: pointer;
 padding-top: 15px;
 `
@@ -65,4 +63,12 @@ display: right;
 margin-left: 10%;
 font-size: 20px;
 cursor: pointer;
+`
+
+const Favorites = styled.span`
+display: right;
+margin-right: 30%;
+font-size: 20px;
+cursor: pointer;
+color: greenyellow;
 `
