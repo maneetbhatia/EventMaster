@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import styled from "styled-components"
 import {useNavigate} from "react-router-dom";
 import Category from "./AllCategories";
+import moment from "moment";
 
 const Home = () => {
   const [recommendations, setRecommendations] = useState(null);
@@ -32,7 +33,8 @@ const Home = () => {
                 return(
                   <Wrapper key={index} onClick={() => handleClick(data.performer.id)}>
                     <Img src={data?.performer?.image} alt="event"/>
-                    <Title>{data?.performer?.name}</Title>
+                    {(data?.performer?.name.length >= 17) ? <Title>{data?.performer?.name.slice(0, 25)}...</Title> : <Title>{data?.performer?.name}</Title>}
+                    <Genre>{data?.performer?.genres[0].name}</Genre>
                   </Wrapper>
                 )
               })}
@@ -59,8 +61,6 @@ const Wrapper = styled.div`
   cursor: pointer;
   text-align: center;
   width: 22%;
-  position: relative;
-
 `
 
 const H1 = styled.h1`
@@ -76,10 +76,16 @@ const Title = styled.span`
   font-weight: bold;
   font-size: 18px;
   padding-top: 15px;
-  position: absolute;
-  bottom: 10px;
-  left: 10px;
-  color: white;
+`
+
+const Genre = styled.p`
+  font-size: 15px;
+  padding-top: 10px;
+`
+
+const EventCount = styled.p`
+  font-size: 15px;
+  padding-top: 10px;
 `
 
 export default Home;

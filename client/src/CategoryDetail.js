@@ -55,12 +55,12 @@ const CategoryDetail = () => {
                     (data.performers[0].image !== null) && 
                         <Wrapper key={index} onClick={() => handleClick(data?.id)}>
                         <Img src={data.performers[0].image} />
-                        <Title>{data?.title}</Title>
-                        <Genre>{moment(data?.datetime_local).format("MMM DD")} - {data?.venue?.name}</Genre>
+                        {(data?.title.length >= 17) ?<Title>{data?.title.slice(0, 20)}...</Title> : <Title>{data?.title}</Title>}
+                        {(data?.venue?.name.length >= 17) ? <Genre>{data?.venue?.name.slice(0, 25)}...</Genre>: <Genre>{data?.venue?.name}</Genre>}
                         {data?.stats?.lowest_price !== null ? <EventCount>${data?.stats?.lowest_price}</EventCount>: <EventCount>Find Tickets</EventCount>}
-                        <span onClick={(event) => {event.stopPropagation();
+                        <Fav onClick={(event) => {event.stopPropagation();
 
-                          handlefav(data)}}>Fav</span>
+                          handlefav(data)}}>Fav</Fav>
                         </Wrapper>
                 )
             })}
@@ -82,13 +82,14 @@ const Main = styled.div`
 `
 
 const Wrapper = styled.div`
-  height: 340px;
+  height: 300px;
   margin: 20px 1.5%;
   border-radius: 15px;
   cursor: pointer;
   text-align: center;
   width: 22%;
   box-shadow: 1px 1px 8px 1px grey;
+  position: relative;
 `
 
 const Img = styled.img`
@@ -110,6 +111,17 @@ const Genre = styled.p`
 const EventCount = styled.p`
   font-size: 15px;
   padding-top: 10px;
+`
+
+const Fav = styled.span`
+position: absolute;
+top: 10px;
+right: 15px;
+color: greenyellow;
+
+&:hover{
+  color: yellow;
+}
 `
 
 export default CategoryDetail;

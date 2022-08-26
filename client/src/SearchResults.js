@@ -25,25 +25,23 @@ const SearchResults = () => {
 
     return( 
         <>
-        
         <Events>
-            {
-                events?.data ?
-                        <Main>
-                            {events?.data?.events.map((event, index) => {
-                            return (
-                                (event.performers[0].image !== null) &&
-                                    <Wrapper key={index} onClick={() => handleClick(event?.id)}>
-                                    <Img src={event.performers[0].image} />
-                                    <Title>{event?.title}</Title>
-                                    <Genre>{moment(event?.datetime_local).format("MMM DD")} - {event?.venue?.name}</Genre>
-                                    {event?.stats?.lowest_price !== null ? <EventCount>${event?.stats?.lowest_price}</EventCount>: <EventCount>Find Tickets</EventCount>}
-                                    </Wrapper>
-                                )
-                            })}
-                        </Main> 
-                    : <ErrorMessage>{events?.message}</ErrorMessage>}
-            </Events>
+            {events?.data ?
+              <Main>
+                {events?.data?.events.map((event, index) => {
+                  return (
+                    (event.performers[0].image !== null) &&
+                      <Wrapper key={index} onClick={() => handleClick(event?.id)}>
+                        <Img src={event.performers[0].image} />
+                        <Title>{event?.title}</Title>
+                        <Genre>{moment(event?.datetime_local).format("MMM DD")} - {event?.venue?.name}</Genre>
+                        {event?.stats?.lowest_price !== null ? <EventCount>${event?.stats?.lowest_price}</EventCount>: <EventCount>Find Tickets</EventCount>}
+                      </Wrapper>
+                  )
+                })}
+              </Main> 
+            : <ErrorMessage>{events?.message}</ErrorMessage>}
+        </Events>
         </>
     )
 }

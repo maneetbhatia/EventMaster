@@ -1,11 +1,15 @@
 import { useEffect, useState } from 'react';
-import styled from "styled-components"
-import moment from 'moment';
+import styled from "styled-components";
 
 const CategoryDetail = () => {
     const [favorite, setFavorite] = useState([])
 
+
     useEffect(() => {
+      getFavoriteList()
+    }, [])
+
+    const getFavoriteList = () => {
         fetch(`/events`)
         .then((res) => res.json())
         .then((data) => {
@@ -14,7 +18,7 @@ const CategoryDetail = () => {
         }).catch((err) => {
             console.log("error", err);
         }) 
-    }, [])
+    }
 
     const deleteEvent = (id) => {
       console.log(id)
@@ -23,6 +27,8 @@ const CategoryDetail = () => {
         .catch(e => {
             console.log("error", e);
         });
+
+        getFavoriteList()
       }
     
 
@@ -37,7 +43,6 @@ const CategoryDetail = () => {
                         <Wrapper key={index}>
                         <Img src={data.image} />
                         <Title>{data?.title.slice(0, 7)}</Title>
-                        {/* <Genre>{moment(data?.datetime_local).format("MMM DD")} -  */}
                         {(data?.venue.length >= 17) ? <Genre>{data?.venue.slice(0, 25)}...</Genre>: <Genre>{data?.venue}</Genre>}
                         {data.ticket !== null ? <EventCount>${data?.ticket}</EventCount>: <EventCount>Find Tickets</EventCount>}
                         <Delete onClick={() => deleteEvent(data._id)}>X</Delete>
