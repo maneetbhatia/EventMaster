@@ -10,7 +10,7 @@ const {getTaxonomies,
     getArtistEventsList,
     getSearchValue} = require('./GetEvents')
 
-const {addedNewEvent, getFavoriteList}  = require('./FavoriteListHandlers')
+const {addedNewEvent, getFavoriteList, deleteEvent, GetEventFromFavorites}  = require('./FavoriteListHandlers')
 
 
 const PORT = process.env.PORT || 8000;
@@ -45,12 +45,17 @@ express()
 .get("/search/:searchValue", getSearchValue)
 
 //~~~~~~~~~~~~~~~~~~~~~FAVORITE LIST~~~~~~~~~~~~~~~~~~~~~~
-// post event to favorite list
+// get events from favorite list
 .get("/events", getFavoriteList)
+
+// get event from favorite list
+.get("/favorite/event/:id", GetEventFromFavorites)
 
 // post event to favorite list
 .post("/event", addedNewEvent)
 
+// delete event from favorite list
+.delete("/favorite/event/:id", deleteEvent)
 
 // handle 404s
     .use((req, res) => res.status(404).type("txt").send("🤷‍♂️ Invalid Url"))

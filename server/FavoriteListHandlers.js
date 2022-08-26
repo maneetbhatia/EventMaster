@@ -8,6 +8,28 @@ const options = {
     useUnifiedTopology: true,
 };
 
+const GetEventFromFavorites = async (req, res) => {
+    const _id = Number(req.params.id);
+    
+    const client = new MongoClient(MONGO_URI, options);
+    
+    let result;
+    try{
+        await client.connect();
+    
+        const db = client.db("final-project");
+        result = await db.collection("favorite-list").findOne({ _id });
+    }catch (err){
+        console.log(err.errmsg);
+    }
+    
+        result
+        ? res.status(200).json({ status: 200, _id, data: result })
+        : res.status(404).json({ status: 404, _id, message: "ID Not Found" });
+    
+        client.close();
+};
+
 // POST EVENT IN FAVORITE-LIST COLLECTION
 const getFavoriteList = async(req, res) => {
     const client = new MongoClient(MONGO_URI, options);
@@ -58,4 +80,25 @@ const addedNewEvent = async(req, res) => {
     return result;
 };
 
-module.exports={addedNewEvent, getFavoriteList}
+
+const deleteEvent = async (req, res) => {
+    const _id = Number(req.params.id);
+
+    console.log(_id)
+
+    const client = new MongoClient(MONGO_URI, options);
+    await client.connect();
+
+    const db = client.db("final-project");
+    const result = await db.collection("favorite-list").deleteOne({ "_id": _id });
+    
+    if(result.deletedCount >= 1){
+        res.status(200).json({ status: 200, result, message:"event deleted" })
+    }else{
+        res.status(404).json({ status: 404, _id, message: "Event ID Not Found" });
+    }
+
+    client.close();
+};
+
+module.exports={addedNewEvent, getFavoriteList, deleteEvent, GetEventFromFavorites}

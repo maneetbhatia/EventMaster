@@ -16,6 +16,15 @@ const CategoryDetail = () => {
         }) 
     }, [])
 
+    const deleteEvent = (id) => {
+      console.log(id)
+        fetch(`/favorite/event/${id}`, {method: "DELETE"})
+        .then((res) =>  res.json())
+        .catch(e => {
+            console.log("error", e);
+        });
+      }
+    
 
     return( 
         <>
@@ -27,10 +36,11 @@ const CategoryDetail = () => {
                     (data.image !== null) && 
                         <Wrapper key={index}>
                         <Img src={data.image} />
-                        <Title>{data?.title}</Title>
-                        <Genre>{moment(data?.datetime_local).format("MMM DD")} - {data?.venue}</Genre>
+                        <Title>{data?.title.slice(0, 7)}</Title>
+                        {/* <Genre>{moment(data?.datetime_local).format("MMM DD")} -  */}
+                        {(data?.venue.length >= 17) ? <Genre>{data?.venue.slice(0, 25)}...</Genre>: <Genre>{data?.venue}</Genre>}
                         {data.ticket !== null ? <EventCount>${data?.ticket}</EventCount>: <EventCount>Find Tickets</EventCount>}
-                        <span>Del</span>
+                        <Delete onClick={() => deleteEvent(data._id)}>X</Delete>
                         </Wrapper>
                     )
                 })}
@@ -84,6 +94,20 @@ const Genre = styled.p`
 const EventCount = styled.p`
   font-size: 15px;
   padding-top: 10px;
+`
+
+const Delete = styled.button`
+color: black;
+padding: 2%;
+margin-top: 10px;
+background-color: white;
+cursor: pointer;
+border-radius: 15px;
+
+&:hover{
+  background-color: black;
+  color: white;
+}
 `
 
 export default CategoryDetail;
