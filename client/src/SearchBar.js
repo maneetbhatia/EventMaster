@@ -13,7 +13,7 @@ const SearchBar = () => {
     return(
         <Main>
             <Input placeholder="Search events by name, artist, venue..." onChange={(e) => {setValue(e.target.value)}} />
-            <Button onClick={handleSearch}>search</Button>
+            <Button onClick={handleSearch}>Search</Button>
         </Main>
     )
 }
@@ -37,9 +37,10 @@ font-size: 15px;
 const Button = styled.button`
 background-color: black;
 color: white;
-padding: 10px 30px;
+padding: 11.5px 30px;
 border-radius: 10px;
 margin-left: 1%;
+cursor: pointer;
 `
 
 export default SearchBar;

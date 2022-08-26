@@ -34,7 +34,7 @@ const Home = () => {
                   <Wrapper key={index} onClick={() => handleClick(data.performer.id)}>
                     <Img src={data?.performer?.image} alt="event"/>
                     {(data?.performer?.name.length >= 17) ? <Title>{data?.performer?.name.slice(0, 25)}...</Title> : <Title>{data?.performer?.name}</Title>}
-                    <Genre>{data?.performer?.genres[0].name}</Genre>
+                    <Genre>Genre: {data?.performer?.genres[0].name}</Genre>
                   </Wrapper>
                 )
               })}

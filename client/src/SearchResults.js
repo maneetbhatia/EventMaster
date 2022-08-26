@@ -33,8 +33,8 @@ const SearchResults = () => {
                     (event.performers[0].image !== null) &&
                       <Wrapper key={index} onClick={() => handleClick(event?.id)}>
                         <Img src={event.performers[0].image} />
-                        <Title>{event?.title}</Title>
-                        <Genre>{moment(event?.datetime_local).format("MMM DD")} - {event?.venue?.name}</Genre>
+                        {(event?.title.length >= 17) ? <Title>{event?.title.slice(0, 20)}...</Title> : <Title>{event?.title}</Title>}
+                        <Genre>{moment(event?.datetime_local).format("MMM DD")} - {(event?.venue?.name.length >= 17) ? event?.venue?.name.slice(0, 10)+"..." : event?.venue?.name}</Genre>
                         {event?.stats?.lowest_price !== null ? <EventCount>${event?.stats?.lowest_price}</EventCount>: <EventCount>Find Tickets</EventCount>}
                       </Wrapper>
                   )
@@ -58,7 +58,7 @@ const Main = styled.div`
 `
 
 const Wrapper = styled.div`
-  height: 340px;
+  height: 300px;
   margin: 20px 1.5%;
   border-radius: 15px;
   cursor: pointer;
