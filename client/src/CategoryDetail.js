@@ -5,7 +5,7 @@ import moment from 'moment';
 
 const CategoryDetail = () => {
     const [events, setEvents] = useState(null);
-    const [favorite, setFavorite] = useState([])
+    
     const {category} = useParams();
 
     useEffect(() => {
@@ -42,8 +42,6 @@ const CategoryDetail = () => {
           console.log("error", e);
       });
     }
-
-    // console.log(favorite)
 
     return( 
         <>

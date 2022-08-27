@@ -23,21 +23,11 @@ const Home = () => {
       }) 
   }, [])
 
-    const slideLeft = () => {
-      titleRef.current.scrollIntoView({ behavior: "smooth", left:1 });
-    }
-
-    const slide = (shift) => {
-      titleRef.current.scrollLeft -= shift
-    }
-
     return(
       <>
         <Category />
         <Main>
           <H1>Artists</H1>
-          {/* <LeftButton onClick={() => slide(-50)}>L</LeftButton>
-          <RightButton onClick={() => slide(+50)}>R</RightButton> */}
           <Slider>
             {recommendations !== null ? <Artists>
               {recommendations !== null && recommendations.map((data, index) => {

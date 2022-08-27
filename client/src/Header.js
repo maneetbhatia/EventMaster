@@ -4,7 +4,6 @@ import Banner from './Banner'
 import { useState } from "react"
 
 const Header = () => {
-    const [showCategories, setShowCategories] = useState(false);
     const navigate = useNavigate()
     const handleClick = () => {
         navigate("/");

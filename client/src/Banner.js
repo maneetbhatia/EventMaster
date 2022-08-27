@@ -1,6 +1,6 @@
 import styled from "styled-components"
 import bannerImg from './Assests/bannerjpg.jpg'
-import SearchBar from './SearchBar'
+
 const Banner = () => {
     return(
       <>

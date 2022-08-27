@@ -5,7 +5,6 @@ import {useNavigate} from "react-router-dom";
 const AllCategories = () => {
     const [events, setEvents] = useState(null)
 
-    
     const navigate = useNavigate();
     const handleClick = (category) => {
         navigate(`/category/${category}`)
@@ -24,20 +23,10 @@ const AllCategories = () => {
         }) 
     }, [])
 
-    const slideLeft = () => {
-        document.getElementsByClassName('slideLeft').scrollLeft += 50;
-    }
-
-    const slideRight = () => {
-        let slider = document.getElementsByClassName('slideRight');
-    }
-
     return( 
         <>
         <Categories>
             <H1>{"Categories"}</H1>
-            {/* <LeftButton onClick={slideLeft}>L</LeftButton>
-            <RightButton className='slideRight' onClick={slideRight}>R</RightButton> */}
             <Slider>
                 {events !== null ? <Main>
                     {events !== null && events.map((data, index) => {
