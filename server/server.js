@@ -11,7 +11,7 @@ const {getTaxonomies,
     getSearchValue} = require('./GetEvents')
 
 const {addedNewEvent, getFavoriteList, deleteEvent, GetEventFromFavorites}  = require('./FavoriteListHandlers')
-
+const {addNewUser} = require('./UserHandlers')
 
 const PORT = process.env.PORT || 8000;
 
@@ -56,6 +56,10 @@ express()
 
 // delete event from favorite list
 .delete("/favorite/event/:id", deleteEvent)
+
+//~~~~~~~~~~~~~USERS~~~~~~~~~~~~~~~~
+// add new user to users database
+.post("/users", addNewUser)
 
 // handle 404s
     .use((req, res) => res.status(404).type("txt").send("🤷‍♂️ Invalid Url"))

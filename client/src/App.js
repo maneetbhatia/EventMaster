@@ -9,6 +9,7 @@ import CategoryDetail from "./CategoryDetail";
 import SearchBar from "./SearchBar";
 import SearchResults from "./SearchResults";
 import  FavoriteList from "./FavoriteList";
+import Signup from "./Signup";
 
 function App() {
 
@@ -24,8 +25,8 @@ function App() {
             <Route exact path="/search/:searchValue" element={<SearchResults />} />
             <Route exact path="/artist/id/:artistID" element={<ArtistDetail />} />
             <Route exact path="/events" element={<FavoriteList />} />
-            {/* <Route exact path="/items" element={<ListingPage />} />
-            <Route exact path="/checkout" element={<OrderForm />} />
+            <Route exact path="/signup" element={<Signup />} />
+            {/*<Route exact path="/checkout" element={<OrderForm />} />
             <Route exact path="/confirmation" element={<Confirmation />} />
             <Route path="*" element={<ErrorPage />} /> */}
           </Routes>

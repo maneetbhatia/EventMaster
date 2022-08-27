@@ -13,6 +13,10 @@ const Header = () => {
         navigate("/events");
     }
 
+    const handleLogin = () => {
+        navigate('/signup')
+    }
+
 
     return(
         <Wrapper>
@@ -22,7 +26,7 @@ const Header = () => {
                 <Favorites onClick={handleFavorites}>
                     Favorites
                 </Favorites>
-                <P>
+                <P onClick={handleLogin}>
                     Login
                 </P>
             </Categories>
