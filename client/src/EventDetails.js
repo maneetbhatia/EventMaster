@@ -1,3 +1,7 @@
+import Map from 'ol/Map';
+import OSM from 'ol/source/OSM';
+import TileLayer from 'ol/layer/Tile';
+import View from 'ol/View';
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import moment from "moment";
@@ -17,7 +21,23 @@ const EventDetails = () => {
             }).catch((err) => {
                 console.log("error", err);
         }) 
-    }, [])
+    }, []);
+
+
+    // const map = new Map({
+    //     layers: [
+    //       new TileLayer({
+    //         source: new OSM(),
+    //       }),
+    //     ],
+    //     target: 'map',
+    //     view: new View({
+    //       center: [0, 0],
+    //       zoom: 2,
+    //     }),
+    //   });
+      
+    //   console.log(map)
 
     return (
         <>
@@ -45,9 +65,9 @@ const EventDetails = () => {
             </Venue>
             </div>
         </Main> 
-        <Map>
-        <MapImg src={mapImg} alt="map image" />;
-        </Map>
+        <MapContainer>
+            <div>{"map"}</div>
+        </MapContainer>
         </div>: 
         <p>Loading...</p>}
 
@@ -84,9 +104,10 @@ const Venue = styled.div`
 margin-top: 10px;
 `
 
-const Map = styled.div`
+const MapContainer = styled.div`
 text-align: center;
 margin-bottom: 30px;
+width: 100%;
 `
 
 const MapImg = styled.img`

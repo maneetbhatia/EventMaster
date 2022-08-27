@@ -58,9 +58,7 @@ const CategoryDetail = () => {
                         {(data?.title.length >= 17) ?<Title>{data?.title.slice(0, 20)}...</Title> : <Title>{data?.title}</Title>}
                         {(data?.venue?.name.length >= 17) ? <Genre>{data?.venue?.name.slice(0, 25)}...</Genre>: <Genre>{data?.venue?.name}</Genre>}
                         {data?.stats?.lowest_price !== null ? <EventCount>${data?.stats?.lowest_price}</EventCount>: <EventCount>Find Tickets</EventCount>}
-                        <Fav onClick={(event) => {event.stopPropagation();
-
-                          handlefav(data)}}>Fav</Fav>
+                        <Fav onClick={(event) => {event.stopPropagation(); handlefav(data)}}>Fav</Fav>
                         </Wrapper>
                 )
             })}

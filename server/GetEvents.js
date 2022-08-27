@@ -85,7 +85,7 @@ const getEventsRecommendation = async (req, res) => {
   let result;
 
   try{
-    const response = await fetch(`https://api.seatgeek.com/2/recommendations/performers?per_page=4&client_id=${API_KEY}`);
+    const response = await fetch(`https://api.seatgeek.com/2/recommendations/performers?per_page=6&client_id=${API_KEY}`);
     result = await response.json();
   }catch (err){
     console.log(err)

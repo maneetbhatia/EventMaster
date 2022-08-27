@@ -24,7 +24,7 @@ const BannerImg = styled.img`
 
 const Heading = styled.div`
 position: absolute;
-padding: 30px 0px;
+padding: 50px 0px;
 opacity: 0.8;
 border-radius: 20%;
 top: 15%;
@@ -37,12 +37,10 @@ background-color: black;
 
 const P = styled.p`
 font-size: 32px;
-/* background-color: black; */
 padding-bottom: 10px;
 `
 
 const H2 = styled.p`
-/* background-color: black; */
 padding-bottom: 28px;
 font-size: 40px;
 font-weight: bold;

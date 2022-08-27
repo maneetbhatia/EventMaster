@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import moment from "moment";
 import styled from "styled-components";
 
@@ -35,20 +35,24 @@ const ArtistDetail = () => {
                     console.log("error", err);
             })
     }
-    }, [artist])
+    }, [artist]);
+
+    const navigate = useNavigate();
+    const handleClick = (id) => {
+      navigate(`/event/id/${id}`)
+    }
 
     return (
         <>
+            <H1>{artist?.name}</H1>
         <Main>
-
         <Section2>
             {eventList !== null ?
                 <>
-                <h1>{artist?.name}</h1>
                 {eventList.map((data, index) => {
                     return (
                         <>
-                            <Event>
+                            <Event onClick={() => handleClick(data?.id)}>
                                 <h4>{moment(data?.datetime_local).format("MMM D YYYY")} - {data?.title}</h4>
                                 <p>${data?.stats?.lowest_price} - {data?.venue?.name} - {data?.venue?.display_location}</p>
                             </Event>
@@ -69,14 +73,21 @@ const ArtistDetail = () => {
 
 const Main = styled.div`
 display: flex;
-width: 80%;
+width: 90%;
 margin: auto;
 margin-top: 40px;
 `
 
+const H1 = styled.h1`
+width: fit-content;
+margin: 40px 0px 0px 90px;
+`
+
 const Section1 = styled.div`
 float: right;
-width: 50%;
+width: 60%;
+object-fit: cover;
+margin-bottom: 40px;
 `
 
 const ArtistImg = styled.img`
@@ -86,8 +97,19 @@ border-radius: 15px;
 
 const Section2 = styled.div`
 float: left;
-width: 50%;
+width: 40%;
 margin-right: 4%;
+height: 470px;
+overflow: scroll;
+padding: 0px 20px;
+margin-bottom: 40px;
+scroll-snap-type: y mandatory;
+overscroll-behavior-inline: contain;
+scroll-padding-top: 7px;
+
+&::-webkit-scrollbar{
+    display: none;
+}
 `
 
 const Event = styled.div`
@@ -96,10 +118,15 @@ const Event = styled.div`
     cursor: pointer;
     border-radius: 15px;
     box-shadow: 1px 1px 10px 1px #888888;
-    
+    scroll-snap-align: start;
+
     &:hover{
         margin-left: 1.5%;
     }
+
+    &::-webkit-scrollbar{
+    display: none;
+}
 `
 
 export default ArtistDetail;

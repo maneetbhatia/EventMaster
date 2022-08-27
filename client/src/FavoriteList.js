@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import styled from "styled-components";
 
 const CategoryDetail = () => {
@@ -13,7 +14,6 @@ const CategoryDetail = () => {
         fetch(`/events`)
         .then((res) => res.json())
         .then((data) => {
-            console.log(data.data);
             setFavorite(data.data)
         }).catch((err) => {
             console.log("error", err);
@@ -21,15 +21,19 @@ const CategoryDetail = () => {
     }
 
     const deleteEvent = (id) => {
-      console.log(id)
-        fetch(`/favorite/event/${id}`, {method: "DELETE"})
-        .then((res) =>  res.json())
-        .catch(e => {
-            console.log("error", e);
-        });
-
-        getFavoriteList()
+      fetch(`/favorite/event/${id}`, {method: "DELETE"})
+      .then((res) =>  res.json())
+      .catch(e => {
+        console.log("error", e);
+      });
+      
+      getFavoriteList()
       }
+
+    const navigate = useNavigate();
+    const handleClick = (id) => {
+      navigate(`/event/id/${id}`)
+    }
     
 
     return( 
@@ -40,12 +44,12 @@ const CategoryDetail = () => {
                 {favorite.map((data, index) => {
                 return (
                     (data.image !== null) && 
-                        <Wrapper key={index}>
+                        <Wrapper key={index} onClick={() => handleClick(data?._id)}>
                         <Img src={data.image} />
-                        <Title>{data?.title.slice(0, 7)}</Title>
-                        {(data?.venue.length >= 17) ? <Genre>{data?.venue.slice(0, 25)}...</Genre>: <Genre>{data?.venue}</Genre>}
+                        {(data?.title.length >= 17) ?<Title>{data?.title.slice(0, 30)}...</Title>:<Title>{data?.title}</Title>}
+                        {(data?.venue.length >= 27) ? <Genre>{data?.venue.slice(0, 30)}...</Genre>: <Genre>{data?.venue}</Genre>}
                         {data.ticket !== null ? <EventCount>${data?.ticket}</EventCount>: <EventCount>Find Tickets</EventCount>}
-                        <Delete onClick={() => deleteEvent(data._id)}>X</Delete>
+                        <Delete onClick={(event) => {event.stopPropagation(); deleteEvent(data._id)}}>X</Delete>
                         </Wrapper>
                     )
                 })}
@@ -71,13 +75,14 @@ const Main = styled.div`
 `
 
 const Wrapper = styled.div`
-  height: 340px;
+  height: fit-content;
   margin: 20px 1.5%;
   border-radius: 15px;
   cursor: pointer;
   text-align: center;
-  width: 22%;
+  width: 30%;
   box-shadow: 1px 1px 8px 1px grey;
+  position: relative;
 `
 
 const Img = styled.img`
@@ -98,16 +103,20 @@ const Genre = styled.p`
 
 const EventCount = styled.p`
   font-size: 15px;
-  padding-top: 10px;
+  padding: 10px 0px;
 `
 
 const Delete = styled.button`
-color: black;
-padding: 2%;
-margin-top: 10px;
-background-color: white;
+color: limegreen;
+padding: 1% 2%;
+margin: 20px 0px;
+background-color: black;
 cursor: pointer;
-border-radius: 15px;
+border-radius: 50%;
+position: absolute;
+right: 8px;
+top: -12px;
+font-weight: bold;
 
 &:hover{
   background-color: black;
