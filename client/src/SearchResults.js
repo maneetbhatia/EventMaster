@@ -11,7 +11,7 @@ const SearchResults = () => {
         fetch(`/search/${searchValue}`)
         .then((res) => res.json())
         .then((data) => {
-            console.log(data);
+            // console.log(data);
             setEvents(data)
         }).catch((err) => {
             console.log("error", err);
@@ -23,19 +23,40 @@ const SearchResults = () => {
       navigate(`/event/id/${id}`)
     }
 
+    const handlefav =(data) => {
+      console.log("data", data)
+      const event = {
+        _id: data?.id,
+        title: data?.title,
+        venue: data?.venue?.name,
+        image: data.performers[0].image,
+        ticket: data.stats.lowest_price,
+      };
+
+      fetch("/event", {
+        method: "POST",
+        headers: {"Accept": "application/json","Content-Type": "application/json"},
+        body: JSON.stringify(event),
+      }).then(res =>  res.json())
+      .catch(e => {
+          console.log("error", e);
+      });
+    }
+
     return( 
         <>
         <Events>
             {events?.data ?
               <Main>
-                {events?.data?.events.map((event, index) => {
+                {events?.data?.events.map((eventData, index) => {
                   return (
-                    (event.performers[0].image !== null) &&
-                      <Wrapper key={index} onClick={() => handleClick(event?.id)}>
-                        <Img src={event.performers[0].image} />
-                        {(event?.title.length >= 17) ? <Title>{event?.title.slice(0, 20)}...</Title> : <Title>{event?.title}</Title>}
-                        <Genre>{moment(event?.datetime_local).format("MMM DD")} - {(event?.venue?.name.length >= 17) ? event?.venue?.name.slice(0, 10)+"..." : event?.venue?.name}</Genre>
-                        {event?.stats?.lowest_price !== null ? <EventCount>${event?.stats?.lowest_price}</EventCount>: <EventCount>Find Tickets</EventCount>}
+                    (eventData.performers[0].image !== null) &&
+                      <Wrapper key={index} onClick={() => handleClick(eventData?.id)}>
+                        <Img src={eventData.performers[0].image} />
+                        {(eventData?.title.length >= 17) ? <Title>{eventData?.title.slice(0, 20)}...</Title> : <Title>{eventData?.title}</Title>}
+                        <Genre>{moment(eventData?.datetime_local).format("MMM DD")} - {(eventData?.venue?.name.length >= 17) ? eventData?.venue?.name.slice(0, 10)+"..." : eventData?.venue?.name}</Genre>
+                        {eventData?.stats?.lowest_price !== null ? <EventCount>${eventData?.stats?.lowest_price}</EventCount>: <EventCount>Find Tickets</EventCount>}
+                        <Fav onClick={(event) => {event.stopPropagation(); handlefav(eventData)}}>Fav</Fav>
                       </Wrapper>
                   )
                 })}
@@ -65,6 +86,7 @@ const Wrapper = styled.div`
   text-align: center;
   width: 22%;
   box-shadow: 1px 1px 8px 1px grey;
+  position: relative;
 `
 
 const Img = styled.img`
@@ -92,6 +114,17 @@ const ErrorMessage = styled.p`
 color: red;
 margin-left: 50px;
 margin-bottom: 40px;
+`
+
+const Fav = styled.span`
+position: absolute;
+top: 10px;
+right: 15px;
+color: greenyellow;
+
+&:hover{
+  color: yellow;
+}
 `
 
 export default SearchResults;

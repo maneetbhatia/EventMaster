@@ -38,13 +38,15 @@ const Header = () => {
             <H1 onClick={handleClick}>Events</H1>
             <Categories>
                 <Favorites onClick={handleFavorites}>
-                    {(isLogedIn === true || name !== null) && "Favorites"}
+                    {/* {(isLogedIn === true || name !== null) && "Favorites"} */}
+                    Favorites
                 </Favorites>
                 <P onClick={handleLogin}>
-                    {(isLogedIn === true || name !== null) ? "W": "Login"}
+                    {/* {(isLogedIn === true || name !== null) ? "W": "Login"} */}
+                    login
                 </P>
                 <P onClick={handleLogout}>
-                {(isLogedIn === true || name !== null) && "Logout"}
+                {/* {(isLogedIn === true || name !== null) && "Logout"} */}
                 </P>
             </Categories>
         </Main>

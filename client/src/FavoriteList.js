@@ -4,8 +4,8 @@ import styled from "styled-components";
 import { MdDelete } from 'react-icons/md';
 
 const CategoryDetail = () => {
-    const [favorite, setFavorite] = useState([])
-  const [isDeleted, setIsDeleted] = useState(false)
+    const [favorite, setFavorite] = useState([]);
+    const [isLoading, setIsLoading] = useState(false)
 
     useEffect(() => {
       getFavoriteList()
@@ -21,31 +21,26 @@ const CategoryDetail = () => {
         }) 
     }
 
-    const deleteEvent = (id) => {
-      fetch(`/favorite/event/${id}`, {method: "DELETE"})
-      .then((res) =>  res.json())
+    const deleteEvent = async(id) => {
+      await fetch(`/favorite/event/${id}`, {method: "DELETE"})
+      .then((res) => { res.json(); setIsLoading(true); getFavoriteList()})
       .catch(e => {
         console.log("error", e);
       });
-      
-      setIsDeleted(true);
-    }
 
-    useEffect(() => {
-      getFavoriteList()
-    }, [isDeleted])
+    }
 
     const navigate = useNavigate();
     const handleClick = (id) => {
       navigate(`/event/id/${id}`)
     }
-    
 
     return( 
         <>
         <Events>
           <H1>Favorite List</H1>
-            {favorite !== null ? <Main>
+            {favorite.length > 0 ?
+            favorite !== null ? <Main>
                 {favorite.map((data, index) => {
                 return (
                     (data.image !== null) && 
@@ -58,7 +53,8 @@ const CategoryDetail = () => {
                         </Wrapper>
                     )
                 })}
-            </Main> : <p>"Loading..."</p>}
+            </Main> : <p>"Loading..."</p>
+            :"No favorite events"}
             </Events>
         </>
     )
