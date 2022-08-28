@@ -1,12 +1,16 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import { useNavigate } from "react-router-dom"
 import styled from "styled-components"
 import Banner from './Banner';
+import { UserContext } from "./UserContext";
 
 const Header = () => {
     const [isLogedIn , setIsLogedIn] = useState(null);
     const [name, setName] = useState(null)
+    const {isLoading, setIsLoading } = useContext(UserContext);
+
     const navigate = useNavigate()
+
     const handleClick = () => {
         navigate("/");
     }
@@ -24,13 +28,14 @@ const Header = () => {
     const handleLogout = () => {
         sessionStorage.setItem("isLogedIn", false)
         sessionStorage.removeItem("name")
+    setIsLoading(false)
     }
 
     useEffect(() => {
         setIsLogedIn(sessionStorage.getItem("isLogedIn"));
         setName(sessionStorage.getItem("name"));
-    }, [])
-    console.log(isLogedIn, name)
+    }, [isLoading])
+    console.log(isLogedIn, name, isLoading)
 
     return(
         <Wrapper>
@@ -38,15 +43,15 @@ const Header = () => {
             <H1 onClick={handleClick}>Events</H1>
             <Categories>
                 <Favorites onClick={handleFavorites}>
-                    {/* {(isLogedIn === true || name !== null) && "Favorites"} */}
-                    Favorites
+                    {(isLogedIn === true || name !== null) && "Favorites"}
+                    {/* Favorites */}
                 </Favorites>
                 <P onClick={handleLogin}>
-                    {/* {(isLogedIn === true || name !== null) ? "W": "Login"} */}
-                    login
+                    {(isLogedIn === true || name !== null) ? "W": "Login"}
+                    {/* login */}
                 </P>
                 <P onClick={handleLogout}>
-                {/* {(isLogedIn === true || name !== null) && "Logout"} */}
+                {(isLogedIn === true || name !== null) && "Logout"}
                 </P>
             </Categories>
         </Main>

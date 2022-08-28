@@ -66,20 +66,6 @@ const Slider = styled.div`
 }
 `
 
-const LeftButton = styled.button`
-    position: absolute;
-    top: 0%;
-    right: 50px;
-    padding: 5px;
-`
-
-const RightButton = styled.button`
-    position: absolute;
-    top: 0%;
-    right: 20px;
-    padding: 5px;
-`
-
 const Main = styled.div`
     width: 90%;
 `

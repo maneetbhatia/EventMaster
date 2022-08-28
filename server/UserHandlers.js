@@ -17,7 +17,7 @@ const addNewUser = async(req, res) => {
     await client.connect();
     // connect to the database (db name is provided as an argument to the function)
     const db = client.db("final-project");
-    console.log(req.body)
+    
     try{
         result = await db.collection("users").insertOne({ _id: req.body._id,
             fullName: req.body.name,
@@ -29,6 +29,10 @@ const addNewUser = async(req, res) => {
         }catch{(err) => 
             console.log(err)
         }
+        
+        result
+        ? res.status(200).json({ status: 200, message: "register Succesfull" })
+        : res.status(404).json({ status: 404, message: "registration failed! "})
 
      // close the connection to the database server
     client.close();

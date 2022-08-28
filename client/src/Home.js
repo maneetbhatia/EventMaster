@@ -48,7 +48,7 @@ const Home = () => {
 
 const Main = styled.div`
   position: relative;
-    margin: 0px 66px;
+  margin: 0px 66px;
 `
 
 const Artists = styled.div`
@@ -63,7 +63,7 @@ const Slider = styled.div`
     white-space: nowrap;
     scroll-snap-type: x mandatory;
     overscroll-behavior-inline: contain;
-    scroll-padding-left: 3px;
+    /* scroll-padding-left: 1px; */
 
 &::-webkit-scrollbar{
     display: none;
@@ -83,22 +83,8 @@ const Wrapper = styled.div`
   scroll-snap-align: start;
 `
 
-const LeftButton = styled.button`
-    position: absolute;
-    top: 0%;
-    right: 50px;
-    padding: 5px;
-`
-
-const RightButton = styled.button`
-    position: absolute;
-    top: 0%;
-    right: 20px;
-    padding: 5px;
-`
-
 const H1 = styled.h1`
-
+margin-left: 1px;
 `
 
 const Img = styled.img`

@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import styled from "styled-components";
 import { v4 as uuidv4 } from 'uuid';
 import {useNavigate} from "react-router-dom";
@@ -8,7 +8,9 @@ const Signup = () => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [confirmPassword, setConfirmPassword] = useState("");
+    const [datas, setDatas] = useState(null)
     const [errorMessage, setErrorMessage] = useState(null);
+    const [isLoading, setIsLoading] = useState(true)
 
     const navigate = useNavigate();
 
@@ -30,26 +32,29 @@ const Signup = () => {
         }else{
             setErrorMessage("error");
         }
+        console.log(errorMessage)
         
-        if(errorMessage !== null){
+        if(errorMessage === null){
             fetch("/users", {
                 method: "POST",
                 headers: {"Accept": "application/json","Content-Type": "application/json"},
                 body: JSON.stringify(user),
             }).then(res =>  res.json())
+            .then(data => {console.log(data); setIsLoading(false); setDatas(data)})
                 .catch(e => {
                     console.log("error", e);
             });
         }
+
+        if(isLoading || datas?.message === "register succesfull"){
+            setFullName("")
+            setEmail("")
+            setPassword("")
+            setConfirmPassword("")
+            navigate("/signin");
+        }
+}
     
-        setFullName("")
-        setEmail("")
-        setPassword("")
-        setConfirmPassword("")
-
-        navigate("/Signin");
-    }
-
     return( 
         <>
             <Main>
