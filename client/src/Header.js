@@ -1,9 +1,11 @@
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom"
 import styled from "styled-components"
-import Banner from './Banner'
-import { useState } from "react"
+import Banner from './Banner';
 
 const Header = () => {
+    const [isLogedIn , setIsLogedIn] = useState(null);
+    const [name, setName] = useState(null)
     const navigate = useNavigate()
     const handleClick = () => {
         navigate("/");
@@ -14,9 +16,21 @@ const Header = () => {
     }
 
     const handleLogin = () => {
-        navigate('/signup')
+        navigate('/signin')
     }
 
+
+    // FIX LOGOUT```````````````````
+    const handleLogout = () => {
+        sessionStorage.setItem("isLogedIn", false)
+        sessionStorage.removeItem("name")
+    }
+
+    useEffect(() => {
+        setIsLogedIn(sessionStorage.getItem("isLogedIn"));
+        setName(sessionStorage.getItem("name"));
+    }, [])
+    console.log(isLogedIn, name)
 
     return(
         <Wrapper>
@@ -24,10 +38,13 @@ const Header = () => {
             <H1 onClick={handleClick}>Events</H1>
             <Categories>
                 <Favorites onClick={handleFavorites}>
-                    Favorites
+                    {(isLogedIn === true || name !== null) && "Favorites"}
                 </Favorites>
                 <P onClick={handleLogin}>
-                    Login
+                    {(isLogedIn === true || name !== null) ? "W": "Login"}
+                </P>
+                <P onClick={handleLogout}>
+                {(isLogedIn === true || name !== null) && "Logout"}
                 </P>
             </Categories>
         </Main>
@@ -51,7 +68,7 @@ display: flex;
 
 const H1 = styled.h1`
 float: left;
-margin-right: 75%;
+margin-right: 45%;
 cursor: pointer;
 padding-top: 15px;
 `

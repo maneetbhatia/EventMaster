@@ -8,8 +8,9 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import CategoryDetail from "./CategoryDetail";
 import SearchBar from "./SearchBar";
 import SearchResults from "./SearchResults";
-import  FavoriteList from "./FavoriteList";
+import FavoriteList from "./FavoriteList";
 import Signup from "./Signup";
+import Signin from "./Signin";
 
 function App() {
 
@@ -26,6 +27,7 @@ function App() {
             <Route exact path="/artist/id/:artistID" element={<ArtistDetail />} />
             <Route exact path="/events" element={<FavoriteList />} />
             <Route exact path="/signup" element={<Signup />} />
+            <Route exact path="/signin" element={<Signin />} />
             {/*<Route exact path="/checkout" element={<OrderForm />} />
             <Route exact path="/confirmation" element={<Confirmation />} />
             <Route path="*" element={<ErrorPage />} /> */}

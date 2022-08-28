@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import styled from "styled-components";
 import { v4 as uuidv4 } from 'uuid';
 import {useNavigate} from "react-router-dom";
@@ -9,6 +9,8 @@ const Signup = () => {
     const [password, setPassword] = useState("");
     const [confirmPassword, setConfirmPassword] = useState("");
     const [errorMessage, setErrorMessage] = useState(null);
+
+    const navigate = useNavigate();
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -30,35 +32,50 @@ const Signup = () => {
         }
         
         if(errorMessage !== null){
-                fetch("/users", {
-                    method: "POST",
-                    headers: {"Accept": "application/json","Content-Type": "application/json"},
-                    body: JSON.stringify(user),
-                }).then(res =>  res.json())
+            fetch("/users", {
+                method: "POST",
+                headers: {"Accept": "application/json","Content-Type": "application/json"},
+                body: JSON.stringify(user),
+            }).then(res =>  res.json())
                 .catch(e => {
                     console.log("error", e);
-                });
-            }
-
-    // empty inputs after submit
-    // console.log(fullName, email, password, confirmPassword)
+            });
+        }
     
-    // setFullName("");
-    // setEmail("")
-    // setPassword("")
-    // setConfirmPassword("")
+        setFullName("")
+        setEmail("")
+        setPassword("")
+        setConfirmPassword("")
 
-}
+        navigate("/Signin");
+    }
 
     return( 
         <>
             <Main>
                 <Form onSubmit={handleSubmit}>
                     <h1>Signup</h1>
-                    <Input placeholder='name' type="text" required onChange={(e) => setFullName(e.target.value)}></Input><br />
-                    <Input placeholder='emial' type="email" required onChange={(e) => setEmail(e.target.value)}></Input><br />
-                    <Input placeholder='password' type="password" required onChange={(e) => setPassword(e.target.value)}></Input><br />
-                    <Input placeholder='confirm password' type="password" required onChange={(e) => setConfirmPassword(e.target.value)}></Input><br />
+                    <Input 
+                        placeholder='Full Name' 
+                        type="text" required
+                        value={fullName}
+                        onChange={(e) => setFullName(e.target.value)}
+                    /><br />
+                    <Input 
+                        placeholder='Email' 
+                        type="email" required
+                        value={email}
+                        onChange={(e) => setEmail(e.target.value)} /><br />
+                    <Input 
+                        placeholder='Password' 
+                        type="password" required 
+                        value={password}
+                        onChange={(e) => setPassword(e.target.value)} /><br />
+                    <Input 
+                        placeholder='Confirm Password' 
+                        type="password" required 
+                        value={confirmPassword}
+                        onChange={(e) => setConfirmPassword(e.target.value)} /><br />
                     <Submit>Submit</Submit>
                 </Form>
             </Main>

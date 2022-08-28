@@ -11,7 +11,7 @@ const {getTaxonomies,
     getSearchValue} = require('./GetEvents')
 
 const {addedNewEvent, getFavoriteList, deleteEvent, GetEventFromFavorites}  = require('./FavoriteListHandlers')
-const {addNewUser} = require('./UserHandlers')
+const {addNewUser, isValidUser} = require('./UserHandlers')
 
 const PORT = process.env.PORT || 8000;
 
@@ -60,6 +60,9 @@ express()
 //~~~~~~~~~~~~~USERS~~~~~~~~~~~~~~~~
 // add new user to users database
 .post("/users", addNewUser)
+
+// Check if user have account
+.post("/user", isValidUser)
 
 // handle 404s
     .use((req, res) => res.status(404).type("txt").send("🤷‍♂️ Invalid Url"))

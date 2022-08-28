@@ -34,5 +34,30 @@ const addNewUser = async(req, res) => {
     client.close();
 };
 
+const isValidUser = async (req, res) => {
+    const client = new MongoClient(MONGO_URI, options);
+    let result;
 
-module.exports={addNewUser}
+    // connect to the client
+    await client.connect();
+    // connect to the database (db name is provided as an argument to the function)
+    const db = client.db("final-project");
+
+    try{
+        result = await db.collection("users").findOne({
+            email: req.body.email});
+        // send error
+        }catch{(err) => 
+            console.log(err)
+        }
+
+        result
+        ? res.status(200).json({ status: 200, data: result.fullName,  message: "Login Succesfull" })
+        : res.status(404).json({ status: 404, message: "Invalid email or password"});
+
+     // close the connection to the database server
+    client.close();
+}
+
+
+module.exports={addNewUser, isValidUser}
