@@ -75,7 +75,7 @@ display: flex;
 
 const H1 = styled.h1`
 float: left;
-margin-right: 45%;
+margin-right: 75%;
 cursor: pointer;
 padding-top: 15px;
 `

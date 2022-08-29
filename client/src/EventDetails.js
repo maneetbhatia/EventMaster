@@ -2,7 +2,10 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import moment from "moment";
 import styled from "styled-components";
-import mapImg from './Assests/5d0f4ffc9c6546dda58e65c348d753b0.jpg'
+import GoogleMapReact from 'google-map-react';
+import { SiGooglemaps } from 'react-icons/si';
+
+const AnyReactComponent = ({ text }) => <div>{<SiGooglemaps size={30}/>}</div>;
 
 const EventDetails = () => {
     const [event, setEvent] =useState(null)
@@ -12,12 +15,21 @@ const EventDetails = () => {
         fetch(`/event/id/${eventID}`)
             .then((res) => res.json())
             .then((data) => {
-                console.log(data.data.events[0]);
                 setEvent(data.data.events[0])
             }).catch((err) => {
                 console.log("error", err);
         }) 
     }, []);
+
+    console.log(event?.venue)
+
+    const defaultProps = {
+        center: {
+            lat: event?.venue?.location?.lat,
+            lng: event?.venue?.location?.lon
+        },
+        zoom: 11
+    };
 
     return (
         <>
@@ -46,7 +58,21 @@ const EventDetails = () => {
             </div>
         </Main> 
         <MapContainer>
-            <div>{"map"}</div>
+            <div style={{ height: '100vh', width: '100%' }}>
+            <GoogleMapReact
+                bootstrapURLKeys={{ key: "AIzaSyCxJEsl_5nBTaCJoXmHLgsdsLy-lzpgacE",
+            language: "en-US",
+            region: "us" }}
+                defaultCenter={defaultProps.center}
+                defaultZoom={defaultProps.zoom}
+            >
+                <AnyReactComponent
+                lat={event?.venue?.location?.lat}
+                lng={event?.venue?.location?.lon}
+                text="EVENT"
+                />
+            </GoogleMapReact>
+        </div>
         </MapContainer>
         </div>: 
         <p>Loading...</p>}
@@ -57,7 +83,7 @@ const EventDetails = () => {
 
 const Main = styled.div`
 background-color: ghostwhite;
-width: 70%;
+width: 75%;
 margin: auto;
 padding: 1.5%;
 margin-top: 40px;
@@ -85,14 +111,9 @@ margin-top: 10px;
 `
 
 const MapContainer = styled.div`
-text-align: center;
-margin-bottom: 30px;
-width: 100%;
-`
-
-const MapImg = styled.img`
-border-radius: 15px;
-width: 700px;
+width: 80%;
+margin: auto;
+margin-bottom: 40px;
 `
 
 export default EventDetails;
