@@ -1,5 +1,5 @@
 import "./App.css";
-import Header from "./Header";
+import Banner from "./Banner";
 import Footer from './Footer';
 import EventDetails from "./EventDetails";
 import Home from "./Home";
@@ -17,7 +17,7 @@ function App() {
   return (
     <>
       <BrowserRouter>
-        <Header />
+        <Banner />
         <SearchBar />
           <Routes>
             <Route exact path="/" element={<Home />} />

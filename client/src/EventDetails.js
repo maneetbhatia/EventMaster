@@ -28,7 +28,7 @@ const EventDetails = () => {
             lat: event?.venue?.location?.lat,
             lng: event?.venue?.location?.lon
         },
-        zoom: 11
+        zoom: 13
     };
 
     return (

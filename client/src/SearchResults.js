@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import styled from "styled-components"
 import {useParams, useNavigate} from "react-router-dom";
 import moment from 'moment';
+import { MdFavorite } from 'react-icons/md';
 
 const SearchResults = () => {
     const [events, setEvents] = useState(null)
@@ -53,10 +54,10 @@ const SearchResults = () => {
                     (eventData.performers[0].image !== null) &&
                       <Wrapper key={index} onClick={() => handleClick(eventData?.id)}>
                         <Img src={eventData.performers[0].image} />
-                        {(eventData?.title.length >= 17) ? <Title>{eventData?.title.slice(0, 20)}...</Title> : <Title>{eventData?.title}</Title>}
+                        {(eventData?.title.length >= 70) ? <Title>{eventData?.title.slice(0, 160)}...</Title> : <Title>{eventData?.title}</Title>}
                         <Genre>{moment(eventData?.datetime_local).format("MMM DD")} - {(eventData?.venue?.name.length >= 17) ? eventData?.venue?.name.slice(0, 10)+"..." : eventData?.venue?.name}</Genre>
                         {eventData?.stats?.lowest_price !== null ? <EventCount>${eventData?.stats?.lowest_price}</EventCount>: <EventCount>Find Tickets</EventCount>}
-                        <Fav onClick={(event) => {event.stopPropagation(); handlefav(eventData)}}>Fav</Fav>
+                        <Fav onClick={(event) => {event.stopPropagation(); handlefav(eventData)}}><MdFavorite size={20}/></Fav>
                       </Wrapper>
                   )
                 })}
@@ -96,7 +97,7 @@ border-radius: 15px 15px 0px 1px;
 
 const Title = styled.p`
   font-weight: bold;
-  font-size: 18px;
+  font-size: 15px;
   padding-top: 15px;
 `
 
@@ -118,12 +119,12 @@ margin-bottom: 40px;
 
 const Fav = styled.span`
 position: absolute;
-top: 10px;
-right: 15px;
-color: greenyellow;
+top: 8px;
+right: 10px;
+color: white;
 
 &:hover{
-  color: yellow;
+  color: red;
 }
 `
 
