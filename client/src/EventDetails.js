@@ -141,6 +141,10 @@ margin-top: 10px;
 }
 `
 
+const EventAddress = styled.div`
+background-color: red;
+`
+
 const H2 =styled.h2`
 @media (max-width: 850px) {
 margin-top: 10px;

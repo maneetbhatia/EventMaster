@@ -32,7 +32,7 @@ const getEventByCategory = async (req, res) => {
   let result;
 
   try{
-    const response = await fetch(`https://api.seatgeek.com/2/events?taxonomies.name=${type}&per_page=25&page=2&client_id=${API_KEY}`);
+    const response = await fetch(`https://api.seatgeek.com/2/events?taxonomies.name=${type}&per_page=32&page=1&client_id=${API_KEY}`);
     result = await response.json();
   }catch (err){
     console.log(err)

@@ -10,6 +10,7 @@ export const UserProvider = ({ children }) => {
     const [isModalOpen, setIsModalOpen] = useState(false)
     const [isRegistrationModalOpen, setIsRegistrationModalOpen] = useState(false)
 
+
     return (  <UserContext.Provider  
         value={{
             isLoading,
@@ -22,7 +23,7 @@ export const UserProvider = ({ children }) => {
             setIsLogedIn,
             isRegistrationModalOpen, 
             setIsRegistrationModalOpen,
-            isUserLoginIn, setIsuserLoginIn
+            isUserLoginIn, setIsuserLoginIn,
         }}>{children}
         </UserContext.Provider>
     );

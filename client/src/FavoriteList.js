@@ -77,33 +77,34 @@ const Events = styled.div`
 const Main = styled.div`
   display: flex;
   flex-wrap: wrap;
+  margin: 40px 0px;
 `
 
 const Wrapper = styled.div`
   height: fit-content;
-  margin: auto;
-  margin-bottom: 20px;
+  margin: 1.65%;
   border-radius: 15px;
   cursor: pointer;
   text-align: center;
   width: 30%;
   box-shadow: 1px 1px 8px 1px grey;
   position: relative;
-
+  
   @media (max-width: 1250px) {
-    width: 30%;
-
-}
-
-@media (max-width: 980px) {
     width: 45%;
+  }
+
+  @media (max-width: 980px) {
+    width: 45%;
+    margin: auto;
+    margin-bottom: 30px;
+  }
+
+@media (max-width: 800px) {
+    width: 70%;
 }
 
-@media (max-width: 630px) {
-    width: 80%;
-}
-
-@media (max-width: 450px) {
+@media (max-width: 550px) {
     width: 99%;
 }
 `
@@ -118,14 +119,22 @@ const Title = styled.p`
   font-size: 18px;
   padding-top: 15px;
 
-  @media (max-width: 650px) {
+  @media (max-width: 800px) {
+    font-size: 22px;
+}
+
+@media (max-width: 650px) {
     font-size: 18px;
 }
 `
 
 const Genre = styled.p`
-  font-size: 15px;
+  font-size: 18px;
   padding-top: 10px;
+
+  @media (max-width: 800px) {
+    font-size: 20px;
+}
 
   @media (max-width: 650px) {
     font-size: 18px;

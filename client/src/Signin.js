@@ -64,7 +64,7 @@ const Signin = () => {
 
     return( 
         <>
-            {/* <Main> */}
+            <Main>
                 <Form onSubmit={handleSubmit}>
                     <h1>Signin</h1>
                     <Input 
@@ -82,19 +82,27 @@ const Signin = () => {
                     {(datas?.status === 404) && <p>{datas?.message}</p>}
                 <P>If you don't have account, please <Span onClick={handleRegister}>Register</Span></P>
                 </Form>
-            {/* </Main> */}
+            </Main>
         </>
     )
 }
 
+const Main = styled.div`
+width: 100%;
+background-color: rgba(255,255,255,0.8);
+position: fixed;
+top: 0;
+left: 0;
+right: 0;
+bottom: 0;
+z-index: 1000;
+`
 
 const Form = styled.form`
     text-align: center;
     background-color: white;
     border: 3px silver solid;
-    z-index: 1000;
     width: 40%;
-    /* margin: auto; */
     text-align: center;
     padding: 30px;
     border-radius: 15px;
@@ -116,6 +124,7 @@ const Input = styled.input`
     width: 90%;
     padding: 2%;
     margin: 10px;
+    border: 1px solid grey;
 `
 
 const Submit = styled.button`

@@ -65,7 +65,7 @@ const Signup = () => {
     
     return( 
         <>
-            {/* <Main> */}
+            <Main>
                 <Form onSubmit={handleSubmit}>
                     <h1>Signup</h1>
                     <Input 
@@ -92,16 +92,21 @@ const Signup = () => {
                     <Submit>Submit</Submit>
                     <P>Have account? please <Span onClick={handleLogin}>Login</Span></P>
                 </Form>
-            {/* </Main> */}
+            </Main>
         </>
     )
 }
 
-// const Main = styled.div`
-//     margin: 40px 0px;
-//     padding: 10px;
-//     text-align: center;
-// `
+const Main = styled.div`
+width: 100%;
+background-color: rgba(255,255,255,0.8);
+position: fixed;
+top: 0;
+left: 0;
+right: 0;
+bottom: 0;
+z-index: 1000;
+`
 
 const Form = styled.form`
     border: 3px silver solid;
@@ -130,6 +135,7 @@ const Input = styled.input`
     width: 90%;
     padding: 2%;
     margin: 10px;
+    border: 1px solid grey;
 `
 
 const Submit = styled.button`
