@@ -40,17 +40,15 @@ const getFavoriteList = async(req, res) => {
     // connect to the database (db name is provided as an argument to the function)
     const db = client.db("final-project");
     
-   
         result = await db.collection("favorite-list").find().toArray();
 
-    result !== null ?
-        res.status(200).send({status: 200, data: result})
-        : res.status(404).send({status: 404, message: "no events found"})
+    result.length > 0
+        ? res.status(200).send({status: 200, data: result})
+        : res.status(404).send({status: 404, message: "There are no events in your favorite list"})
         
 
      // close the connection to the database server
     client.close();
-    return result;
 };
 
 // POST EVENT IN FAVORITE-LIST COLLECTION

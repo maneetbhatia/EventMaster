@@ -4,6 +4,7 @@ import moment from "moment";
 import styled from "styled-components";
 import GoogleMapReact from 'google-map-react';
 import { SiGooglemaps } from 'react-icons/si';
+import LoadingPage from "./LoadingPage";
 
 const AnyReactComponent = ({ text }) => <div>{<SiGooglemaps size={30}/>}</div>;
 
@@ -20,8 +21,6 @@ const EventDetails = () => {
                 console.log("error", err);
         }) 
     }, []);
-
-    console.log(event?.venue)
 
     const defaultProps = {
         center: {
@@ -41,19 +40,19 @@ const EventDetails = () => {
             </Event>
             <div>
             <EventInfo>
-                <h2>{event.type}</h2>
-                <p>{event.title}</p>
-                <p> {moment(event.datetime_local).format('MMM DD')}</p>
+                <H2>{event.type}</H2>
+                <P>{event.title}</P>
+                <P> {moment(event.datetime_local).format('MMM DD')}</P>
                 {event?.stats?.lowest_price !== null ? 
-                <p>From: ${event?.stats?.lowest_price}</p> : 
-                <p>Find tickets </p>}
+                <P>From: ${event?.stats?.lowest_price}</P> : 
+                <P>Find tickets </P>}
             </EventInfo>
             <Venue>
-                <h2>Venue</h2>
-                <p>Venue: {event.venue.name}</p>
-                <p>Address: {event.venue.address+" "}
-                {event.venue.extended_address} {event.venue.country}</p>
-                <p>Time-zone: {event.venue.timezone}</p>
+                <H2>Venue</H2>
+                <P>Venue: {event.venue.name}</P>
+                <P>Address: {event.venue.address+" "}
+                {event.venue.extended_address} {event.venue.country}</P>
+                <P>Time-zone: {event.venue.timezone}</P>
             </Venue>
             </div>
         </Main> 
@@ -75,7 +74,7 @@ const EventDetails = () => {
         </div>
         </MapContainer>
         </div>: 
-        <p>Loading...</p>}
+        <LoadingPage />}
 
         </>
     )
@@ -91,23 +90,65 @@ box-shadow: 1px 1px 10px 1px #888888;
 border-radius: 15px;
 display: flex;
 margin-bottom: 30px;
+
+@media (max-width: 850px) {
+    display: block;
+}
 `
 
 const Img = styled.img`
 border-radius: 15px;
+@media (max-width: 850px) {
+    width: 100%;
+}
 `
 
 const Event = styled.div`
-float: left;
 padding-right: 2%;
+
+@media (max-width: 850px) {
+    padding-right: 0;
+}
 `
 
 const EventInfo = styled.div`
 margin-top: 10px;
+
+@media (max-width: 850px) {
+    text-align: center;
+    font-size: 20px;
+    margin-top: 20px;
+}
 `
 
 const Venue = styled.div`
 margin-top: 10px;
+
+@media (max-width: 850px) {
+    margin-top: 40px;
+    text-align: center;
+    font-size: 20px;
+}
+`
+
+const P =styled.p`
+@media (max-width: 850px) {
+margin-top: 10px;
+}
+
+@media (max-width: 510px) {
+   font-size: 18px;
+}
+`
+
+const H2 =styled.h2`
+@media (max-width: 850px) {
+margin-top: 10px;
+}
+
+@media (max-width: 510px) {
+   font-size: 25px;
+}
 `
 
 const MapContainer = styled.div`

@@ -7,12 +7,23 @@ const Signin = () => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [datas, setDatas] = useState(null)
-    const {isLoading, setIsLoading } = useContext(UserContext);
+    const {
+        isRegistrationModalOpen, 
+        setIsRegistrationModalOpen,
+        setIsLoading,
+        isModalOpen,
+        setIsModalOpen,
+        isLogedIn,
+        name,
+        setIsLogedIn,
+        isUserLoginIn, setIsuserLoginIn
+    } = useContext(UserContext);
 
     const navigate = useNavigate();
 
     const handleRegister = () => {
-        navigate("/signup")
+        setIsRegistrationModalOpen(true);
+        setIsModalOpen(false)
     }
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -30,7 +41,9 @@ const Signin = () => {
             headers: {"Accept": "application/json","Content-Type": "application/json"},
             body: JSON.stringify(user),
         }).then(res =>  res.json())
-        .then(data => {console.log(data); setDatas(data)})
+        .then(data => {
+            // console.log(data); 
+            setDatas(data)})
         .catch(e => {
             console.log("error", e);
         });
@@ -40,18 +53,18 @@ const Signin = () => {
         if(datas?.message === "Login Succesfull"){
             sessionStorage.setItem("name", datas.data )
             sessionStorage.setItem("isLogedIn", true )
+            setIsuserLoginIn (true)
             setEmail("")
             setPassword("")
             setIsLoading(true)
             navigate("/")
+            setIsModalOpen(false)
         }
     }, [datas])
 
-
-
     return( 
         <>
-            <Main>
+            {/* <Main> */}
                 <Form onSubmit={handleSubmit}>
                     <h1>Signin</h1>
                     <Input 
@@ -69,24 +82,34 @@ const Signin = () => {
                     {(datas?.status === 404) && <p>{datas?.message}</p>}
                 <P>If you don't have account, please <Span onClick={handleRegister}>Register</Span></P>
                 </Form>
-            </Main>
+            {/* </Main> */}
         </>
     )
 }
 
-const Main = styled.div`
-    margin: 40px 0px;
-    padding: 10px;
-    text-align: center;
-`
 
 const Form = styled.form`
-    border: 3px silver solid;
-    width: 40%;
-    margin: auto;
     text-align: center;
-    padding: 10px;
+    background-color: white;
+    border: 3px silver solid;
+    z-index: 1000;
+    width: 40%;
+    /* margin: auto; */
+    text-align: center;
+    padding: 30px;
     border-radius: 15px;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+
+    @media (max-width: 900px) {
+        width: 60%;
+    }
+
+    @media (max-width: 600px) {
+        width: 90%;
+    }
 `
 
 const Input = styled.input`

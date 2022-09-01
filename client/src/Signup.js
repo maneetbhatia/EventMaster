@@ -1,7 +1,8 @@
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import styled from "styled-components";
 import { v4 as uuidv4 } from 'uuid';
 import {useNavigate} from "react-router-dom";
+import { UserContext } from './UserContext';
 
 const Signup = () => {
     const [fullName, setFullName] = useState("");
@@ -10,7 +11,8 @@ const Signup = () => {
     const [confirmPassword, setConfirmPassword] = useState("");
     const [datas, setDatas] = useState(null)
     const [errorMessage, setErrorMessage] = useState(null);
-    const [isLoading, setIsLoading] = useState(true)
+
+    const{isLoading, setIsLoading, setIsRegistrationModalOpen, setIsModalOpen} = useContext(UserContext)
 
     const navigate = useNavigate();
 
@@ -32,7 +34,7 @@ const Signup = () => {
         }else{
             setErrorMessage("error");
         }
-        console.log(errorMessage)
+        // console.log(errorMessage)
         
         if(errorMessage === null){
             fetch("/users", {
@@ -51,13 +53,19 @@ const Signup = () => {
             setEmail("")
             setPassword("")
             setConfirmPassword("")
-            navigate("/signin");
+            setIsRegistrationModalOpen(false)
+            setIsModalOpen(true)
         }
-}
+    }
+
+    const handleLogin = () => {
+        setIsRegistrationModalOpen(false)
+        setIsModalOpen(true)
+    }
     
     return( 
         <>
-            <Main>
+            {/* <Main> */}
                 <Form onSubmit={handleSubmit}>
                     <h1>Signup</h1>
                     <Input 
@@ -82,25 +90,40 @@ const Signup = () => {
                         value={confirmPassword}
                         onChange={(e) => setConfirmPassword(e.target.value)} /><br />
                     <Submit>Submit</Submit>
+                    <P>Have account? please <Span onClick={handleLogin}>Login</Span></P>
                 </Form>
-            </Main>
+            {/* </Main> */}
         </>
     )
 }
 
-const Main = styled.div`
-    margin: 40px 0px;
-    padding: 10px;
-    text-align: center;
-`
+// const Main = styled.div`
+//     margin: 40px 0px;
+//     padding: 10px;
+//     text-align: center;
+// `
 
 const Form = styled.form`
     border: 3px silver solid;
+    background-color: white;
     width: 40%;
     margin: auto;
+    z-index: 2001;
     text-align: center;
     padding: 10px;
     border-radius: 15px;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+
+    @media (max-width: 900px) {
+        width: 60%;
+    }
+
+    @media (max-width: 600px) {
+        width: 90%;
+    }
 `
 
 const Input = styled.input`
@@ -117,6 +140,19 @@ const Submit = styled.button`
     color: black;
     background-color: white;
     cursor: pointer;
+`
+
+const P = styled.p`
+margin-top: 20px;
+`
+
+const Span = styled.span`
+cursor: pointer;
+color: green;
+
+&:hover{
+    color: limegreen;
+}
 `
 
 export default Signup;

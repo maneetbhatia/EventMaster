@@ -23,6 +23,19 @@ const Main = styled.div`
 width: 80%;
 margin: auto;
 margin-top: 40px;
+
+@media (max-width: 850px) {
+    width: 90%;
+    margin: auto;
+    margin-top: 40px;
+}
+
+@media (max-width: 600px) {
+    width: 90%;
+    margin: auto;
+    margin-top: 40px;
+    /* background-color: red; */
+}
 `
 
 const Input = styled.input`
@@ -33,6 +46,14 @@ font-weight: bolder;
 border-radius: 10px;
 outline: none;
 font-size: 15px;
+
+@media (max-width: 850px) {
+    width: 80%;
+}
+
+@media (max-width: 510px) {
+    width: 75%;
+}
 `
 
 const Button = styled.button`

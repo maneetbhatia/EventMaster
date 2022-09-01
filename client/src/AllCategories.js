@@ -10,13 +10,32 @@ const AllCategories = () => {
         navigate(`/category/${category}`)
     }
 
-    const categories = ["Comedy", "Concert", "WWE", "Golf","NHL", "Hockey"]
+    const categories = ["Comedy",
+    "Concert",
+    "WWE",
+    "Sports",
+    "Music Festivals",
+    "Theater",
+    "Broadway Shows",
+    "Dance Shows",
+    "Film",
+    "Family Entertainment",
+    "Circus",
+    "NBA",
+    "Boxing",
+    "Golf",
+    "F1 Racing",
+    "Soccer",
+    "Hockey",
+    "NFL",
+    "Baseball"
+]
     
     useEffect(() => {
         fetch(`/taxonomies`)
         .then((res) => res.json())
         .then((data) => {
-            console.log(data.data.taxonomies);
+            // console.log(data);
             setEvents(data.data.taxonomies)
         }).catch((err) => {
             console.log("error", err);
@@ -85,9 +104,26 @@ const Wrapper = styled.div`
     position: relative;
     height: fit-content;
     scroll-snap-align: start;
-    &:hover{
-        /* box-shadow: 1px 1px 10px 1px #888888; */
-    }
+    
+    @media (max-width: 1050px) {
+    width: 35%;
+}
+
+@media (max-width: 850px) {
+    width: 50%;
+}
+
+@media (max-width: 650px) {
+    width: 70%;
+}
+
+@media (max-width: 550px) {
+    width: 80%;
+}
+
+@media (max-width: 450px) {
+    width: 95%;
+}
 `
 
 const Img = styled.img`
@@ -103,4 +139,12 @@ color: white;
 left: 5%;
 top: 80%;
 background-color: black;
+
+@media (max-width: 660px) {
+    font-size: 17px;
+}
+
+@media (max-width: 550px) {
+    font-size: 18px;
+}
 `

@@ -26,8 +26,8 @@ function App() {
             <Route exact path="/search/:searchValue" element={<SearchResults />} />
             <Route exact path="/artist/id/:artistID" element={<ArtistDetail />} />
             <Route exact path="/events" element={<FavoriteList />} />
-            <Route exact path="/signup" element={<Signup />} />
-            <Route exact path="/signin" element={<Signin />} />
+            {/* <Route exact path="/signup" element={<Signup />} />
+            <Route exact path="/signin" element={<Signin />} /> */}
             {/*<Route exact path="/checkout" element={<OrderForm />} />
             <Route exact path="/confirmation" element={<Confirmation />} />
             <Route path="*" element={<ErrorPage />} /> */}

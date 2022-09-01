@@ -54,8 +54,8 @@ const SearchResults = () => {
                     (eventData.performers[0].image !== null) &&
                       <Wrapper key={index} onClick={() => handleClick(eventData?.id)}>
                         <Img src={eventData.performers[0].image} />
-                        {(eventData?.title.length >= 70) ? <Title>{eventData?.title.slice(0, 160)}...</Title> : <Title>{eventData?.title}</Title>}
-                        <Genre>{moment(eventData?.datetime_local).format("MMM DD")} - {(eventData?.venue?.name.length >= 17) ? eventData?.venue?.name.slice(0, 10)+"..." : eventData?.venue?.name}</Genre>
+                        {(eventData?.title.length >= 25) ? <Title>{eventData?.title.slice(0, 25)}...</Title> : <Title>{eventData?.title}</Title>}
+                        <Genre>{moment(eventData?.datetime_local).format("MMM DD")} - {(eventData?.venue?.name.length >= 23) ? eventData?.venue?.name.slice(0, 23)+"..." : eventData?.venue?.name}</Genre>
                         {eventData?.stats?.lowest_price !== null ? <EventCount>${eventData?.stats?.lowest_price}</EventCount>: <EventCount>Find Tickets</EventCount>}
                         <Fav onClick={(event) => {event.stopPropagation(); handlefav(eventData)}}><MdFavorite size={20}/></Fav>
                       </Wrapper>
@@ -77,17 +77,36 @@ const Events = styled.div`
 const Main = styled.div`
   display: flex;
   flex-wrap: wrap;
-`
+  `
 
 const Wrapper = styled.div`
-  height: 300px;
-  margin: 20px 1.5%;
+  height: fit-content;
+  margin: auto;
+  margin-bottom: 40px;
   border-radius: 15px;
   cursor: pointer;
   text-align: center;
   width: 22%;
   box-shadow: 1px 1px 8px 1px grey;
   position: relative;
+  padding-bottom: 10px;
+
+  @media (max-width: 1250px) {
+    width: 30%;
+
+}
+
+@media (max-width: 980px) {
+    width: 45%;
+}
+
+@media (max-width: 630px) {
+    width: 80%;
+}
+
+@media (max-width: 450px) {
+    width: 99%;
+}
 `
 
 const Img = styled.img`
@@ -99,16 +118,28 @@ const Title = styled.p`
   font-weight: bold;
   font-size: 15px;
   padding-top: 15px;
+
+  @media (max-width: 650px) {
+    font-size: 18px;
+}
 `
 
 const Genre = styled.p`
   font-size: 15px;
   padding-top: 10px;
+
+  @media (max-width: 650px) {
+    font-size: 18px;
+}
 `
 
 const EventCount = styled.p`
   font-size: 15px;
   padding-top: 10px;
+
+  @media (max-width: 650px) {
+    font-size: 18px;
+}
 `
 
 const ErrorMessage = styled.p`

@@ -3,26 +3,44 @@ import bannerImg from './Assests/bannerjpg.jpg'
 import { useNavigate } from "react-router-dom"
 import { useState, useContext, useEffect } from "react"
 import { UserContext } from "./UserContext";
+import Logo from './Assests/download.png'
+import Signin from "./Signin";
+import Signup from './Signup'
 
 const Banner = () => {
-  const [isLogedIn , setIsLogedIn] = useState(null);
-  const [name, setName] = useState(null)
-  const {isLoading, setIsLoading } = useContext(UserContext);
+
+  const {
+    isLoading,
+    setIsLoading, 
+    name, 
+    isLogedIn, 
+    setName, 
+    setIsModalOpen, 
+    isModalOpen, 
+    setIsLogedIn,
+    isRegistrationModalOpen,
+    setIsuserLoginIn,
+    isUserLoginIn
+  } = useContext(UserContext);
 
   const navigate = useNavigate()
 
   const handleClick = () => {
       navigate("/");
   }
-
   const handleLogin = () => {
-    navigate('/signin')
+    if(name === null || isLogedIn === false){
+      console.log("islogedin", isLogedIn)
+      setIsModalOpen(true);
+    }
 }
+console.log(isModalOpen, "ismodal open ", isRegistrationModalOpen, "isRegistrationModalOpen")
 
   const handleLogout = () => {
+    console.log("logout")
     sessionStorage.setItem("isLogedIn", false)
     sessionStorage.removeItem("name")
-    setIsLoading(false)
+    setIsuserLoginIn(false)
   }
 
   const handleFavorites =() => {
@@ -32,22 +50,23 @@ const Banner = () => {
   useEffect(() => {
     setIsLogedIn(sessionStorage.getItem("isLogedIn"));
     setName(sessionStorage.getItem("name"));
-  }, [isLoading])
-  console.log(isLogedIn, name, isLoading)
+  }, [isLogedIn, isUserLoginIn])
+
+  console.log("isLogedIn ",isLogedIn, "name ", name)
 
     return(
       <>
       <Main>
-        <H1 onClick={handleClick}>Events</H1>
+        <LogoImg src={Logo} onClick={handleClick}Events />
         <Favorites onClick={handleFavorites}>
           {(isLogedIn === true || name !== null) && "Favorites"}
         </Favorites>
         <Login onClick={handleLogin}>
-          {(isLogedIn === true || name !== null) ? "W": "Login"}
+          {(name === null || isLogedIn === false) && "Login"}
         </Login>
-        <Logout onClick={handleLogout}>
-          {(isLogedIn === true || name !== null) && "Logout"}
-        </Logout>
+        {/* <Logout onClick={handleLogout}> */}
+          {(isLogedIn === true || name !== null) && <Logout onClick={handleLogout}>Logout</Logout>}
+        {/* </Logout> */}
         <BannerImg src={bannerImg} alt="banner" />
         <Heading>
           <H2>Let the fun begins</H2>
@@ -55,6 +74,8 @@ const Banner = () => {
           <P>And we have the tickets.</P>
         </Heading>
         </Main>
+        {(isModalOpen === true) && <Signin />}
+        {(isRegistrationModalOpen === true) && <Signup />}
       </>
     )
 }
@@ -72,6 +93,23 @@ top: 15px;
 right: 30px;
 padding: 7px 10px;
 background-color: grey;
+
+&:hover{
+}
+`
+
+const LogoImg = styled.img`
+width: 100px;
+cursor: pointer;
+color: white;
+position: absolute;
+top: 15px;
+left: 30px;
+font-size: 35px;
+
+@media (max-width: 850px) {
+  width: 70px;
+}
 `
 
 const Logout = styled.p`
@@ -99,6 +137,18 @@ const BannerImg = styled.img`
     object-fit: cover;
     object-position: 0px 25%;
     height: 400px;
+
+@media (max-width: 850px) {
+    object-fit: cover;
+    object-position: 0px 25%;
+    height: 300px;
+}
+
+@media (max-width: 600px) {
+  object-fit: cover;
+  object-position: 0px 10%;
+    height: 270px;
+}
 `
 
 const Heading = styled.div`
@@ -112,26 +162,46 @@ width: 45%;
 color: white;
 text-align: center;
 background-color: black;
+
+@media (max-width: 890px) {
+    width: 60%;
+    top: 25%;
+    left: 20%;
+    padding: 10px 0px;
+}
+
+@media (max-width: 600px) {
+    width: 60%;
+    top: 28%;
+    left: 20%;
+    padding: 10px 0px;
+}
 `
 
 const P = styled.p`
 font-size: 25px;
 padding-bottom: 10px;
-`
+@media (max-width: 850px) {
+    font-size: 18px;
+}
 
-const H1 = styled.span`
-cursor: pointer;
-color: white;
-position: absolute;
-top: 15px;
-left: 30px;
-font-size: 35px;
+
+@media (max-width: 600px) {
+  font-size: 16px;
+}
 `
 
 const H2 = styled.p`
 padding-bottom: 28px;
 font-size: 35px;
 font-weight: bold;
+@media (max-width: 850px) {
+    font-size: 28px;
+}
+
+@media (max-width: 600px) {
+  font-size: 22px;
+}
 `
 
 export default Banner;

@@ -4,18 +4,25 @@ import styled from "styled-components";
 import { MdDelete } from 'react-icons/md';
 
 const CategoryDetail = () => {
-    const [favorite, setFavorite] = useState([]);
+    const [favorite, setFavorite] = useState(null);
     const [isLoading, setIsLoading] = useState(false)
+    const navigate = useNavigate();
 
-    useEffect(() => {
-      getFavoriteList()
-    }, [])
+    
+    // console.log(isLoading, "isloading")
+    // if(!isLoading){
+      //   navigate("/")
+      // }
+      useEffect(() => {
+        getFavoriteList()
+      }, [])
 
     const getFavoriteList = () => {
         fetch(`/events`)
         .then((res) => res.json())
         .then((data) => {
-            setFavorite(data.data)
+          // console.log(data)
+            setFavorite(data)
         }).catch((err) => {
             console.log("error", err);
         }) 
@@ -27,21 +34,18 @@ const CategoryDetail = () => {
       .catch(e => {
         console.log("error", e);
       });
-
     }
 
-    const navigate = useNavigate();
     const handleClick = (id) => {
       navigate(`/event/id/${id}`)
     }
-
+// console.log("favorite", favorite)
     return( 
         <>
         <Events>
           <H1>Favorite List</H1>
-            {favorite.length > 0 ?
-            favorite !== null ? <Main>
-                {favorite.map((data, index) => {
+            {favorite?.data?.length > 0 && favorite !== null ? <Main>
+                {favorite?.data?.map((data, index) => {
                 return (
                     (data.image !== null) && 
                         <Wrapper key={index} onClick={() => handleClick(data?._id)}>
@@ -53,8 +57,8 @@ const CategoryDetail = () => {
                         </Wrapper>
                     )
                 })}
-            </Main> : <p>"Loading..."</p>
-            :"No favorite events"}
+            </Main>
+            : <p>{favorite?.message} </p>}
             </Events>
         </>
     )
@@ -77,13 +81,31 @@ const Main = styled.div`
 
 const Wrapper = styled.div`
   height: fit-content;
-  margin: 20px 1.5%;
+  margin: auto;
+  margin-bottom: 20px;
   border-radius: 15px;
   cursor: pointer;
   text-align: center;
   width: 30%;
   box-shadow: 1px 1px 8px 1px grey;
   position: relative;
+
+  @media (max-width: 1250px) {
+    width: 30%;
+
+}
+
+@media (max-width: 980px) {
+    width: 45%;
+}
+
+@media (max-width: 630px) {
+    width: 80%;
+}
+
+@media (max-width: 450px) {
+    width: 99%;
+}
 `
 
 const Img = styled.img`
@@ -95,16 +117,28 @@ const Title = styled.p`
   font-weight: bold;
   font-size: 18px;
   padding-top: 15px;
+
+  @media (max-width: 650px) {
+    font-size: 18px;
+}
 `
 
 const Genre = styled.p`
   font-size: 15px;
   padding-top: 10px;
+
+  @media (max-width: 650px) {
+    font-size: 18px;
+}
 `
 
 const EventCount = styled.p`
   font-size: 15px;
   padding: 10px 0px;
+
+  @media (max-width: 650px) {
+    font-size: 18px;
+}
 `
 
 const Delete = styled.span`

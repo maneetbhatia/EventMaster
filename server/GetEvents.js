@@ -28,21 +28,20 @@ const getTaxonomies = async (req, res) => {
 };
 
 const getEventByCategory = async (req, res) => {
-  const type = req.params.type;
+  const type = (req.params.type).toLowerCase();
   let result;
-  
 
   try{
-    const response = await fetch(`https://api.seatgeek.com/2/events?taxonomies.name=${type}&client_id=${API_KEY}`);
+    const response = await fetch(`https://api.seatgeek.com/2/events?taxonomies.name=${type}&per_page=25&page=2&client_id=${API_KEY}`);
     result = await response.json();
   }catch (err){
     console.log(err)
   }
-  
-  if(result === null){
+  console.log("result", result.events.length)
+  if(result === null || result?.events.length === 0){
     res.status(404).send({
         status: 404,
-        message: "Invalid type"
+        message: "No upcoming events, please look for different category"
     })
 }else{
     res.status(200).send({
@@ -85,7 +84,7 @@ const getEventsRecommendation = async (req, res) => {
   let result;
 
   try{
-    const response = await fetch(`https://api.seatgeek.com/2/recommendations/performers?per_page=6&client_id=${API_KEY}`);
+    const response = await fetch(`https://api.seatgeek.com/2/recommendations/performers?client_id=${API_KEY}`);
     result = await response.json();
   }catch (err){
     console.log(err)

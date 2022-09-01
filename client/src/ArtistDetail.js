@@ -12,7 +12,7 @@ const ArtistDetail = () => {
         fetch(`/artist/id/${artistID}`)
             .then((res) => res.json())
             .then((data) => {
-                console.log(data.data);
+                // console.log(data.data);
                 setArtist(data.data)
             }).catch((err) => {
                 console.log("error", err);
@@ -24,12 +24,12 @@ const ArtistDetail = () => {
     if(artist !== null){
         artistName=artist?.name
     
-        console.log(artistName)
+        // console.log(artistName)
         
             fetch(`/artist/events/${artistName}`)
                 .then((res) => res.json())
                 .then((data) => {
-                    console.log(data.data.events);
+                    // console.log(data.data.events);
                     setEventList(data.data.events)
                 }).catch((err) => {
                     console.log("error", err);
@@ -51,12 +51,10 @@ const ArtistDetail = () => {
                 <>
                 {eventList.map((data, index) => {
                     return (
-                        <>
-                            <Event onClick={() => handleClick(data?.id)}>
+                            <Event key={index} onClick={() => handleClick(data?.id)}>
                                 <h4>{moment(data?.datetime_local).format("MMM D YYYY")} - {data?.title}</h4>
                                 <p>${data?.stats?.lowest_price} - {data?.venue?.name} - {data?.venue?.display_location}</p>
                             </Event>
-                        </>
                     )
                 })}
                 </>:

@@ -16,7 +16,7 @@ const Home = () => {
       fetch(`/event/recommendations`)
           .then((res) => res.json())
           .then((data) => {
-            console.log(data.data.recommendations);
+            // console.log(data.data.recommendations);
             setRecommendations(data.data.recommendations)
           }).catch((err) => {
             console.log("error", err);
@@ -30,12 +30,13 @@ const Home = () => {
           <H1>Artists</H1>
           <Slider>
             {recommendations !== null ? <Artists>
-              {recommendations !== null && recommendations.map((data, index) => {
+              {(recommendations !== null) && recommendations.map((data, index) => {
                 return(
+                  (data?.performer?.genres) &&
                   <Wrapper ref={titleRef} key={index} onClick={() => handleClick(data.performer.id)}>
                     <Img src={data?.performer?.image} alt="event"/>
                     {(data?.performer?.name.length >= 35) ? <Title>{data?.performer?.name.slice(0, 25)}...</Title> : <Title>{data?.performer?.name}</Title>}
-                    <Genre>Genre: {data?.performer?.genres[0].name}</Genre>
+                    {(data?.performer?.genres) && <Genre>Genre: {data?.performer?.genres[0].name}</Genre>}
                   </Wrapper>
                 )
               })}
@@ -81,6 +82,33 @@ const Wrapper = styled.div`
   box-shadow: 1px 1px 10px 1px #888888;
   height: fit-content;
   scroll-snap-align: start;
+
+  @media (max-width: 1050px) {
+    width: 35%;
+}
+
+@media (max-width: 980px) {
+    width: 50%;
+    margin: 20px 3% 20px 2%;
+}
+
+@media (max-width: 730px) {
+    width: 70%;
+    margin: 20px 6% 20px 2%;
+}
+
+@media (max-width: 560px) {
+    width: 80%;
+    margin: 20px 7% 20px 2%;
+}
+
+@media (max-width: 500px) {
+    width: 95%;
+}
+
+@media (max-width: 450px) {
+    width: 99%;
+}
 `
 
 const H1 = styled.h1`
