@@ -13,7 +13,7 @@ const SearchResults = () => {
         .then((res) => res.json())
         .then((data) => {
             // console.log(data);
-            setEvents(data)
+            setEvents(data?.data?.events)
         }).catch((err) => {
             console.log("error", err);
         }) 
@@ -24,8 +24,75 @@ const SearchResults = () => {
       navigate(`/event/id/${id}`)
     }
 
+    const navigateToHome =() => {
+      navigate("/")
+    }
+
+    const byPrice = (a,b) => {
+      console.log(a?.stats?.lowest_price)
+      if(a?.stats?.lowest_price > b?.stats?.lowest_price){
+        return 1;
+      }else if(a?.stats?.lowest_price < b?.stats?.lowest_price){
+        return -1;
+      }else{
+        return 0;
+      }
+    }
+
+    const byTime = (a,b) => {
+      console.log(a?.datetime_utc)
+      if(a?.datetime_utc > b?.datetime_utc){
+        return 1;
+      }else if(a?.datetime_utc < b?.datetime_utc){
+        return -1;
+      }else{
+        return 0;
+      }
+    }
+
+    const byHighestToLowest = (a,b) => {
+      console.log(a?.stats?.lowest_price)
+      if(a?.stats?.lowest_price < b?.stats?.lowest_price){
+        return 1;
+      }else if(a?.stats?.lowest_price > b?.stats?.lowest_price){
+        return -1;
+      }else{
+        return 0;
+      }
+    }
+
+    const handleLowestToHighest = async() => {
+      const newEventsArr = await events.filter((event) => {
+        return event.stats.lowest_price !== null
+      })
+
+      const sortedEvents = await newEventsArr.sort(byPrice);
+
+      setEvents(sortedEvents)
+    }
+
+    const handleHighestToLowest = async() => {
+      const newEventsArr = await events.filter((event) => {
+        return event.stats.lowest_price !== null
+      })
+
+      const sortedEvents = await newEventsArr.sort(byHighestToLowest);
+
+      setEvents(sortedEvents)
+    }
+
+    const handleTime = async() => {
+      const newEventsArr = await events.filter((event) => {
+        return event.stats.lowest_price !== null
+      })
+
+      const sortedEvents = await newEventsArr.sort(byTime);
+
+      setEvents(sortedEvents)
+    }
+
     const handlefav =(data) => {
-      console.log("data", data)
+      // console.log("data", data)
       const event = {
         _id: data?.id,
         title: data?.title,
@@ -47,36 +114,62 @@ const SearchResults = () => {
     return( 
         <>
         <Events>
-            {events?.data ?
+            {events !== null ?
+            <>
+            <Category>{searchValue}</Category>
+            <LI onClick={handleHighestToLowest}>Highest to Lowest Price</LI>
+            <LI onClick={handleLowestToHighest}>
+              Lowest to Highest Price
+            </LI>
+            <LI onClick={handleTime}>By Date</LI>
+          {/* </UL> */}
               <Main>
-                {events?.data?.events.map((eventData, index) => {
+                {events !== undefined ?
+                events.map((eventData, index) => {
                   return (
-                    (eventData.performers[0].image !== null) &&
+                    (eventData?.stats?.lowest_price !== null && eventData.performers[0].image !== null) &&
                       <Wrapper key={index} onClick={() => handleClick(eventData?.id)}>
                         <Img src={eventData.performers[0].image} />
                         {(eventData?.title.length >= 25) ? <Title>{eventData?.title.slice(0, 25)}...</Title> : <Title>{eventData?.title}</Title>}
-                        <Genre>{moment(eventData?.datetime_local).format("MMM DD")} - {(eventData?.venue?.name.length >= 23) ? eventData?.venue?.name.slice(0, 23)+"..." : eventData?.venue?.name}</Genre>
-                        {eventData?.stats?.lowest_price !== null ? <EventCount>${eventData?.stats?.lowest_price}</EventCount>: <EventCount>Find Tickets</EventCount>}
+                        <Genre>{moment(eventData?.datetime_utc).format('MMM DD [at] h:mm a')}</Genre>
+                        <EventCount>${eventData?.stats?.lowest_price}</EventCount>
                         <Fav onClick={(event) => {event.stopPropagation(); handlefav(eventData)}}><MdFavorite size={20}/></Fav>
                       </Wrapper>
                   )
-                })}
-              </Main> 
-            : <ErrorMessage>{events?.message}</ErrorMessage>}
+                }) : <p>No events found, please search something else</p>}
+              </Main> </> :"Loading..." }
         </Events>
         </>
     )
 }
 
+const Category = styled.span`
+margin: 0px 35px 20px 20px;
+font-size: 35px;
+`
+
+const LI = styled.span`
+float: right;
+padding: 1% 2%;
+margin-left: 10px;
+width: fit-content;
+border-radius: 15px;
+/* background-color: aliceblue; */
+cursor: pointer;
+font-size: 18px;
+color: grey;
+`
+
 const Events = styled.div`
   width: 90%;
   margin: auto;
-  margin-top: 60px;
+  margin-top: 90px;
 `
 
 const Main = styled.div`
   display: flex;
   flex-wrap: wrap;
+  margin-top: 40px;
   `
 
 const Wrapper = styled.div`

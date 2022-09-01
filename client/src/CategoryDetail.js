@@ -96,7 +96,7 @@ const CategoryDetail = () => {
       setEvents(sortedEvents)
     }
 
-    console.log("events ",events)
+    // console.log("events ",events)
 
     const handlefav =(data) => {
       if(name === null || isLogedIn === false){
