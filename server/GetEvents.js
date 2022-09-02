@@ -29,10 +29,11 @@ const getTaxonomies = async (req, res) => {
 
 const getEventByCategory = async (req, res) => {
   const type = (req.params.type).toLowerCase();
+  const pageCount = req.params.pageCount
   let result;
-
+  
   try{
-    const response = await fetch(`https://api.seatgeek.com/2/events?taxonomies.name=${type}&per_page=32&page=1&client_id=${API_KEY}`);
+    const response = await fetch(`https://api.seatgeek.com/2/events?taxonomies.name=${type}&per_page=32&page=${pageCount}&client_id=${API_KEY}`);
     result = await response.json();
   }catch (err){
     console.log(err)
@@ -160,14 +161,15 @@ const getArtistEventsList = async (req, res) => {
 const getSearchValue = async (req, res) => {
   const searchValue = req.params.searchValue;
   let updatedSearchValue = "";
+  const pageCount = req.params.pageCount
   let result;
 
-  console.log(searchValue)
+  console.log(pageCount)
   
     if(searchValue !== ""){
       updatedSearchValue = searchValue.split(" ").join("+");
 
-      const response = await fetch(`https://api.seatgeek.com/2/events?q=${updatedSearchValue}&client_id=${API_KEY}`);
+      const response = await fetch(`https://api.seatgeek.com/2/events?q=${updatedSearchValue}&per_page=32&page=${pageCount}&client_id=${API_KEY}`);
       result = await response.json();
     }
 

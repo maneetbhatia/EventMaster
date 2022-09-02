@@ -1,29 +1,45 @@
-import { useContext, useEffect, useReducer, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import styled from "styled-components"
 import {useParams, useNavigate} from "react-router-dom";
 import { MdFavorite } from 'react-icons/md';
 import {UserContext} from './UserContext';
 import Signin from './Signin';
 import moment from "moment";
+import Pagination from './Pagination';
 
 
 const CategoryDetail = () => {
     const [events, setEvents] = useState(null);
+    const [eventsArr, setEventsArr] = useState(null);
+    const [pageCount, setPageCount] = useState(1)
     const {name,isLogedIn, isModalOpen, setIsModalOpen} = useContext(UserContext)
     const navigate = useNavigate();
 
     const {category} = useParams();
 
     useEffect(() => {
-        fetch(`/event/category/${category}`)
+        fetch(`/event/category/${category}/${pageCount}`)
         .then((res) => res.json())
         .then((data) => {
-            console.log(data);
+            // console.log(data);
+            setEventsArr(data)
             setEvents(data?.data?.events)
         }).catch((err) => {
             console.log("error", err);
         }) 
-    }, [])
+    }, [pageCount])
+
+    const IncrementPageCount = () => {
+      if(pageCount < eventsArr?.data?.meta?.total){
+        setPageCount(pageCount + 1)
+      }
+    }
+
+    const DecrementPageCount = () => {
+      if(pageCount > 1){
+        setPageCount(pageCount - 1)
+      }
+    }
 
     const handleClick = (id) => {
       navigate(`/event/id/${id}`)
@@ -34,7 +50,6 @@ const CategoryDetail = () => {
     }
 
     const byPrice = (a,b) => {
-      console.log(a?.stats?.lowest_price)
       if(a?.stats?.lowest_price > b?.stats?.lowest_price){
         return 1;
       }else if(a?.stats?.lowest_price < b?.stats?.lowest_price){
@@ -45,7 +60,6 @@ const CategoryDetail = () => {
     }
 
     const byTime = (a,b) => {
-      console.log(a?.datetime_utc)
       if(a?.datetime_utc > b?.datetime_utc){
         return 1;
       }else if(a?.datetime_utc < b?.datetime_utc){
@@ -56,7 +70,6 @@ const CategoryDetail = () => {
     }
 
     const byHighestToLowest = (a,b) => {
-      console.log(a?.stats?.lowest_price)
       if(a?.stats?.lowest_price < b?.stats?.lowest_price){
         return 1;
       }else if(a?.stats?.lowest_price > b?.stats?.lowest_price){
@@ -70,9 +83,7 @@ const CategoryDetail = () => {
       const newEventsArr = await events.filter((event) => {
         return event.stats.lowest_price !== null
       })
-
       const sortedEvents = await newEventsArr.sort(byPrice);
-
       setEvents(sortedEvents)
     }
 
@@ -80,9 +91,7 @@ const CategoryDetail = () => {
       const newEventsArr = await events.filter((event) => {
         return event.stats.lowest_price !== null
       })
-
       const sortedEvents = await newEventsArr.sort(byHighestToLowest);
-
       setEvents(sortedEvents)
     }
 
@@ -95,8 +104,6 @@ const CategoryDetail = () => {
 
       setEvents(sortedEvents)
     }
-
-    // console.log("events ",events)
 
     const handlefav =(data) => {
       if(name === null || isLogedIn === false){
@@ -120,7 +127,7 @@ const CategoryDetail = () => {
           console.log("error", e);
       });
     }
-    // console.log("ismodalopen" , isModalOpen)
+    // console.log("events", eventsArr)
     return( 
         <>
           <Events>
@@ -132,11 +139,11 @@ const CategoryDetail = () => {
                 Lowest to Highest Price
               </LI>
               <LI onClick={handleTime}>By Date</LI>
-            {/* </UL> */}
-            <Main>
-            { events !== undefined ?
+              {/* </UL> */}
+              <Main>
+              { events !== undefined ?
                 events.map((data, index) => {
-                return (
+                  return (
                     (data?.stats?.lowest_price !== null && data.performers[0].image !== null) && 
                         <Wrapper key={index} onClick={() => handleClick(data?.id)}>
                         <Imgg>
@@ -152,11 +159,13 @@ const CategoryDetail = () => {
                         <TitleTollTip>{data?.title} - {data?.venue?.name}</TitleTollTip>
                         </div>
                         </Wrapper>
-                )
-            }) : <p>No events found, please look for different <span style={{color: "limegreen", cursor: "pointer"}} onClick={navigateToHome}>Category</span></p>
-            }
-            </Main></> : "Loading..."}
+                        
+                        
+                  )
+                }) : <p>No events found, please look for different <span style={{color: "limegreen", cursor: "pointer"}} onClick={navigateToHome}>Category</span></p>}
+              </Main></> : "Loading..."}
             </Events>
+            <Pagination length={eventsArr?.data?.meta} handleIncrement={IncrementPageCount} handleDecrement={DecrementPageCount}/>
             {(isModalOpen === true) && <Signin />}
         </>
     )
@@ -230,6 +239,7 @@ const Wrapper = styled.div`
 
 const Imgg = styled.div`
 overflow: hidden;
+height: 180px;
 `
 
 const Img = styled.img`
@@ -237,7 +247,7 @@ width: 100%;
 border-radius: 15px 15px 0px 1px;
 object-fit: cover;
 &:hover{
-transform: scale(1.025);
+transform: scale(1.05);
 transition: 200ms transform ease-in-out;
 }
 `

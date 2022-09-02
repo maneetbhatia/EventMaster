@@ -27,7 +27,7 @@ express()
 .get("/taxonomies", getTaxonomies)
 
 // get event by category
-.get("/event/category/:type", getEventByCategory)
+.get("/event/category/:type/:pageCount", getEventByCategory)
 
 // get event by id
 .get("/event/id/:id", getEventByID)
@@ -42,7 +42,7 @@ express()
 .get("/artist/events/:artistName", getArtistEventsList)
 
 // get search value
-.get("/search/:searchValue", getSearchValue)
+.get("/search/:searchValue/:pageCount", getSearchValue)
 
 //~~~~~~~~~~~~~~~~~~~~~FAVORITE LIST~~~~~~~~~~~~~~~~~~~~~~
 // get events from favorite list
@@ -57,7 +57,7 @@ express()
 // delete event from favorite list
 .delete("/favorite/event/:id", deleteEvent)
 
-//~~~~~~~~~~~~~USERS~~~~~~~~~~~~~~~~
+//~~~~~~~~~~~~~~~~~~~~~~~~~~USERS~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // add new user to users database
 .post("/users", addNewUser)
 

@@ -3,33 +3,43 @@ import styled from "styled-components"
 import {useParams, useNavigate} from "react-router-dom";
 import moment from 'moment';
 import { MdFavorite } from 'react-icons/md';
+import Pagination from './Pagination';
 
 const SearchResults = () => {
     const [events, setEvents] = useState(null)
+    const [eventsArr, setEventsArr] = useState(null);
+    const [pageCount, setPageCount] = useState(1)
     const {searchValue} = useParams();
-    
+
     useEffect(() => {
-        fetch(`/search/${searchValue}`)
+        fetch(`/search/${searchValue}/${pageCount}`)
         .then((res) => res.json())
         .then((data) => {
-            // console.log(data);
+          setEventsArr(data)
             setEvents(data?.data?.events)
         }).catch((err) => {
             console.log("error", err);
         }) 
-    }, [searchValue]);
+    }, [searchValue, pageCount]);
 
     const navigate = useNavigate();
     const handleClick = (id) => {
       navigate(`/event/id/${id}`)
     }
 
-    const navigateToHome =() => {
-      navigate("/")
+    const IncrementPageCount = () => {
+      if(pageCount < eventsArr?.data?.meta?.total){
+        setPageCount(pageCount + 1)
+      }
+    }
+
+    const DecrementPageCount = () => {
+      if(pageCount > 1){
+        setPageCount(pageCount - 1)
+      }
     }
 
     const byPrice = (a,b) => {
-      console.log(a?.stats?.lowest_price)
       if(a?.stats?.lowest_price > b?.stats?.lowest_price){
         return 1;
       }else if(a?.stats?.lowest_price < b?.stats?.lowest_price){
@@ -40,7 +50,6 @@ const SearchResults = () => {
     }
 
     const byTime = (a,b) => {
-      console.log(a?.datetime_utc)
       if(a?.datetime_utc > b?.datetime_utc){
         return 1;
       }else if(a?.datetime_utc < b?.datetime_utc){
@@ -51,7 +60,6 @@ const SearchResults = () => {
     }
 
     const byHighestToLowest = (a,b) => {
-      console.log(a?.stats?.lowest_price)
       if(a?.stats?.lowest_price < b?.stats?.lowest_price){
         return 1;
       }else if(a?.stats?.lowest_price > b?.stats?.lowest_price){
@@ -110,7 +118,7 @@ const SearchResults = () => {
           console.log("error", e);
       });
     }
-
+    
     return( 
         <>
         <Events>
@@ -138,6 +146,7 @@ const SearchResults = () => {
                   )
                 }) : <p>No events found, please search something else</p>}
               </Main> </> :"Loading..." }
+            {events !== undefined && <Pagination length={eventsArr?.data?.meta} handleIncrement={IncrementPageCount} handleDecrement={DecrementPageCount}/>}
         </Events>
         </>
     )

@@ -34,7 +34,7 @@ const Banner = () => {
       setIsModalOpen(true);
     }
 }
-console.log(isModalOpen, "ismodal open ", isRegistrationModalOpen, "isRegistrationModalOpen")
+// console.log(isModalOpen, "ismodal open ", isRegistrationModalOpen, "isRegistrationModalOpen")
 
   const handleLogout = () => {
     console.log("logout")
@@ -52,7 +52,7 @@ console.log(isModalOpen, "ismodal open ", isRegistrationModalOpen, "isRegistrati
     setName(sessionStorage.getItem("name"));
   }, [isLogedIn, isUserLoginIn])
 
-  console.log("isLogedIn ",isLogedIn, "name ", name)
+  // console.log("isLogedIn ",isLogedIn, "name ", name)
 
     return(
       <>
