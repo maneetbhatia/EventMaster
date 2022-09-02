@@ -1,7 +1,6 @@
 import { useContext, useEffect, useState } from 'react';
 import styled from "styled-components";
 import { v4 as uuidv4 } from 'uuid';
-import {useNavigate} from "react-router-dom";
 import { UserContext } from './UserContext';
 
 const Signup = () => {
@@ -12,9 +11,8 @@ const Signup = () => {
     const [datas, setDatas] = useState(null)
     const [errorMessage, setErrorMessage] = useState(null);
 
-    const{isLoading, setIsLoading, setIsRegistrationModalOpen, setIsModalOpen} = useContext(UserContext)
+    const{setIsRegistrationModalOpen, setIsModalOpen} = useContext(UserContext)
 
-    const navigate = useNavigate();
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -23,7 +21,8 @@ const Signup = () => {
         if(fullName !== "" &&
             email !== "" &&
             password !== "" &&
-            confirmPassword !== "" ){
+            confirmPassword !== "" &&
+            password === confirmPassword ){
                 user = {
                     _id: uuidv4(),
                     name: fullName,
@@ -34,21 +33,21 @@ const Signup = () => {
         }else{
             setErrorMessage("error");
         }
-        // console.log(errorMessage)
         
-        if(errorMessage === null){
+        if(user !== undefined){
             fetch("/users", {
                 method: "POST",
                 headers: {"Accept": "application/json","Content-Type": "application/json"},
                 body: JSON.stringify(user),
             }).then(res =>  res.json())
-            .then(data => {console.log(data); setIsLoading(false); setDatas(data)})
+            .then(data => {console.log(data); setDatas(data)})
                 .catch(e => {
                     console.log("error", e);
             });
         }
-
-        if(isLoading || datas?.message === "register succesfull"){
+    }
+    useEffect(() => {
+        if(datas?.message === "register Succesfull" ){
             setFullName("")
             setEmail("")
             setPassword("")
@@ -56,7 +55,7 @@ const Signup = () => {
             setIsRegistrationModalOpen(false)
             setIsModalOpen(true)
         }
-    }
+    }, [datas])
 
     const handleLogin = () => {
         setIsRegistrationModalOpen(false)
@@ -98,14 +97,14 @@ const Signup = () => {
 }
 
 const Main = styled.div`
-width: 100%;
-background-color: rgba(255,255,255,0.8);
-position: fixed;
-top: 0;
-left: 0;
-right: 0;
-bottom: 0;
-z-index: 1000;
+    width: 100%;
+    background-color: rgba(255,255,255,0.8);
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 1000;
 `
 
 const Form = styled.form`
@@ -115,20 +114,20 @@ const Form = styled.form`
     margin: auto;
     z-index: 2001;
     text-align: center;
-    padding: 10px;
+    padding: 30px;
     border-radius: 15px;
     position: fixed;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
 
-    @media (max-width: 900px) {
-        width: 60%;
-    }
+@media (max-width: 900px) {
+    width: 60%;
+}
 
-    @media (max-width: 600px) {
-        width: 90%;
-    }
+@media (max-width: 600px) {
+    width: 90%;
+}
 `
 
 const Input = styled.input`
@@ -149,16 +148,16 @@ const Submit = styled.button`
 `
 
 const P = styled.p`
-margin-top: 20px;
+    margin-top: 20px;
 `
 
 const Span = styled.span`
-cursor: pointer;
-color: green;
+    cursor: pointer;
+    color: green;
 
-&:hover{
-    color: limegreen;
-}
+    &:hover{
+        color: limegreen;
+    }
 `
 
 export default Signup;

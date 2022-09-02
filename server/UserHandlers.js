@@ -19,14 +19,19 @@ const addNewUser = async(req, res) => {
     await client.connect();
     // connect to the database (db name is provided as an argument to the function)
     const db = client.db("final-project");
-    console.log("pass ", req.body.password)
+    
     try{
-        var hash = await bcrypt.hashSync(req.body.password, salt);
+        const isUserExist = await db.collection("users").findOne({email: req.body.email})
+
+        if(isUserExist === null){
+        const hash = await bcrypt.hashSync(req.body.password, salt);
         result = await db.collection("users").insertOne({ _id: req.body._id,
             fullName: req.body.name,
             email: req.body.email,
             password: hash,
-            confirmPassword: hash});
+            confirmPassword: hash
+        });
+    }
 
         // send error
         }catch{(err) => 
@@ -34,7 +39,7 @@ const addNewUser = async(req, res) => {
         }
         
         result
-        ? res.status(200).json({ status: 200, message: "register Succesfull" })
+        ? res.status(200).json({ status: 200, message: "register Succesfull"})
         : res.status(404).json({ status: 404, message: "registration failed! "})
 
      // close the connection to the database server
