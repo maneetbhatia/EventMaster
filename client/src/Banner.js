@@ -1,7 +1,7 @@
 import styled from "styled-components"
 import bannerImg from './Assests/bannerjpg.jpg'
 import { useNavigate } from "react-router-dom"
-import { useState, useContext, useEffect } from "react"
+import { useContext, useEffect } from "react"
 import { UserContext } from "./UserContext";
 import Logo from './Assests/download.png'
 import Signin from "./Signin";
@@ -10,8 +10,6 @@ import Signup from './Signup'
 const Banner = () => {
 
   const {
-    isLoading,
-    setIsLoading, 
     name, 
     isLogedIn, 
     setName, 
@@ -37,7 +35,6 @@ const Banner = () => {
 // console.log(isModalOpen, "ismodal open ", isRegistrationModalOpen, "isRegistrationModalOpen")
 
   const handleLogout = () => {
-    console.log("logout")
     sessionStorage.setItem("isLogedIn", false)
     sessionStorage.removeItem("name")
     setIsuserLoginIn(false)

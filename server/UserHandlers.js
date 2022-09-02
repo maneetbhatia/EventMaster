@@ -1,4 +1,6 @@
 const { MongoClient } = require("mongodb");
+const bcrypt = require('bcryptjs');
+var salt = bcrypt.genSaltSync(10);
 
 require("dotenv").config();
 const { MONGO_URI } = process.env;
@@ -17,13 +19,14 @@ const addNewUser = async(req, res) => {
     await client.connect();
     // connect to the database (db name is provided as an argument to the function)
     const db = client.db("final-project");
-    
+    console.log("pass ", req.body.password)
     try{
+        var hash = await bcrypt.hashSync(req.body.password, salt);
         result = await db.collection("users").insertOne({ _id: req.body._id,
             fullName: req.body.name,
             email: req.body.email,
-            password: req.body.password,
-            confirmPassword: req.body.confirmPassword});
+            password: hash,
+            confirmPassword: hash});
 
         // send error
         }catch{(err) => 
@@ -48,8 +51,9 @@ const isValidUser = async (req, res) => {
     const db = client.db("final-project");
 
     try{
-        result = await db.collection("users").findOne({
-            email: req.body.email});
+        const hash = await db.collection("users").findOne({email: req.body.email})
+        
+        result = bcrypt.compareSync(req.body.password, hash.password);
         // send error
         }catch{(err) => 
             console.log(err)

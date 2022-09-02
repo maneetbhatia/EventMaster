@@ -144,7 +144,7 @@ const SearchResults = () => {
                         <Fav onClick={(event) => {event.stopPropagation(); handlefav(eventData)}}><MdFavorite size={20}/></Fav>
                       </Wrapper>
                   )
-                }) : <p>No events found, please search something else</p>}
+                }) : <ErrorMessage>No events found, please search something else</ErrorMessage>}
               </Main> </> :"Loading..." }
             {events !== undefined && <Pagination length={eventsArr?.data?.meta} handleIncrement={IncrementPageCount} handleDecrement={DecrementPageCount}/>}
         </Events>

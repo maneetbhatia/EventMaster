@@ -182,14 +182,9 @@ padding: 1% 2%;
 margin-left: 10px;
 width: fit-content;
 border-radius: 15px;
-/* background-color: aliceblue; */
 cursor: pointer;
 font-size: 18px;
 color: grey;
-`
-
-const P = styled.p`
-
 `
 
 const Events = styled.div`
