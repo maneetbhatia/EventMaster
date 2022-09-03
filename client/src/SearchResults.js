@@ -121,15 +121,19 @@ const SearchResults = () => {
     
     return( 
         <>
+          <Div>
+            <Category>{searchValue}</Category>
+            <Sort>
+              <LI onClick={handleTime}>By Date</LI>
+              <LI onClick={handleLowestToHighest}>
+                Lowest to Highest Price
+              </LI>
+              <LI onClick={handleHighestToLowest}>Highest to Lowest Price</LI>
+            </Sort>
+          </Div>
         <Events>
             {events !== null ?
             <>
-            <Category>{searchValue}</Category>
-            <LI onClick={handleHighestToLowest}>Highest to Lowest Price</LI>
-            <LI onClick={handleLowestToHighest}>
-              Lowest to Highest Price
-            </LI>
-            <LI onClick={handleTime}>By Date</LI>
           {/* </UL> */}
               <Main>
                 {events !== undefined ?
@@ -137,8 +141,13 @@ const SearchResults = () => {
                   return (
                     (eventData?.stats?.lowest_price !== null && eventData.performers[0].image !== null) &&
                       <Wrapper key={index} onClick={() => handleClick(eventData?.id)}>
+                        <Imgg>
                         <Img src={eventData.performers[0].image} />
+                        </Imgg>
+                        <EventInfo>
                         {(eventData?.title.length >= 25) ? <Title>{eventData?.title.slice(0, 25)}...</Title> : <Title>{eventData?.title}</Title>}
+                        <TitleTollTip>{eventData?.title}</TitleTollTip>
+                        </EventInfo>
                         <Genre>{moment(eventData?.datetime_utc).format('MMM DD [at] h:mm a')}</Genre>
                         <EventCount>${eventData?.stats?.lowest_price}</EventCount>
                         <Fav onClick={(event) => {event.stopPropagation(); handlefav(eventData)}}><MdFavorite size={20}/></Fav>
@@ -152,27 +161,68 @@ const SearchResults = () => {
     )
 }
 
-const Category = styled.span`
-margin: 0px 35px 20px 20px;
-font-size: 35px;
+const TitleTollTip = styled.span`
+  position: absolute;
+  top: 72%;
+  left: 50%;
+  width: 90%;
+  padding: 5px;
+  transform: translate(-50%, -50%);
+  background-color: white;
+  font-size: 13px;
+  opacity: 0;
+  border-radius: 15px;
+  box-shadow: 1px 1px 5px 1px black;
+  `
+
+const Div = styled.div`
+display: grid;
+grid-template-columns: 30% 70%;
+width: 87%;
+margin: auto;
+margin-top: 100px;
+
+@media (max-width: 900px) {
+  grid-template-columns: 100%;
+  }
 `
 
-const LI = styled.span`
-float: right;
-padding: 1% 2%;
-margin-left: 10px;
-width: fit-content;
-border-radius: 15px;
-/* background-color: aliceblue; */
-cursor: pointer;
-font-size: 18px;
-color: grey;
+const Sort = styled.div`
+  display: flex;
+  justify-content: space-between;
+
+  @media (max-width: 630px) {
+    margin-top: 20px;
+    display: block;
+    text-align: center;
+  }
+`
+
+const Category = styled.h1`
+  font-size: 40px;
+
+  @media (max-width: 900px) {
+    text-align: center;
+  }
+`
+
+const LI = styled.p`
+  background-color: whitesmoke;
+  padding: 2%;
+  cursor: pointer;
+  font-size: 18px;
+  color: grey;
+  border-radius: 50px;
+
+  &:hover{
+    color: black;
+  }
 `
 
 const Events = styled.div`
   width: 90%;
   margin: auto;
-  margin-top: 90px;
+  margin-top: 40px;
 `
 
 const Main = styled.div`
@@ -259,6 +309,17 @@ color: white;
 &:hover{
   color: red;
 }
+`
+
+const EventInfo = styled.div`
+&:hover ${TitleTollTip} {
+  opacity: 1;
+}
+`
+
+const Imgg = styled.div`
+  overflow: hidden;
+  height: 180px;
 `
 
 export default SearchResults;

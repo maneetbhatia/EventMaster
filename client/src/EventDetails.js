@@ -40,9 +40,9 @@ const EventDetails = () => {
             </Event>
             <div>
             <EventInfo>
-                <H2>{event.type}</H2>
+                <H2>{event.type.toUpperCase()}</H2>
                 <P>{event.title}</P>
-                <P> {moment(event.datetime_local).format('MMM DD')}</P>
+                <P> {moment(event.datetime_local).format('MMM DD [at] hh:mm a')}</P>
                 {event?.stats?.lowest_price !== null ? 
                 <P>From: ${event?.stats?.lowest_price}</P> : 
                 <P>Find tickets </P>}

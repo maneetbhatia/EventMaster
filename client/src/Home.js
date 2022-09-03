@@ -2,6 +2,7 @@ import { useEffect, useState, useRef } from "react";
 import styled from "styled-components"
 import {useNavigate} from "react-router-dom";
 import Category from "./AllCategories";
+import LoadingPage from './LoadingPage'
 
 const Home = () => {
   const [recommendations, setRecommendations] = useState(null);
@@ -40,7 +41,7 @@ const Home = () => {
                   </Wrapper>
                 )
               })}
-          </Artists>: <p> Loading....</p>}
+          </Artists>: <LoadingPage />}
           </Slider>
         </Main>
       </>

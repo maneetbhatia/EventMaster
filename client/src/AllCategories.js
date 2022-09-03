@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import styled from "styled-components"
 import {useNavigate} from "react-router-dom";
+import LoadingPage from './LoadingPage'
 
 const AllCategories = () => {
     const [events, setEvents] = useState(null)
@@ -57,7 +58,7 @@ const AllCategories = () => {
                                 </Wrapper>
                             )
                     })}
-                </Main>: <p> Loading....</p>}
+                </Main>: <LoadingPage />}
             </Slider>
         </Categories>
             

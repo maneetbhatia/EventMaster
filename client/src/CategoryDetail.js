@@ -2,11 +2,11 @@ import { useContext, useEffect, useState } from 'react';
 import styled from "styled-components"
 import {useParams, useNavigate} from "react-router-dom";
 import { MdFavorite } from 'react-icons/md';
-import {UserContext} from './UserContext';
+import { UserContext } from './UserContext';
 import Signin from './Signin';
 import moment from "moment";
 import Pagination from './Pagination';
-
+import LoadingPage from './LoadingPage'
 
 const CategoryDetail = () => {
     const [events, setEvents] = useState(null);
@@ -127,18 +127,23 @@ const CategoryDetail = () => {
           console.log("error", e);
       });
     }
-    // console.log("events", eventsArr)
+    
     return( 
         <>
-          <Events>
-            {events !== null ?
-            <>
-              <Category>{category}</Category>
+        <Div>
+            <Category>{category}</Category>
+            <Sort>
+              <LI onClick={handleTime}>By Date</LI>
               <LI onClick={handleHighestToLowest}>Highest to Lowest Price</LI>
               <LI onClick={handleLowestToHighest}>
                 Lowest to Highest Price
               </LI>
-              <LI onClick={handleTime}>By Date</LI>
+            </Sort>
+          </Div>
+          <Events>
+            {events !== null ?
+            <>
+            
               {/* </UL> */}
               <Main>
               { events !== undefined ?
@@ -149,21 +154,19 @@ const CategoryDetail = () => {
                         <Imgg>
                           <Img src={data.performers[0].image} />
                         </Imgg>
-                        <div>
-                        {(data?.title.length >= 29) ?<Title>{data?.title.slice(0, 25)}...</Title> : <Title>{data?.title}</Title>}
-                        <Genre> {moment(data?.datetime_local).format('MMM DD [at] h:mm a')}</Genre>
-                        {data?.stats?.lowest_price !== null && <EventCount>From ${data?.stats?.lowest_price}</EventCount>}
-                        <Fav onClick={(event) => {event.stopPropagation(); handlefav(data)}}><MdFavorite  size={20}/>
-                        {/* <AddToFavorite>Add to favorite</AddToFavorite> */}
-                        </Fav>
-                        <TitleTollTip>{data?.title} - {data?.venue?.name}</TitleTollTip>
-                        </div>
+                        <EventInfo>
+                          {(data?.title.length >= 29) ? <Title>{data?.title.slice(0, 25)}...</Title> : <Title>{data?.title}</Title>}
+                          <TitleTollTip>{data?.title}</TitleTollTip>
+                        </EventInfo>
+                          <Genre> {moment(data?.datetime_local).format('MMM DD [at] h:mm a')}</Genre>
+                          {data?.stats?.lowest_price !== null && <EventCount>From ${data?.stats?.lowest_price}</EventCount>}
+                          <Fav
+                            onClick={(event) => {event.stopPropagation(); handlefav(data)}}><MdFavorite  size={20}/>
+                          </Fav>
                         </Wrapper>
-                        
-                        
                   )
                 }) : <p>No events found, please look for different <span style={{color: "limegreen", cursor: "pointer"}} onClick={navigateToHome}>Category</span></p>}
-              </Main></> : "Loading..."}
+              </Main></> : <LoadingPage />}
             </Events>
             <Pagination length={eventsArr?.data?.meta} handleIncrement={IncrementPageCount} handleDecrement={DecrementPageCount}/>
             {(isModalOpen === true) && <Signin />}
@@ -171,26 +174,68 @@ const CategoryDetail = () => {
     )
 }
 
-const Category = styled.span`
-margin: 0px 35px 20px 20px;
-font-size: 35px;
+const TitleTollTip = styled.span`
+  position: absolute;
+  top: 72%;
+  left: 50%;
+  width: 90%;
+  padding: 5px;
+  transform: translate(-50%, -50%);
+  background-color: white;
+  font-size: 13px;
+  opacity: 0;
+  border-radius: 15px;
+  box-shadow: 1px 1px 5px 1px black;
+  `
+
+const Div = styled.div`
+display: grid;
+grid-template-columns: 30% 70%;
+width: 87%;
+margin: auto;
+margin-top: 100px;
+
+@media (max-width: 900px) {
+  grid-template-columns: 100%;
+  }
 `
 
-const LI = styled.span`
-float: right;
-padding: 1% 2%;
-margin-left: 10px;
-width: fit-content;
-border-radius: 15px;
-cursor: pointer;
-font-size: 18px;
-color: grey;
+const Sort = styled.div`
+  display: flex;
+  justify-content: space-between;
+
+  @media (max-width: 630px) {
+    margin-top: 20px;
+    display: block;
+    text-align: center;
+  }
+`
+
+const Category = styled.h1`
+  font-size: 40px;
+
+  @media (max-width: 900px) {
+    text-align: center;
+  }
+`
+
+const LI = styled.p`
+  background-color: whitesmoke;
+  padding: 2%;
+  cursor: pointer;
+  font-size: 18px;
+  color: grey;
+  border-radius: 50px;
+
+  &:hover{
+    color: black;
+  }
 `
 
 const Events = styled.div`
   width: 90%;
   margin: auto;
-  margin-top: 90px;
+  margin-top: 40px;
 `
 
 const Main = styled.div`
@@ -216,87 +261,93 @@ const Wrapper = styled.div`
 
   @media (max-width: 1250px) {
     width: 30%;
+  }
 
-}
-
-@media (max-width: 980px) {
+  @media (max-width: 980px) {
     width: 45%;
-}
+  }
 
-@media (max-width: 630px) {
+  @media (max-width: 630px) {
     width: 80%;
-}
+  }
 
-@media (max-width: 450px) {
+  @media (max-width: 450px) {
     width: 99%;
-}
+  }
 `
 
 const Imgg = styled.div`
-overflow: hidden;
-height: 180px;
+  overflow: hidden;
+  height: 180px;
 `
 
 const Img = styled.img`
-width: 100%;
-border-radius: 15px 15px 0px 1px;
-object-fit: cover;
-&:hover{
-transform: scale(1.05);
-transition: 200ms transform ease-in-out;
-}
+  width: 100%;
+  border-radius: 15px 15px 0px 1px;
+  object-fit: cover;
+
+  &:hover{
+    transform: scale(1.05);
+    transition: 200ms transform ease-in-out;
+  }
 `
 
-const Title = styled.p`
-  font-weight: bold;
-  font-size: 15px;
-  padding-top: 15px;
-
-@media (max-width: 650px) {
-    font-size: 18px;
-}
-`
 
 const Genre = styled.p`
   font-size: 15px;
   padding-top: 10px;
-
+  
   @media (max-width: 650px) {
     font-size: 18px;
-}
-`
+  }
+  `
 
 const EventCount = styled.p`
   font-size: 15px;
   padding-top: 10px;
-
+  
   @media (max-width: 650px) {
     font-size: 18px;
-}
-`
+  }
+  `
 
-const TitleTollTip = styled.span`
-position: absolute;
-bottom: -20px;
-right: 0px;
-padding: 2px 0px;
-border: 1px solid limegreen;
-background-color: white;
-font-size: 12px;
-opacity: 0;
-`
+  const EventInfo = styled.div`
+    &:hover ${TitleTollTip} {
+      opacity: 1;
+    }
+  `
+
+  const Title = styled.p`
+    font-weight: bold;
+    font-size: 15px;
+    padding-top: 15px;
+  
+    @media (max-width: 650px) {
+      font-size: 18px;
+    }
+  `
 
 const Fav = styled.span`
-color: white;
-cursor: pointer;
-position: absolute;
-right: 10px;
-top: 8px;
-font-weight: bold;
+  color: white;
+  cursor: pointer;
+  position: absolute;
+  right: 10px;
+  top: 8px;
+  font-weight: bold;
+  
+  &:hover{
+    color: red;
+  }
+  `
 
-&:hover{
+const AddToFavorite = styled.span`
+  background-color: white;
   color: red;
-}
+  padding: 2px;
+  border-radius: 10px;
+  position: absolute;
+  top: 25px;
+  right: 0px;
 `
 
 export default CategoryDetail;
