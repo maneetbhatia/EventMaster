@@ -32,50 +32,49 @@ const EventDetails = () => {
 
     return (
         <>
-        {event !== null ? 
-        <div>
-        <Main>
-            <Event>
-                <Img src={event?.performers[0]?.image} alt="event"/>
-            </Event>
+            {event !== null ? 
             <div>
-            <EventInfo>
-                <H2>{event.type.toUpperCase()}</H2>
-                <P>{event.title}</P>
-                <P> {moment(event.datetime_local).format('MMM DD [at] hh:mm a')}</P>
-                {event?.stats?.lowest_price !== null ? 
-                <P>From: ${event?.stats?.lowest_price}</P> : 
-                <P>Find tickets </P>}
-            </EventInfo>
-            <Venue>
-                <H2>Venue</H2>
-                <P>Venue: {event.venue.name}</P>
-                <P>Address: {event.venue.address+" "}
-                {event.venue.extended_address} {event.venue.country}</P>
-                <P>Time-zone: {event.venue.timezone}</P>
-            </Venue>
-            </div>
-        </Main> 
-        <MapContainer>
-            <div style={{ height: '100vh', width: '100%' }}>
-            <GoogleMapReact
-                bootstrapURLKeys={{ key: "AIzaSyCxJEsl_5nBTaCJoXmHLgsdsLy-lzpgacE",
-            language: "en-US",
-            region: "us" }}
-                defaultCenter={defaultProps.center}
-                defaultZoom={defaultProps.zoom}
-            >
-                <AnyReactComponent
-                lat={event?.venue?.location?.lat}
-                lng={event?.venue?.location?.lon}
-                text="EVENT"
-                />
-            </GoogleMapReact>
-        </div>
-        </MapContainer>
-        </div>: 
-        <LoadingPage />}
-
+                <Main>
+                    <Event>
+                        <Img src={event?.performers[0]?.image} alt="event"/>
+                    </Event>
+                    <div>
+                        <EventInfo>
+                            <H2>{event.type.toUpperCase()}</H2>
+                            <P>{event.title}</P>
+                            <P> {moment(event.datetime_local).format('MMM DD [at] hh:mm a')}</P>
+                            {event?.stats?.lowest_price !== null ? 
+                            <P>From: ${event?.stats?.lowest_price}</P> : 
+                            <P>Find tickets </P>}
+                        </EventInfo>
+                        <Venue>
+                            <H2>Venue</H2>
+                            <P>Venue: {event.venue.name}</P>
+                            <P>Address: {event.venue.address+" "}
+                            {event.venue.extended_address} {event.venue.country}</P>
+                            <P>Time-zone: {event.venue.timezone}</P>
+                        </Venue>
+                    </div>
+                </Main> 
+                <MapContainer>
+                    <div style={{ height: '100vh', width: '100%' }}>
+                        <GoogleMapReact
+                            bootstrapURLKeys={{ key: "AIzaSyCxJEsl_5nBTaCJoXmHLgsdsLy-lzpgacE",
+                            language: "en-US",
+                            region: "us" }}
+                            defaultCenter={defaultProps.center}
+                            defaultZoom={defaultProps.zoom}
+                        >
+                            <AnyReactComponent
+                            lat={event?.venue?.location?.lat}
+                            lng={event?.venue?.location?.lon}
+                            text="EVENT"
+                            />
+                        </GoogleMapReact>
+                    </div>
+                </MapContainer>
+            </div>: 
+            <LoadingPage />}
         </>
     )
 };

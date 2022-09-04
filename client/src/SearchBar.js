@@ -20,49 +20,46 @@ const SearchBar = () => {
 }
 
 const Main = styled.div`
-width: 80%;
-margin: auto;
-margin-top: 40px;
-
-@media (max-width: 850px) {
-    width: 90%;
+    width: 80%;
     margin: auto;
-    margin-top: 40px;
-}
 
-@media (max-width: 600px) {
-    width: 90%;
-    margin: auto;
-    margin-top: 40px;
-    /* background-color: red; */
-}
+    @media (max-width: 850px) {
+        width: 90%;
+        margin: auto;
+        margin: 40px;
+    }
+
+    @media (max-width: 600px) {
+        width: 90%;
+        margin: auto;
+    }
 `
 
 const Input = styled.input`
-padding: 1%;
-width: 83%;
-background-color: white;
-font-weight: bolder;
-border-radius: 10px;
-outline: none;
-font-size: 15px;
+    padding: 1%;
+    width: 83%;
+    background-color: white;
+    font-weight: bolder;
+    border-radius: 10px;
+    outline: none;
+    font-size: 15px;
 
-@media (max-width: 850px) {
-    width: 80%;
-}
+    @media (max-width: 850px) {
+        width: 80%;
+    }
 
-@media (max-width: 510px) {
-    width: 75%;
-}
+    @media (max-width: 510px) {
+        width: 75%;
+    }
 `
 
 const Button = styled.button`
-background-color: black;
-color: white;
-padding: 1.2% 3%;
-border-radius: 10px;
-margin-left: 1%;
-cursor: pointer;
+    background-color: black;
+    color: white;
+    padding: 1.2% 3%;
+    border-radius: 10px;
+    margin-left: 1%;
+    cursor: pointer;
 `
 
 export default SearchBar;

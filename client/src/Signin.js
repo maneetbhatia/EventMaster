@@ -77,10 +77,11 @@ const Signin = () => {
                         placeholder='Password' 
                         type="password" required
                         value={password}
-                        onChange={(e) => setPassword(e.target.value)} /><br />
+                        onChange={(e) => setPassword(e.target.value)} 
+                    /><br />
                     <Submit>Signin</Submit>
                     {(datas?.status === 404) && <p>{datas?.message}</p>}
-                <P>If you don't have account, please <Span onClick={handleRegister}>Register</Span></P>
+                    <P>If you don't have account, please <Span onClick={handleRegister}>Register</Span></P>
                 </Form>
             </Main>
         </>
@@ -88,14 +89,14 @@ const Signin = () => {
 }
 
 const Main = styled.div`
-width: 100%;
-background-color: rgba(255,255,255,0.8);
-position: fixed;
-top: 0;
-left: 0;
-right: 0;
-bottom: 0;
-z-index: 1000;
+    width: 100%;
+    background-color: rgba(255,255,255,0.8);
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 1000;
 `
 
 const Form = styled.form`
@@ -138,16 +139,16 @@ const Submit = styled.button`
 `
 
 const P = styled.p`
-margin-top: 20px;
+    margin-top: 20px;
 `
 
 const Span = styled.span`
-cursor: pointer;
-color: green;
+    cursor: pointer;
+    color: green;
 
-&:hover{
-    color: limegreen;
-}
+    &:hover{
+        color: limegreen;
+    }
 `
 
 export default Signin;

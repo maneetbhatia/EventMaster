@@ -7,30 +7,32 @@ const AllCategories = () => {
     const [events, setEvents] = useState(null)
 
     const navigate = useNavigate();
+    
     const handleClick = (category) => {
         navigate(`/category/${category}`)
     }
 
-    const categories = ["Comedy",
-    "Concert",
-    "WWE",
-    "Sports",
-    "Music Festivals",
-    "Theater",
-    "Broadway Shows",
-    "Dance Shows",
-    "Film",
-    "Family Entertainment",
-    "Circus",
-    "NBA",
-    "Boxing",
-    "Golf",
-    "F1 Racing",
-    "Soccer",
-    "Hockey",
-    "NFL",
-    "Baseball"
-]
+    const categories = [
+        "Comedy",
+        "Concert",
+        "WWE",
+        "Sports",
+        "Music Festivals",
+        "Theater",
+        "Broadway Shows",
+        "Dance Shows",
+        "Film",
+        "Family Entertainment",
+        "Circus",
+        "NBA",
+        "Boxing",
+        "Golf",
+        "F1 Racing",
+        "Soccer",
+        "Hockey",
+        "NFL",
+        "Baseball"
+    ]
     
     useEffect(() => {
         fetch(`/taxonomies`)
@@ -45,23 +47,22 @@ const AllCategories = () => {
 
     return( 
         <>
-        <Categories>
-            <H1>{"Categories"}</H1>
-            <Slider>
-                {events !== null ? <Main>
-                    {events !== null && events.map((data, index) => {
-                        return(
-                            (categories.includes(data?.name)) &&
-                                <Wrapper className='slideLeft' key={index} onClick={() => handleClick(data?.name)}>
-                                <Img src={events[index].image} alt="event"/>
-                                <Title>{events[index].name}</Title>
-                                </Wrapper>
-                            )
-                    })}
-                </Main>: <LoadingPage />}
-            </Slider>
-        </Categories>
-            
+            <Categories>
+                <H1>{"Categories"}</H1>
+                <Slider>
+                    {events !== null ? <Main>
+                        {events !== null && events.map((data, index) => {
+                            return(
+                                (categories.includes(data?.name)) &&
+                                    <Wrapper className='slideLeft' key={index} onClick={() => handleClick(data?.name)}>
+                                    <Img src={events[index].image} alt="event"/>
+                                    <Title>{events[index].name}</Title>
+                                    </Wrapper>
+                                )
+                        })}
+                    </Main>: <LoadingPage />}
+                </Slider>
+            </Categories>
         </>
     )
 }

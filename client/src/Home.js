@@ -8,6 +8,7 @@ const Home = () => {
   const [recommendations, setRecommendations] = useState(null);
 
   const titleRef = useRef();
+
   const navigate = useNavigate();
   const handleClick = (id) => {
     navigate(`/artist/id/${id}`)
@@ -30,18 +31,19 @@ const Home = () => {
         <Main>
           <H1>Artists</H1>
           <Slider>
-            {recommendations !== null ? <Artists>
-              {(recommendations !== null) && recommendations.map((data, index) => {
-                return(
-                  (data?.performer?.genres) &&
-                  <Wrapper ref={titleRef} key={index} onClick={() => handleClick(data.performer.id)}>
-                    <Img src={data?.performer?.image} alt="event"/>
-                    {(data?.performer?.name.length >= 35) ? <Title>{data?.performer?.name.slice(0, 25)}...</Title> : <Title>{data?.performer?.name}</Title>}
-                    {(data?.performer?.genres) && <Genre>Genre: {data?.performer?.genres[0].name}</Genre>}
-                  </Wrapper>
-                )
-              })}
-          </Artists>: <LoadingPage />}
+            {recommendations !== null ? 
+              <Artists>
+                {(recommendations !== null) && recommendations.map((data, index) => {
+                  return(
+                    (data?.performer?.genres) &&
+                    <Wrapper ref={titleRef} key={index} onClick={() => handleClick(data.performer.id)}>
+                      <Img src={data?.performer?.image} alt="event"/>
+                      {(data?.performer?.name.length >= 35) ? <Title>{data?.performer?.name.slice(0, 25)}...</Title> : <Title>{data?.performer?.name}</Title>}
+                      {(data?.performer?.genres) && <Genre>Genre: {data?.performer?.genres[0].name}</Genre>}
+                    </Wrapper>
+                  )
+                })}
+              </Artists>: <LoadingPage />}
           </Slider>
         </Main>
       </>

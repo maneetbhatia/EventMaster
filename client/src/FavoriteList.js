@@ -8,11 +8,6 @@ const CategoryDetail = () => {
     const [isLoading, setIsLoading] = useState(false)
     const navigate = useNavigate();
 
-    
-    // console.log(isLoading, "isloading")
-    // if(!isLoading){
-      //   navigate("/")
-      // }
       useEffect(() => {
         getFavoriteList()
       }, [])
@@ -42,24 +37,25 @@ const CategoryDetail = () => {
 // console.log("favorite", favorite)
     return( 
         <>
-        <Events>
-          <H1>Favorite List</H1>
-            {favorite?.data?.length > 0 && favorite !== null ? <Main>
-                {favorite?.data?.map((data, index) => {
-                return (
-                    (data.image !== null) && 
-                        <Wrapper key={index} onClick={() => handleClick(data?._id)}>
-                        <Img src={data.image} />
-                        {(data?.title.length >= 17) ?<Title>{data?.title.slice(0, 30)}...</Title>:<Title>{data?.title}</Title>}
-                        {(data?.venue.length >= 27) ? <Genre>{data?.venue.slice(0, 30)}...</Genre>: <Genre>{data?.venue}</Genre>}
-                        {data.ticket !== null ? <EventCount>${data?.ticket}</EventCount>: <EventCount>Find Tickets</EventCount>}
-                        <Delete onClick={(event) => {event.stopPropagation(); deleteEvent(data._id)}}><MdDelete size={20} /></Delete>
-                        </Wrapper>
-                    )
-                })}
-            </Main>
-            : <p>{favorite?.message} </p>}
-            </Events>
+          <Events>
+            <H1>Favorite List</H1>
+              {favorite?.data?.length > 0 && favorite !== null ? 
+                <Main>
+                    {favorite?.data?.map((data, index) => {
+                      return (
+                          (data.image !== null) && 
+                              <Wrapper key={index} onClick={() => handleClick(data?._id)}>
+                                <Img src={data.image} />
+                                {(data?.title.length >= 17) ?<Title>{data?.title.slice(0, 30)}...</Title>:<Title>{data?.title}</Title>}
+                                {(data?.venue.length >= 27) ? <Genre>{data?.venue.slice(0, 30)}...</Genre>: <Genre>{data?.venue}</Genre>}
+                                {data.ticket !== null ? <EventCount>${data?.ticket}</EventCount>: <EventCount>Find Tickets</EventCount>}
+                                <Delete onClick={(event) => {event.stopPropagation(); deleteEvent(data._id)}}><MdDelete size={20} /></Delete>
+                              </Wrapper>
+                      )
+                    })}
+                </Main>
+              : <p>{favorite?.message} </p>}
+          </Events>
         </>
     )
 }

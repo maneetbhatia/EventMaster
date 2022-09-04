@@ -131,10 +131,9 @@ const SearchResults = () => {
               <LI onClick={handleHighestToLowest}>Highest to Lowest Price</LI>
             </Sort>
           </Div>
-        <Events>
+          <Events>
             {events !== null ?
             <>
-          {/* </UL> */}
               <Main>
                 {events !== undefined ?
                 events.map((eventData, index) => {
@@ -142,7 +141,7 @@ const SearchResults = () => {
                     (eventData?.stats?.lowest_price !== null && eventData.performers[0].image !== null) &&
                       <Wrapper key={index} onClick={() => handleClick(eventData?.id)}>
                         <Imgg>
-                        <Img src={eventData.performers[0].image} />
+                          <Img src={eventData.performers[0].image} />
                         </Imgg>
                         <EventInfo>
                         {(eventData?.title.length >= 25) ? <Title>{eventData?.title.slice(0, 25)}...</Title> : <Title>{eventData?.title}</Title>}
@@ -154,9 +153,10 @@ const SearchResults = () => {
                       </Wrapper>
                   )
                 }) : <ErrorMessage>No events found, please search something else</ErrorMessage>}
-              </Main> </> :"Loading..." }
+              </Main> 
+            </> :"Loading..." }
             {events !== undefined && <Pagination length={eventsArr?.data?.meta} handleIncrement={IncrementPageCount} handleDecrement={DecrementPageCount}/>}
-        </Events>
+          </Events>
         </>
     )
 }
@@ -176,14 +176,14 @@ const TitleTollTip = styled.span`
   `
 
 const Div = styled.div`
-display: grid;
-grid-template-columns: 30% 70%;
-width: 87%;
-margin: auto;
-margin-top: 100px;
+  display: grid;
+  grid-template-columns: 30% 70%;
+  width: 87%;
+  margin: auto;
+  margin-top: 100px;
 
-@media (max-width: 900px) {
-  grid-template-columns: 100%;
+  @media (max-width: 900px) {
+    grid-template-columns: 100%;
   }
 `
 
@@ -245,25 +245,24 @@ const Wrapper = styled.div`
 
   @media (max-width: 1250px) {
     width: 30%;
+  }
 
-}
+  @media (max-width: 980px) {
+      width: 45%;
+  }
 
-@media (max-width: 980px) {
-    width: 45%;
-}
+  @media (max-width: 630px) {
+      width: 80%;
+  }
 
-@media (max-width: 630px) {
-    width: 80%;
-}
-
-@media (max-width: 450px) {
-    width: 99%;
-}
+  @media (max-width: 450px) {
+      width: 99%;
+  }
 `
 
 const Img = styled.img`
-width: 100%;
-border-radius: 15px 15px 0px 1px;
+  width: 100%;
+  border-radius: 15px 15px 0px 1px;
 `
 
 const Title = styled.p`
@@ -273,7 +272,7 @@ const Title = styled.p`
 
   @media (max-width: 650px) {
     font-size: 18px;
-}
+  }
 `
 
 const Genre = styled.p`
@@ -282,7 +281,7 @@ const Genre = styled.p`
 
   @media (max-width: 650px) {
     font-size: 18px;
-}
+  }
 `
 
 const EventCount = styled.p`
@@ -291,30 +290,30 @@ const EventCount = styled.p`
 
   @media (max-width: 650px) {
     font-size: 18px;
-}
+  }
 `
 
 const ErrorMessage = styled.p`
-color: red;
-margin-left: 50px;
-margin-bottom: 40px;
+  color: red;
+  margin-left: 50px;
+  margin-bottom: 40px;
 `
 
 const Fav = styled.span`
-position: absolute;
-top: 8px;
-right: 10px;
-color: white;
+  position: absolute;
+  top: 8px;
+  right: 10px;
+  color: white;
 
-&:hover{
-  color: red;
-}
+  &:hover{
+    color: red;
+  }
 `
 
 const EventInfo = styled.div`
-&:hover ${TitleTollTip} {
-  opacity: 1;
-}
+  &:hover ${TitleTollTip} {
+    opacity: 1;
+  }
 `
 
 const Imgg = styled.div`

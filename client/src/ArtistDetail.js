@@ -21,50 +21,50 @@ const ArtistDetail = () => {
 
     let artistName = "";
     useEffect(() => {
-    if(artist !== null){
-        artistName=artist?.name
-    
-        // console.log(artistName)
+        if(artist !== null){
+            artistName=artist?.name
         
-            fetch(`/artist/events/${artistName}`)
-                .then((res) => res.json())
-                .then((data) => {
-                    // console.log(data.data.events);
-                    setEventList(data.data.events)
-                }).catch((err) => {
-                    console.log("error", err);
-            })
-    }
+            // console.log(artistName)
+            
+                fetch(`/artist/events/${artistName}`)
+                    .then((res) => res.json())
+                    .then((data) => {
+                        // console.log(data.data.events);
+                        setEventList(data.data.events)
+                    }).catch((err) => {
+                        console.log("error", err);
+                })
+        }
     }, [artist]);
 
     const navigate = useNavigate();
+
     const handleClick = (id) => {
-      navigate(`/event/id/${id}`)
+        navigate(`/event/id/${id}`)
     }
 
     return (
         <>
             <H1>{artist?.name}</H1>
-        <Main>
-        <Section2>
-            {eventList !== null ?
-                <>
-                {eventList.map((data, index) => {
-                    return (
-                            <Event key={index} onClick={() => handleClick(data?.id)}>
-                                <h4>{moment(data?.datetime_local).format("MMM D YYYY")} - {data?.title}</h4>
-                                <p>${data?.stats?.lowest_price} - {data?.venue?.name} - {data?.venue?.display_location}</p>
-                            </Event>
-                    )
-                })}
-                </>:
-                <p>Loading...</p>
-            }
-        </Section2>
-        <Section1>
-            {artist !== null ? <ArtistImg src={artist?.images?.huge} /> : <p>Loading...</p>}
-        </Section1>
-        </Main>
+            <Main>
+                <Section2>
+                    {eventList !== null ?
+                        <>
+                            {eventList.map((data, index) => {
+                                return (
+                                    <Event key={index} onClick={() => handleClick(data?.id)}>
+                                        <h4>{moment(data?.datetime_local).format("MMM D YYYY")} - {data?.title}</h4>
+                                        <p>${data?.stats?.lowest_price} - {data?.venue?.name} - {data?.venue?.display_location}</p>
+                                    </Event>
+                                )
+                            })}
+                        </> : <p>Loading...</p>
+                    }
+                </Section2>
+                <Section1>
+                    {artist !== null ? <ArtistImg src={artist?.images?.huge} /> : <p>Loading...</p>}
+                </Section1>
+            </Main>
         </>
     )
 }

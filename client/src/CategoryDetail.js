@@ -130,7 +130,11 @@ const CategoryDetail = () => {
     
     return( 
         <>
-        <Div>
+          {(events !== undefined) && <Pagination length={eventsArr?.data?.meta} 
+            handleIncrement={IncrementPageCount} 
+            handleDecrement={DecrementPageCount}/>
+          }
+          <Div>
             <Category>{category}</Category>
             <Sort>
               <LI onClick={handleTime}>By Date</LI>
@@ -142,34 +146,30 @@ const CategoryDetail = () => {
           </Div>
           <Events>
             {events !== null ?
-            <>
-            
-              {/* </UL> */}
               <Main>
-              { events !== undefined ?
-                events.map((data, index) => {
-                  return (
-                    (data?.stats?.lowest_price !== null && data.performers[0].image !== null) && 
-                        <Wrapper key={index} onClick={() => handleClick(data?.id)}>
-                        <Imgg>
-                          <Img src={data.performers[0].image} />
-                        </Imgg>
-                        <EventInfo>
-                          {(data?.title.length >= 29) ? <Title>{data?.title.slice(0, 25)}...</Title> : <Title>{data?.title}</Title>}
-                          <TitleTollTip>{data?.title}</TitleTollTip>
-                        </EventInfo>
-                          <Genre> {moment(data?.datetime_local).format('MMM DD [at] h:mm a')}</Genre>
-                          {data?.stats?.lowest_price !== null && <EventCount>From ${data?.stats?.lowest_price}</EventCount>}
-                          <Fav
-                            onClick={(event) => {event.stopPropagation(); handlefav(data)}}><MdFavorite  size={20}/>
-                          </Fav>
-                        </Wrapper>
-                  )
+                {events !== undefined ?
+                  events.map((data, index) => {
+                    return (
+                      (data?.stats?.lowest_price !== null && data.performers[0].image !== null) && 
+                          <Wrapper key={index} onClick={() => handleClick(data?.id)}>
+                          <Imgg>
+                            <Img src={data.performers[0].image} />
+                          </Imgg>
+                          <EventInfo>
+                            {(data?.title.length >= 29) ? <Title>{data?.title.slice(0, 25)}...</Title> : <Title>{data?.title}</Title>}
+                            <TitleTollTip>{data?.title}</TitleTollTip>
+                          </EventInfo>
+                            <Genre> {moment(data?.datetime_local).format('MMM DD [at] h:mm a')}</Genre>
+                            {data?.stats?.lowest_price !== null && <EventCount>From ${data?.stats?.lowest_price}</EventCount>}
+                            <Fav
+                              onClick={(event) => {event.stopPropagation(); handlefav(data)}}><MdFavorite  size={20}/>
+                            </Fav>
+                          </Wrapper>
+                    )
                 }) : <p>No events found, please look for different <span style={{color: "limegreen", cursor: "pointer"}} onClick={navigateToHome}>Category</span></p>}
-              </Main></> : <LoadingPage />}
-            </Events>
-            <Pagination length={eventsArr?.data?.meta} handleIncrement={IncrementPageCount} handleDecrement={DecrementPageCount}/>
-            {(isModalOpen === true) && <Signin />}
+              </Main> : <LoadingPage />}
+          </Events>
+          {(isModalOpen === true) && <Signin />}
         </>
     )
 }

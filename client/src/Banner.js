@@ -53,23 +53,21 @@ const Banner = () => {
 
     return(
       <>
-      <Main>
-        <LogoImg src={Logo} onClick={handleClick}Events />
-        <Favorites onClick={handleFavorites}>
-          {(isLogedIn === true || name !== null) && "Favorites"}
-        </Favorites>
-        <Login onClick={handleLogin}>
-          {(name === null || isLogedIn === false) && "Login"}
-        </Login>
-        {/* <Logout onClick={handleLogout}> */}
-          {(isLogedIn === true || name !== null) && <Logout onClick={handleLogout}>Logout</Logout>}
-        {/* </Logout> */}
-        <BannerImg src={bannerImg} alt="banner" />
-        <Heading>
-          <H2>Let the fun begins</H2>
-          <P>Your next best-night-ever is waiting.</P>
-          <P>And we have the tickets.</P>
-        </Heading>
+        <Main>
+          <LogoImg src={Logo} onClick={handleClick}Events />
+          <Favorites onClick={handleFavorites}>
+            {(isLogedIn === true || name !== null) && "Favorites"}
+          </Favorites>
+          <Login onClick={handleLogin}>
+            {(name === null || isLogedIn === false) && "Login"}
+          </Login>
+            {(isLogedIn === true || name !== null) && <Logout onClick={handleLogout}>Logout</Logout>}
+          <BannerImg src={bannerImg} alt="banner" />
+          <Heading>
+            <H2>Let the fun begins</H2>
+            <P>Your next best-night-ever is waiting.</P>
+            <P>And we have the tickets.</P>
+          </Heading>
         </Main>
         {(isModalOpen === true) && <Signin />}
         {(isRegistrationModalOpen === true) && <Signup />}

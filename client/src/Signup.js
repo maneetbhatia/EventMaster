@@ -82,12 +82,14 @@ const Signup = () => {
                         placeholder='Password' 
                         type="password" required 
                         value={password}
-                        onChange={(e) => setPassword(e.target.value)} /><br />
+                        onChange={(e) => setPassword(e.target.value)} 
+                    /><br />
                     <Input 
                         placeholder='Confirm Password' 
                         type="password" required 
                         value={confirmPassword}
-                        onChange={(e) => setConfirmPassword(e.target.value)} /><br />
+                        onChange={(e) => setConfirmPassword(e.target.value)} 
+                    /><br />
                     <Submit>Submit</Submit>
                     <P>Have account? please <Span onClick={handleLogin}>Login</Span></P>
                 </Form>
@@ -121,13 +123,13 @@ const Form = styled.form`
     left: 50%;
     transform: translate(-50%, -50%);
 
-@media (max-width: 900px) {
-    width: 60%;
-}
+    @media (max-width: 900px) {
+        width: 60%;
+    }
 
-@media (max-width: 600px) {
-    width: 90%;
-}
+    @media (max-width: 600px) {
+        width: 90%;
+    }
 `
 
 const Input = styled.input`
