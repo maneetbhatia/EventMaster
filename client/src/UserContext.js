@@ -5,7 +5,7 @@ export const UserContext = createContext();
 export const UserProvider = ({ children }) => {
     const [isLoading, setIsLoading] = useState(true);
     const [isLogedIn , setIsLogedIn] = useState(null);
-    const [isUserLoginIn, setIsuserLoginIn] = useState(false)
+    const [isUserLoginIn, setIsUserLoginIn] = useState(false)
     const [name, setName] = useState(null)
     const [isModalOpen, setIsModalOpen] = useState(false)
     const [isRegistrationModalOpen, setIsRegistrationModalOpen] = useState(false)
@@ -23,7 +23,8 @@ export const UserProvider = ({ children }) => {
             setIsLogedIn,
             isRegistrationModalOpen, 
             setIsRegistrationModalOpen,
-            isUserLoginIn, setIsuserLoginIn,
+            isUserLoginIn, 
+            setIsUserLoginIn,
         }}>{children}
         </UserContext.Provider>
     );

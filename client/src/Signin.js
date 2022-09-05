@@ -93,7 +93,7 @@ const Signin = () => {
 
 const Main = styled.div`
     width: 100%;
-    background-color: rgba(255,255,255,0.8);
+    background-color: rgba(255,255,255,0.55);
     position: fixed;
     top: 0;
     left: 0;
@@ -103,10 +103,11 @@ const Main = styled.div`
 `
 
 const Form = styled.form`
-    text-align: center;
-    background-color: white;
     border: 3px silver solid;
+    background-color: white;
     width: 40%;
+    margin: auto;
+    z-index: 2001;
     text-align: center;
     padding: 30px;
     border-radius: 15px;

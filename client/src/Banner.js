@@ -16,7 +16,7 @@ const Banner = () => {
     isModalOpen, 
     setIsLogedIn,
     isRegistrationModalOpen,
-    setIsuserLoginIn,
+    setIsUserLoginIn,
     isUserLoginIn
   } = useContext(UserContext);
 
@@ -36,7 +36,7 @@ const Banner = () => {
   const handleLogout = () => {
     sessionStorage.setItem("isLogedIn", false)
     sessionStorage.removeItem("name")
-    setIsuserLoginIn(false)
+    setIsUserLoginIn(false)
   }
 
   const handleFavorites =() => {
@@ -46,9 +46,9 @@ const Banner = () => {
   useEffect(() => {
     setIsLogedIn(sessionStorage.getItem("isLogedIn"));
     setName(sessionStorage.getItem("name"));
-  }, [isLogedIn, isUserLoginIn])
+  }, [isUserLoginIn])
 
-  console.log("isLogedIn ",isLogedIn, "name ", name)
+  console.log("isUserLoginIn ",isUserLoginIn, "name ", name)
 
     return(
       <>
