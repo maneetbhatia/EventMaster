@@ -8,7 +8,8 @@ const {getTaxonomies,
     getEventsRecommendation, 
     getArtistByID,
     getArtistEventsList,
-    getSearchValue} = require('./GetEvents')
+    getSearchValue,
+    getVenues} = require('./GetEvents')
 
 const {addedNewEvent, getFavoriteList, deleteEvent, GetEventFromFavorites}  = require('./FavoriteListHandlers')
 const {addNewUser, isValidUser} = require('./UserHandlers')
@@ -43,6 +44,9 @@ express()
 
 // get search value
 .get("/search/:searchValue/:pageCount", getSearchValue)
+
+// get venues
+.get("/venues", getVenues)
 
 //~~~~~~~~~~~~~~~~~~~~~FAVORITE LIST~~~~~~~~~~~~~~~~~~~~~~
 // get events from favorite list

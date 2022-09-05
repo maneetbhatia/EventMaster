@@ -61,6 +61,10 @@ const Signup = () => {
         setIsRegistrationModalOpen(false)
         setIsModalOpen(true)
     }
+
+    const closeModal  = () => {
+        setIsRegistrationModalOpen(false)
+    }
     
     return( 
         <>
@@ -92,6 +96,7 @@ const Signup = () => {
                     /><br />
                     <Submit>Submit</Submit>
                     <P>Have account? please <Span onClick={handleLogin}>Login</Span></P>
+                    <Close onClick={closeModal}>X</Close>
                 </Form>
             </Main>
         </>
@@ -159,6 +164,20 @@ const Span = styled.span`
 
     &:hover{
         color: limegreen;
+    }
+`
+
+const Close = styled.button`
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    border-radius: 50%;
+    padding: 1%;
+    border: none;
+    cursor: pointer;
+
+    &:hover{
+        color: red;
     }
 `
 

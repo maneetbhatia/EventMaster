@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import moment from "moment";
 import styled from "styled-components";
+import Loading from './LoadingPage'
 
 const ArtistDetail = () => {
     const [artist, setArtist] =useState(null)
@@ -58,11 +59,11 @@ const ArtistDetail = () => {
                                     </Event>
                                 )
                             })}
-                        </> : <p>Loading...</p>
+                        </> : <Loading />
                     }
                 </Section2>
                 <Section1>
-                    {artist !== null ? <ArtistImg src={artist?.images?.huge} /> : <p>Loading...</p>}
+                    {artist !== null ? <ArtistImg src={artist?.images?.huge} /> : <Loading />}
                 </Section1>
             </Main>
         </>

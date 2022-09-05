@@ -22,11 +22,11 @@ const SearchBar = () => {
 const Main = styled.div`
     width: 80%;
     margin: auto;
+    margin-bottom: 40px;
 
     @media (max-width: 850px) {
         width: 90%;
         margin: auto;
-        margin: 40px;
     }
 
     @media (max-width: 600px) {

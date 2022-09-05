@@ -4,6 +4,7 @@ import {useParams, useNavigate} from "react-router-dom";
 import moment from 'moment';
 import { MdFavorite } from 'react-icons/md';
 import Pagination from './Pagination';
+import Loading from './LoadingPage'
 
 const SearchResults = () => {
     const [events, setEvents] = useState(null)
@@ -121,6 +122,7 @@ const SearchResults = () => {
     
     return( 
         <>
+        {events !== undefined && <Pagination length={eventsArr?.data?.meta} handleIncrement={IncrementPageCount} handleDecrement={DecrementPageCount}/>}
           <Div>
             <Category>{searchValue}</Category>
             <Sort>
@@ -154,8 +156,7 @@ const SearchResults = () => {
                   )
                 }) : <ErrorMessage>No events found, please search something else</ErrorMessage>}
               </Main> 
-            </> :"Loading..." }
-            {events !== undefined && <Pagination length={eventsArr?.data?.meta} handleIncrement={IncrementPageCount} handleDecrement={DecrementPageCount}/>}
+            </> :<Loading /> }
           </Events>
         </>
     )

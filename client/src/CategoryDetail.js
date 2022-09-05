@@ -130,6 +130,8 @@ const CategoryDetail = () => {
     
     return( 
         <>
+          {events !== null ?
+          <>
           {(events !== undefined) && <Pagination length={eventsArr?.data?.meta} 
             handleIncrement={IncrementPageCount} 
             handleDecrement={DecrementPageCount}/>
@@ -145,9 +147,9 @@ const CategoryDetail = () => {
             </Sort>
           </Div>
           <Events>
-            {events !== null ?
               <Main>
-                {events !== undefined ?
+                {events !== null ?
+                  events !== undefined ?
                   events.map((data, index) => {
                     return (
                       (data?.stats?.lowest_price !== null && data.performers[0].image !== null) && 
@@ -166,11 +168,13 @@ const CategoryDetail = () => {
                             </Fav>
                           </Wrapper>
                     )
-                }) : <p>No events found, please look for different <span style={{color: "limegreen", cursor: "pointer"}} onClick={navigateToHome}>Category</span></p>}
-              </Main> : <LoadingPage />}
+                }) : <p>No events found, please look for different <span style={{color: "limegreen", cursor: "pointer"}} onClick={navigateToHome}>Category</span></p>
+              : "Loading ..."}
+              </Main>
           </Events>
           {(isModalOpen === true) && <Signin />}
-        </>
+          </>: <LoadingPage />}
+          </>
     )
 }
 

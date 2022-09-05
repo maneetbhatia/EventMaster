@@ -1,12 +1,10 @@
 import { useEffect, useState, useRef } from "react";
 import styled from "styled-components"
 import {useNavigate} from "react-router-dom";
-import Category from "./AllCategories";
-import LoadingPage from './LoadingPage';
-import Venues from "./Venues";
+import LoadingPage from './LoadingPage'
 
-const Home = () => {
-  const [recommendations, setRecommendations] = useState(null);
+const Venues = () => {
+  const [venues, setVenues] = useState(null);
 
   const titleRef = useRef();
 
@@ -16,11 +14,11 @@ const Home = () => {
   }
 
   useEffect(() => {
-      fetch(`/event/recommendations`)
+      fetch(`/venues`)
           .then((res) => res.json())
           .then((data) => {
-            // console.log(data.data.recommendations);
-            setRecommendations(data.data.recommendations)
+            console.log(data);
+            setVenues(data.data.venues)
           }).catch((err) => {
             console.log("error", err);
       }) 
@@ -28,13 +26,12 @@ const Home = () => {
 
     return(
       <>
-        <Category />
         <Main>
-          <H1>Artists</H1>
+          <H1>Venues</H1>
           <Slider>
-            {recommendations !== null ? 
+            {venues !== null ? 
               <Artists>
-                {(recommendations !== null) && recommendations.map((data, index) => {
+                {(venues !== null) && venues.map((data, index) => {
                   return(
                     (data?.performer?.genres) &&
                     <Wrapper ref={titleRef} key={index} onClick={() => handleClick(data.performer.id)}>
@@ -47,7 +44,6 @@ const Home = () => {
               </Artists>: <LoadingPage />}
           </Slider>
         </Main>
-        {/* <Venues /> */}
       </>
     )
 }
@@ -136,4 +132,4 @@ const Genre = styled.p`
   padding: 20px 0px;
 `
 
-export default Home;
+export default Venues;

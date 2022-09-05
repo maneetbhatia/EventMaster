@@ -163,8 +163,6 @@ const getSearchValue = async (req, res) => {
   let updatedSearchValue = "";
   const pageCount = req.params.pageCount
   let result;
-
-  console.log(pageCount)
   
     if(searchValue !== ""){
       updatedSearchValue = searchValue.split(" ").join("+");
@@ -186,5 +184,30 @@ const getSearchValue = async (req, res) => {
   }
 
 };
+
+
+const getVenues = async (req, res) => {
+  let result;
+
+try{
+  const response = await fetch(`https://api.seatgeek.com/2/venues?client_id=${API_KEY}`);
+  result = await response.json();
+}catch (err){
+  console.log(err)
+}
+
+if(result === null){
+  res.status(404).send({
+      status: 404,
+      message: "no venues found"
+  })
+}else{
+  res.status(200).send({
+      status: 200,
+      data: result
+  })
+}
+
+};
   
-module.exports = {getSearchValue, getTaxonomies, getEventByCategory, getEventByID, getEventsRecommendation, getArtistByID, getArtistEventsList}
+module.exports = {getVenues, getSearchValue, getTaxonomies, getEventByCategory, getEventByID, getEventsRecommendation, getArtistByID, getArtistEventsList}

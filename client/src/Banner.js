@@ -3,7 +3,6 @@ import bannerImg from './Assests/bannerjpg.jpg'
 import { useNavigate } from "react-router-dom"
 import { useContext, useEffect } from "react"
 import { UserContext } from "./UserContext";
-import Logo from './Assests/download.png'
 import Signin from "./Signin";
 import Signup from './Signup'
 
@@ -54,7 +53,9 @@ const Banner = () => {
     return(
       <>
         <Main>
-          <LogoImg src={Logo} onClick={handleClick}Events />
+            <Logo onClick={handleClick}> 
+              Events <br/>Master
+            </Logo>
           <Favorites onClick={handleFavorites}>
             {(isLogedIn === true || name !== null) && "Favorites"}
           </Favorites>
@@ -76,106 +77,105 @@ const Banner = () => {
 }
 
 const Main = styled.div`
-position: relative;
+  position: relative;
+  margin-bottom: 20px;
 `
 
 const Login = styled.p`
-font-size: 20px;
-cursor: pointer;
-color: white;
-position: absolute;
-top: 15px;
-right: 30px;
-padding: 7px 10px;
-background-color: grey;
-
-&:hover{
-}
+  font-size: 20px;
+  cursor: pointer;
+  color: white;
+  position: absolute;
+  top: 15px;
+  right: 30px;
+  padding: 7px 10px;
+  background-color: grey;
 `
 
-const LogoImg = styled.img`
-width: 100px;
-cursor: pointer;
-color: white;
-position: absolute;
-top: 15px;
-left: 30px;
-font-size: 35px;
+const Logo = styled.p`
+  cursor: pointer;
+  color: white;
+  position: absolute;
+  top: 20px;
+  left: 30px;
+  font-size: 30px;
+  font-family: 'Courier New', Courier, monospace;
 
-@media (max-width: 850px) {
-  width: 70px;
-}
+  @media (max-width: 850px) {
+    width: 70px;
+  }
 `
 
 const Logout = styled.p`
-font-size: 20px;
-cursor: pointer;
-color: white;
-position: absolute;
-top: 15px;
-right: 30px;
-padding: 7px 10px;
-background-color: grey;
+  font-size: 20px;
+  cursor: pointer;
+  color: white;
+  position: absolute;
+  top: 15px;
+  right: 30px;
+  padding: 7px 10px;
+  background-color: grey;
 `
 
 const Favorites = styled.p`
-position: absolute;
-top: 21px;
-right: 150px;
-color: greenyellow;
-font-size: 20px;
-cursor: pointer;
+  position: absolute;
+  top: 21px;
+  right: 150px;
+  color: greenyellow;
+  font-size: 20px;
+  cursor: pointer;
 `
 
 const BannerImg = styled.img`
-    width: 100%;
-    object-fit: cover;
-    object-position: 0px 25%;
-    height: 400px;
+  width: 100%;
+  object-fit: cover;
+  object-position: 0px 25%;
+  height: 400px;
 
 @media (max-width: 850px) {
-    object-fit: cover;
-    object-position: 0px 25%;
-    height: 300px;
+  object-fit: cover;
+  object-position: 0px 25%;
+  height: 300px;
 }
 
 @media (max-width: 600px) {
   object-fit: cover;
   object-position: 0px 10%;
-    height: 270px;
+  height: 270px;
 }
 `
 
 const Heading = styled.div`
-position: absolute;
-padding: 50px 0px;
-opacity: 0.8;
-border-radius: 20%;
-top: 18%;
-left: 28%;
-width: 45%;
-color: white;
-text-align: center;
-background-color: black;
+  position: absolute;
+  padding: 50px 0px;
+  opacity: 0.8;
+  border-radius: 20%;
+  top: 18%;
+  left: 28%;
+  width: 45%;
+  color: white;
+  text-align: center;
+  background-color: black;
 
 @media (max-width: 890px) {
-    width: 60%;
-    top: 25%;
-    left: 20%;
-    padding: 10px 0px;
+  width: 60%;
+  top: 25%;
+  left: 20%;
+  padding: 10px 0px;
 }
 
 @media (max-width: 600px) {
-    width: 60%;
-    top: 28%;
-    left: 20%;
-    padding: 10px 0px;
+  width: 60%;
+  top: 28%;
+  left: 20%;
+  padding: 10px 0px;
 }
 `
 
 const P = styled.p`
-font-size: 25px;
-padding-bottom: 10px;
+  font-size: 25px;
+  padding-bottom: 10px;
+
 @media (max-width: 850px) {
     font-size: 18px;
 }
@@ -187,9 +187,10 @@ padding-bottom: 10px;
 `
 
 const H2 = styled.p`
-padding-bottom: 28px;
-font-size: 35px;
-font-weight: bold;
+  padding-bottom: 28px;
+  font-size: 35px;
+  font-weight: bold;
+
 @media (max-width: 850px) {
     font-size: 28px;
 }

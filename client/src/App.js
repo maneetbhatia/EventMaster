@@ -9,8 +9,6 @@ import CategoryDetail from "./CategoryDetail";
 import SearchBar from "./SearchBar";
 import SearchResults from "./SearchResults";
 import FavoriteList from "./FavoriteList";
-import Signup from "./Signup";
-import Signin from "./Signin";
 
 function App() {
 

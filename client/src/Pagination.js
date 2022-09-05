@@ -23,8 +23,15 @@ const Span = styled.span`
 `
 
 const Button = styled.button`
-    padding: 10px 20px;
+    font-size: 18px;
+    padding: 10px 30px;
     background-color: white;
     cursor: pointer;
-    border-radius: 15px;
+    border-radius: 50px;
+    color: grey;
+    border: 1px solid grey;
+
+    &:hover{
+        background-color: whitesmoke;
+    }
 `
