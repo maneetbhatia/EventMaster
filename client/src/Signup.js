@@ -2,6 +2,7 @@ import { useContext, useEffect, useState } from 'react';
 import styled from "styled-components";
 import { v4 as uuidv4 } from 'uuid';
 import { UserContext } from './UserContext';
+import Loading from './LoadingPage'
 
 const Signup = () => {
     const [fullName, setFullName] = useState("");
@@ -10,12 +11,13 @@ const Signup = () => {
     const [confirmPassword, setConfirmPassword] = useState("");
     const [datas, setDatas] = useState(null)
     const [errorMessage, setErrorMessage] = useState(null);
+    const [loading, setLoading] = useState(false)
 
     const{setIsRegistrationModalOpen, setIsModalOpen} = useContext(UserContext)
 
-
     const handleSubmit = (e) => {
         e.preventDefault();
+        setLoading(true)
 
         let user;
         if(fullName !== "" &&
@@ -55,6 +57,8 @@ const Signup = () => {
             setIsRegistrationModalOpen(false)
             setIsModalOpen(true)
         }
+
+        setLoading(false)
     }, [datas])
 
     const handleLogin = () => {
@@ -94,7 +98,7 @@ const Signup = () => {
                         value={confirmPassword}
                         onChange={(e) => setConfirmPassword(e.target.value)} 
                     /><br />
-                    <Submit>Submit</Submit>
+                    {(!loading) ? <Submit>Signin</Submit> : <Submit><Loading /></Submit>}
                     <P>Have account? please <Span onClick={handleLogin}>Login</Span></P>
                     <Close onClick={closeModal}>X</Close>
                 </Form>

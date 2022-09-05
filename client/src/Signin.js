@@ -1,32 +1,29 @@
 import { useEffect, useState, useContext } from 'react';
 import styled from "styled-components";
-import {useNavigate} from "react-router-dom";
 import { UserContext } from './UserContext';
+import Loading from './LoadingPage'
 
 const Signin = () => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [datas, setDatas] = useState(null)
+    const [loading, setLoading] = useState(false)
+    
     const {
-        isRegistrationModalOpen, 
         setIsRegistrationModalOpen,
         setIsLoading,
-        isModalOpen,
         setIsModalOpen,
-        isLogedIn,
-        name,
-        setIsLogedIn,
-        isUserLoginIn, setIsuserLoginIn
+        setIsuserLoginIn
     } = useContext(UserContext);
-
-    const navigate = useNavigate();
 
     const handleRegister = () => {
         setIsRegistrationModalOpen(true);
         setIsModalOpen(false)
     }
+
     const handleSubmit = async (e) => {
         e.preventDefault();
+        setLoading(true)
 
         let user;
         if(email !== "" && password !== ""){
@@ -57,9 +54,10 @@ const Signin = () => {
             setEmail("")
             setPassword("")
             setIsLoading(true)
-            navigate("/")
             setIsModalOpen(false)
         }
+
+        setLoading(false)
     }, [datas])
 
     const closeModal  = () => {
@@ -83,8 +81,8 @@ const Signin = () => {
                         value={password}
                         onChange={(e) => setPassword(e.target.value)} 
                     /><br />
-                    <Submit>Signin</Submit>
-                    {(datas?.status === 404) && <p>{datas?.message}</p>}
+                    {(!loading) ? <Submit>Signin</Submit> : <Submit><Loading /></Submit>}
+                    {(datas?.status === 404) && <ErrorMessage>{datas?.message}</ErrorMessage>}
                     <P>If you don't have account, please <Span onClick={handleRegister}>Register</Span></P>
                 <Close onClick={closeModal}>X</Close>
                 </Form>
@@ -140,6 +138,7 @@ const Submit = styled.button`
     margin: 10px;
     color: black;
     background-color: white;
+    font-size: large;
     cursor: pointer;
 `
 
@@ -168,6 +167,10 @@ const Close = styled.button`
     &:hover{
         color: red;
     }
+`
+
+const ErrorMessage = styled.p`
+    color: red;
 `
 
 export default Signin;

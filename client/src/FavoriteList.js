@@ -1,7 +1,8 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import styled from "styled-components";
+import styled, { keyframes } from "styled-components";
 import { MdDelete } from 'react-icons/md';
+import Loading from './LoadingPage'
 
 const CategoryDetail = () => {
     const [favorite, setFavorite] = useState(null);
@@ -39,22 +40,24 @@ const CategoryDetail = () => {
         <>
           <Events>
             <H1>Favorite List</H1>
-              {favorite?.data?.length > 0 && favorite !== null ? 
-                <Main>
-                    {favorite?.data?.map((data, index) => {
-                      return (
-                          (data.image !== null) && 
-                              <Wrapper key={index} onClick={() => handleClick(data?._id)}>
-                                <Img src={data.image} />
-                                {(data?.title.length >= 17) ?<Title>{data?.title.slice(0, 30)}...</Title>:<Title>{data?.title}</Title>}
-                                {(data?.venue.length >= 27) ? <Genre>{data?.venue.slice(0, 30)}...</Genre>: <Genre>{data?.venue}</Genre>}
-                                {data.ticket !== null ? <EventCount>${data?.ticket}</EventCount>: <EventCount>Find Tickets</EventCount>}
-                                <Delete onClick={(event) => {event.stopPropagation(); deleteEvent(data._id)}}><MdDelete size={20} /></Delete>
-                              </Wrapper>
-                      )
-                    })}
-                </Main>
-              : <p>{favorite?.message} </p>}
+              {favorite !== null ?
+                favorite?.data?.length > 0 ? 
+                  <Main>
+                      {favorite?.data?.map((data, index) => {
+                        return (
+                            (data.image !== null) && 
+                                <Wrapper key={index} onClick={() => handleClick(data?._id)}>
+                                  <Img src={data.image} />
+                                  {(data?.title.length >= 17) ?<Title>{data?.title.slice(0, 30)}...</Title>:<Title>{data?.title}</Title>}
+                                  {(data?.venue.length >= 27) ? <Genre>{data?.venue.slice(0, 30)}...</Genre>: <Genre>{data?.venue}</Genre>}
+                                  {data.ticket !== null ? <EventCount>${data?.ticket}</EventCount>: <EventCount>Find Tickets</EventCount>}
+                                  <Delete onClick={(event) => {event.stopPropagation(); deleteEvent(data._id)}}><MdDelete size={20} /></Delete>
+                                </Wrapper>
+                        )
+                      })}
+                  </Main>
+                : <p>{favorite?.message} </p>
+              : <Loading />}
           </Events>
         </>
     )
@@ -96,13 +99,13 @@ const Wrapper = styled.div`
     margin-bottom: 30px;
   }
 
-@media (max-width: 800px) {
+  @media (max-width: 800px) {
     width: 70%;
-}
+  }
 
-@media (max-width: 550px) {
+  @media (max-width: 550px) {
     width: 99%;
-}
+  }
 `
 
 const Img = styled.img`
@@ -147,17 +150,17 @@ const EventCount = styled.p`
 `
 
 const Delete = styled.span`
-color: white;
-margin: 20px 0px;
-cursor: pointer;
-position: absolute;
-right: 8px;
-top: -12px;
-font-weight: bold;
+  color: white;
+  margin: 20px 0px;
+  cursor: pointer;
+  position: absolute;
+  right: 8px;
+  top: -12px;
+  font-weight: bold;
 
-&:hover{
-  color: red;
-}
+  &:hover{
+    color: red;
+  }
 `
 
 export default CategoryDetail;

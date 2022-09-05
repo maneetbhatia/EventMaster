@@ -50,8 +50,8 @@ const Input = styled.input`
         width: 80%;
     }
 
-    @media (max-width: 510px) {
-        width: 75%;
+    @media (max-width: 525px) {
+        width: 77%;
     }
 `
 

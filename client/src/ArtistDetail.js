@@ -45,9 +45,12 @@ const ArtistDetail = () => {
     }
 
     return (
-        <>
+        <Wrapper>
             <H1>{artist?.name}</H1>
             <Main>
+                <Section1>
+                    {artist !== null ? <ArtistImg src={artist?.images?.huge} /> : <Loading />}
+                </Section1>
                 <Section2>
                     {eventList !== null ?
                         <>
@@ -55,38 +58,51 @@ const ArtistDetail = () => {
                                 return (
                                     <Event key={index} onClick={() => handleClick(data?.id)}>
                                         <h4>{moment(data?.datetime_local).format("MMM D YYYY")} - {data?.title}</h4>
-                                        <p>${data?.stats?.lowest_price} - {data?.venue?.name} - {data?.venue?.display_location}</p>
+                                        <P>${data?.stats?.lowest_price} - {data?.venue?.name} - {data?.venue?.display_location}</P>
                                     </Event>
                                 )
                             })}
                         </> : <Loading />
                     }
                 </Section2>
-                <Section1>
-                    {artist !== null ? <ArtistImg src={artist?.images?.huge} /> : <Loading />}
-                </Section1>
             </Main>
-        </>
+        </Wrapper>
     )
 }
 
+const Wrapper = styled.div`
+    width: 90%;
+    margin: auto;
+    margin-top: 80px;
+`
+
 const Main = styled.div`
-display: flex;
-width: 90%;
-margin: auto;
-margin-top: 40px;
+    display: flex;
+    flex-direction: row-reverse;
+    margin-top: 40px;
+
+    @media (max-width: 900px) {
+        width: 80%;
+        margin: auto;
+        margin-top: 40px;
+        flex-direction: column;
+    }
 `
 
 const H1 = styled.h1`
-width: fit-content;
-margin: 40px 0px 0px 90px;
+
+    @media (max-width: 900px) {
+        text-align: center;
+    }
 `
 
 const Section1 = styled.div`
-float: right;
-width: 60%;
-object-fit: cover;
-margin-bottom: 40px;
+    width: 57%;
+    margin-bottom: 40px;
+
+    @media (max-width: 900px) {
+        width: 100%;
+    }
 `
 
 const ArtistImg = styled.img`
@@ -95,37 +111,43 @@ border-radius: 15px;
 `
 
 const Section2 = styled.div`
-float: left;
-width: 40%;
-margin-right: 4%;
-height: 470px;
-overflow: scroll;
-padding: 0px 20px;
-margin-bottom: 40px;
-scroll-snap-type: y mandatory;
-overscroll-behavior-inline: contain;
-scroll-padding-top: 7px;
+    width: 40%;
+    height: 480px;
+    overflow: scroll;
+    margin-bottom: 40px;
+    scroll-snap-type: y mandatory;
+    overscroll-behavior-inline: contain;
+    scroll-padding-top: 7px;
+    margin-right: 3%;
 
-&::-webkit-scrollbar{
-    display: none;
-}
+    &::-webkit-scrollbar{
+        display: none;
+    }
+
+    @media (max-width: 900px) {
+        width: 100%;
+    }
 `
 
 const Event = styled.div`
     margin: 30px 0px;
-    padding: 3.5%;
+    padding: 3%;
     cursor: pointer;
     border-radius: 15px;
-    box-shadow: 1px 1px 10px 1px #888888;
     scroll-snap-align: start;
-
+    background-color: whitesmoke;
+    
     &:hover{
-        margin-left: 1.5%;
+        border: 1px solid silver;
     }
 
     &::-webkit-scrollbar{
-    display: none;
-}
+        display: none;
+    }
+`
+
+const P = styled.p`
+margin-top: 10px;
 `
 
 export default ArtistDetail;

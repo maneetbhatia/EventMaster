@@ -13,6 +13,8 @@ const CategoryDetail = () => {
     const [eventsArr, setEventsArr] = useState(null);
     const [pageCount, setPageCount] = useState(1)
     const {name,isLogedIn, isModalOpen, setIsModalOpen} = useContext(UserContext)
+    const [loading, setLoading] = useState(false)
+
     const navigate = useNavigate();
 
     const {category} = useParams();
@@ -27,17 +29,23 @@ const CategoryDetail = () => {
         }).catch((err) => {
             console.log("error", err);
         }) 
+
+        setTimeout(() => {
+          setLoading(false)
+        }, 1000)
     }, [pageCount])
 
     const IncrementPageCount = () => {
       if(pageCount < eventsArr?.data?.meta?.total){
         setPageCount(pageCount + 1)
+        setLoading(true)
       }
     }
 
     const DecrementPageCount = () => {
       if(pageCount > 1){
         setPageCount(pageCount - 1)
+        setLoading(true)
       }
     }
 
@@ -130,7 +138,7 @@ const CategoryDetail = () => {
     
     return( 
         <>
-          {events !== null ?
+          {events !== null?
           <>
           {(events !== undefined) && <Pagination length={eventsArr?.data?.meta} 
             handleIncrement={IncrementPageCount} 
@@ -148,7 +156,7 @@ const CategoryDetail = () => {
           </Div>
           <Events>
               <Main>
-                {events !== null ?
+                {events !== null && !loading ?
                   events !== undefined ?
                   events.map((data, index) => {
                     return (
@@ -169,7 +177,7 @@ const CategoryDetail = () => {
                           </Wrapper>
                     )
                 }) : <p>No events found, please look for different <span style={{color: "limegreen", cursor: "pointer"}} onClick={navigateToHome}>Category</span></p>
-              : "Loading ..."}
+              : <LoadingPage />}
               </Main>
           </Events>
           {(isModalOpen === true) && <Signin />}

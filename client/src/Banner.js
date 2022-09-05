@@ -48,7 +48,7 @@ const Banner = () => {
     setName(sessionStorage.getItem("name"));
   }, [isLogedIn, isUserLoginIn])
 
-  // console.log("isLogedIn ",isLogedIn, "name ", name)
+  console.log("isLogedIn ",isLogedIn, "name ", name)
 
     return(
       <>

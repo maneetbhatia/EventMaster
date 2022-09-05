@@ -5,12 +5,14 @@ import moment from 'moment';
 import { MdFavorite } from 'react-icons/md';
 import Pagination from './Pagination';
 import Loading from './LoadingPage'
+import LoadingPage from './LoadingPage';
 
 const SearchResults = () => {
     const [events, setEvents] = useState(null)
     const [eventsArr, setEventsArr] = useState(null);
     const [pageCount, setPageCount] = useState(1)
     const {searchValue} = useParams();
+    const [loading, setLoading] = useState(false)
 
     useEffect(() => {
         fetch(`/search/${searchValue}/${pageCount}`)
@@ -21,6 +23,10 @@ const SearchResults = () => {
         }).catch((err) => {
             console.log("error", err);
         }) 
+
+        setTimeout(() => {
+          setLoading(false)
+        }, 1000)
     }, [searchValue, pageCount]);
 
     const navigate = useNavigate();
@@ -31,12 +37,14 @@ const SearchResults = () => {
     const IncrementPageCount = () => {
       if(pageCount < eventsArr?.data?.meta?.total){
         setPageCount(pageCount + 1)
+        setLoading(true)
       }
     }
 
     const DecrementPageCount = () => {
       if(pageCount > 1){
         setPageCount(pageCount - 1)
+        setLoading(true)
       }
     }
 
@@ -121,6 +129,9 @@ const SearchResults = () => {
     }
     
     return( 
+      <>
+      {events !== null ?
+      
         <>
         {events !== undefined && <Pagination length={eventsArr?.data?.meta} handleIncrement={IncrementPageCount} handleDecrement={DecrementPageCount}/>}
           {/* <Div> */}
@@ -134,7 +145,7 @@ const SearchResults = () => {
             </Sort>
           {/* </Div> */}
           <Events>
-            {events !== null ?
+            {events !== null && !loading ?
             <>
               <Main>
                 {events !== undefined ?
@@ -158,6 +169,7 @@ const SearchResults = () => {
               </Main> 
             </> :<Loading /> }
           </Events>
+        </>: <LoadingPage />}
         </>
     )
 }
@@ -195,6 +207,12 @@ const Sort = styled.div`
     margin-top: 20px;
     display: block;
     text-align: center;
+  }
+
+  @media (max-width: 630px) {
+    width: 80%;
+    margin: auto;
+    margin-top: 20px;
   }
 `
 
