@@ -193,22 +193,34 @@ const TitleTollTip = styled.span`
   `
 
 const Div = styled.div`
-display: grid;
-grid-template-columns: 30% 70%;
-width: 87%;
-margin: auto;
-margin-top: 100px;
+  display: grid;
+  grid-template-columns: 53% 47%;
+  width: 87%;
+  margin: auto;
+  margin-top: 50px;
 
-@media (max-width: 900px) {
-  grid-template-columns: 100%;
+  @media (max-width: 650px) {
+    grid-template-columns: 100%;
   }
-`
+  `
 
 const Sort = styled.div`
+  margin-top: 1%;
+  overflow: auto;
   display: flex;
-  justify-content: space-between;
+  white-space: nowrap;
+  scroll-snap-type: x mandatory;
+  overscroll-behavior-inline: contain;
+  /* background-color: red; */
+  height: fit-content;
 
-  @media (max-width: 630px) {
+  &::-webkit-scrollbar{
+    display: none;
+  }
+
+  @media (max-width: 650px) {
+    width: 90%;
+    margin: auto;
     margin-top: 20px;
     display: block;
     text-align: center;
@@ -218,21 +230,29 @@ const Sort = styled.div`
 const Category = styled.h1`
   font-size: 40px;
 
-  @media (max-width: 900px) {
+  @media (max-width: 650px) {
     text-align: center;
   }
 `
 
 const LI = styled.p`
   background-color: whitesmoke;
-  padding: 2%;
+  padding: 2% 5%;
+  margin: 0px 10px;
   cursor: pointer;
   font-size: 18px;
   color: grey;
   border-radius: 50px;
+  scroll-snap-align: start;
 
   &:hover{
     color: black;
+  }
+
+  @media (max-width: 650px) {
+    width: 80%;
+    margin: auto;
+    margin-top: 3%;
   }
 `
 
@@ -271,7 +291,7 @@ const Wrapper = styled.div`
     width: 45%;
   }
 
-  @media (max-width: 630px) {
+  @media (max-width: 650px) {
     width: 80%;
   }
 

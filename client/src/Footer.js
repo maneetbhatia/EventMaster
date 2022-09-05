@@ -53,7 +53,7 @@ const Wrapper = styled.div`
     margin: auto;
     display: grid;
     grid-template-columns: 23% 23% 23% 30%;
-    margin-top: 80px;
+    margin-top: 40px;
     /* grid-gap: 4%; */
     padding: 4%;
 `

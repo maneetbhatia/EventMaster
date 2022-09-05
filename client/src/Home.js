@@ -3,7 +3,6 @@ import styled from "styled-components"
 import {useNavigate} from "react-router-dom";
 import Category from "./AllCategories";
 import LoadingPage from './LoadingPage';
-import Venues from "./Venues";
 
 const Home = () => {
   const [recommendations, setRecommendations] = useState(null);
@@ -47,7 +46,6 @@ const Home = () => {
               </Artists>: <LoadingPage />}
           </Slider>
         </Main>
-        {/* <Venues /> */}
       </>
     )
 }

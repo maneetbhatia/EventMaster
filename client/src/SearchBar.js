@@ -27,11 +27,13 @@ const Main = styled.div`
     @media (max-width: 850px) {
         width: 90%;
         margin: auto;
+        margin-bottom: 40px;
     }
 
     @media (max-width: 600px) {
         width: 90%;
         margin: auto;
+        margin-bottom: 40px;
     }
 `
 

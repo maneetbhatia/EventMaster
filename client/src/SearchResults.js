@@ -123,8 +123,8 @@ const SearchResults = () => {
     return( 
         <>
         {events !== undefined && <Pagination length={eventsArr?.data?.meta} handleIncrement={IncrementPageCount} handleDecrement={DecrementPageCount}/>}
-          <Div>
-            <Category>{searchValue}</Category>
+          {/* <Div> */}
+            {/* <Category>{""}</Category> */}
             <Sort>
               <LI onClick={handleTime}>By Date</LI>
               <LI onClick={handleLowestToHighest}>
@@ -132,7 +132,7 @@ const SearchResults = () => {
               </LI>
               <LI onClick={handleHighestToLowest}>Highest to Lowest Price</LI>
             </Sort>
-          </Div>
+          {/* </Div> */}
           <Events>
             {events !== null ?
             <>
@@ -176,47 +176,46 @@ const TitleTollTip = styled.span`
   box-shadow: 1px 1px 5px 1px black;
   `
 
-const Div = styled.div`
-  display: grid;
-  grid-template-columns: 30% 70%;
-  width: 87%;
-  margin: auto;
-  margin-top: 100px;
-
-  @media (max-width: 900px) {
-    grid-template-columns: 100%;
-  }
-`
-
 const Sort = styled.div`
+  width: 67%;
+  margin: auto;
+  margin-top: 50px;
   display: flex;
-  justify-content: space-between;
+  /* background-color: red; */
+  justify-content: space-evenly;
 
-  @media (max-width: 630px) {
+  @media (max-width: 930px) {
+    width: 90%;
+    margin: auto;
+  }
+
+  @media (max-width: 700px) {
+    width: 90%;
+    margin: auto;
     margin-top: 20px;
     display: block;
     text-align: center;
   }
 `
 
-const Category = styled.h1`
-  font-size: 40px;
-
-  @media (max-width: 900px) {
-    text-align: center;
-  }
-`
-
 const LI = styled.p`
   background-color: whitesmoke;
-  padding: 2%;
+  padding: 1% 3%;
+  margin: 0px 10px;
   cursor: pointer;
   font-size: 18px;
   color: grey;
-  border-radius: 50px;
+  border-radius: 10px;
+  scroll-snap-align: start;
 
   &:hover{
     color: black;
+  }
+
+  @media (max-width: 700px) {
+    width: 80%;
+    margin: auto;
+    margin-top: 3%;
   }
 `
 
@@ -268,30 +267,30 @@ const Img = styled.img`
 
 const Title = styled.p`
   font-weight: bold;
-  font-size: 15px;
+  font-size: 14.5px;
   padding-top: 15px;
 
-  @media (max-width: 650px) {
-    font-size: 18px;
-  }
+  /* @media (max-width: 650px) {
+    font-size: 16px;
+  } */
 `
 
 const Genre = styled.p`
   font-size: 15px;
   padding-top: 10px;
 
-  @media (max-width: 650px) {
+  /* @media (max-width: 650px) {
     font-size: 18px;
-  }
+  } */
 `
 
 const EventCount = styled.p`
   font-size: 15px;
   padding-top: 10px;
 
-  @media (max-width: 650px) {
+  /* @media (max-width: 650px) {
     font-size: 18px;
-  }
+  } */
 `
 
 const ErrorMessage = styled.p`
