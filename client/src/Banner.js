@@ -57,12 +57,12 @@ const Banner = () => {
               Events <br/>Master
             </Logo>
           <Favorites onClick={handleFavorites}>
-            {(isLogedIn === true || name !== null) && "Favorites"}
+            {(isUserLoginIn === true || name !== null) && "Favorites"}
           </Favorites>
           <Login onClick={handleLogin}>
-            {(name === null || isLogedIn === false) && "Login"}
+            {(name === null || isUserLoginIn === false) && "Login"}
           </Login>
-            {(isLogedIn === true || name !== null) && <Logout onClick={handleLogout}>Logout</Logout>}
+            {(isUserLoginIn === true || name !== null) && <Logout onClick={handleLogout}>Logout</Logout>}
           <BannerImg src={bannerImg} alt="banner" />
           <Heading>
             <H2>Let the fun begins</H2>

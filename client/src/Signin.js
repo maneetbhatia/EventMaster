@@ -13,7 +13,7 @@ const Signin = () => {
         setIsRegistrationModalOpen,
         setIsLoading,
         setIsModalOpen,
-        setIsuserLoginIn
+        setIsUserLoginIn
     } = useContext(UserContext);
 
     const handleRegister = () => {
@@ -50,7 +50,7 @@ const Signin = () => {
         if(datas?.message === "Login Succesfull"){
             sessionStorage.setItem("name", datas.data )
             sessionStorage.setItem("isLogedIn", true )
-            setIsuserLoginIn (true)
+            setIsUserLoginIn(true)
             setEmail("")
             setPassword("")
             setIsLoading(true)
