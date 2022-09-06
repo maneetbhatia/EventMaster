@@ -18,7 +18,7 @@ const CategoryDetail = () => {
     const navigate = useNavigate();
 
     const {category} = useParams();
-
+    
     useEffect(() => {
         fetch(`/event/category/${category}/${pageCount}`)
         .then((res) => res.json())
@@ -33,10 +33,10 @@ const CategoryDetail = () => {
         setTimeout(() => {
           setLoading(false)
         }, 1000)
-    }, [pageCount])
+    }, [pageCount, category])
 
     const IncrementPageCount = () => {
-      if(pageCount < eventsArr?.data?.meta?.total){
+      if(pageCount < Math.ceil(eventsArr?.data?.meta?.total/32)){
         setPageCount(pageCount + 1)
         setLoading(true)
       }

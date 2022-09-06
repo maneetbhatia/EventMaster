@@ -4,7 +4,7 @@ const Pagination = ({length, handleIncrement, handleDecrement}) =>{
     return(
         <Main>
             <Button onClick={handleDecrement}>Prev</Button>
-            <Span>{length?.page} of {length?.total}</Span>
+            <Span>{length?.page} of {Math.ceil(length?.total/32)}</Span>
             <Button onClick={handleIncrement}>Next</Button>
         </Main>
     )
