@@ -6,7 +6,7 @@ import GoogleMapReact from 'google-map-react';
 import { SiGooglemaps } from 'react-icons/si';
 import LoadingPage from "./LoadingPage";
 
-const AnyReactComponent = ({ text }) => <div>{<SiGooglemaps size={30}/>}</div>;
+const AnyReactComponent = ({ text }) => <div>{<SiGooglemaps size={30} color={"red"}/>}</div>;
 
 const EventDetails = () => {
     const [event, setEvent] =useState(null)
@@ -28,7 +28,7 @@ const EventDetails = () => {
             lat: event?.venue?.location?.lat,
             lng: event?.venue?.location?.lon
         },
-        zoom: 13
+        zoom: 14
     };
 
     return (

@@ -1,10 +1,13 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import styled from "styled-components"
 import {useNavigate} from "react-router-dom";
 import LoadingPage from './LoadingPage'
 
 const AllCategories = () => {
     const [events, setEvents] = useState(null)
+    const [current, setCurrent] = useState(0)
+
+    const ref = useRef(null);
 
     const navigate = useNavigate();
     
@@ -45,11 +48,21 @@ const AllCategories = () => {
         }) 
     }, [])
 
+    const scrollLeft = () => {
+       ref.current.scrollLeft = ref.current.scrollLeft - 20;
+    };
+
+    const scrollRight = () => {
+        ref.current.scrollLeft = ref.current.scrollLeft + 20;
+     };
+
+
+// console.log("current ", current)
     return( 
         <>
             <Categories>
                 <H1>{"Categories"}</H1>
-                <Slider>
+                <Slider ref={ref}>
                     {events !== null ? <Main>
                         {events !== null && events.map((data, index) => {
                             return(
@@ -60,6 +73,8 @@ const AllCategories = () => {
                                     </Wrapper>
                                 )
                         })}
+                        <LeftButton onClick={() =>scrollLeft()}>L</LeftButton>
+                        <RightButton  onClick={() =>scrollRight()}>R</RightButton>
                     </Main>: <LoadingPage />}
                 </Slider>
             </Categories>
@@ -77,14 +92,15 @@ const Categories = styled.div`
 const Slider = styled.div`
     height: fit-content;
     margin: 0 0px 50px 0px;
-    overflow: auto;
     display: flex;
     white-space: nowrap;
+    overflow: scroll;
     scroll-snap-type: x mandatory;
     overscroll-behavior-inline: contain;
-&::-webkit-scrollbar{
-    display: none;
-}
+
+    &::-webkit-scrollbar{
+        display: none;
+    }
 `
 
 const Main = styled.div`
@@ -149,4 +165,18 @@ background-color: black;
 @media (max-width: 550px) {
     font-size: 18px;
 }
+`
+
+const LeftButton = styled.button`
+color: red;
+position: absolute;
+right: 20px;
+top: 0;
+`
+
+const RightButton = styled.button`
+color: red;
+position: absolute;
+right: 0;
+top: 0;
 `
