@@ -81,7 +81,7 @@ const Wrapper = styled.div`
   border-radius: 15px;
   text-align: center;
   cursor: pointer;
-  width: 33.8%;
+  width: 33%;
   border-radius: 15px;
   box-shadow: 1px 1px 10px 1px #888888;
   height: fit-content;

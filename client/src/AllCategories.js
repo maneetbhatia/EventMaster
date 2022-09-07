@@ -68,8 +68,8 @@ const AllCategories = () => {
                             return(
                                 (categories.includes(data?.name)) &&
                                     <Wrapper className='slideLeft' key={index} onClick={() => handleClick(data?.name)}>
-                                    <Img src={events[index].image} alt="event"/>
-                                    <Title>{events[index].name}</Title>
+                                        <Img src={events[index].image} alt="event"/>
+                                        <Title>{events[index].name}</Title>
                                     </Wrapper>
                                 )
                         })}
@@ -118,7 +118,7 @@ const Wrapper = styled.div`
     border-radius: 15px;
     text-align: center;
     cursor: pointer;
-    width: 24%;
+    width: 23.3%;
     position: relative;
     height: fit-content;
     scroll-snap-align: start;

@@ -9,6 +9,7 @@ import CategoryDetail from "./CategoryDetail";
 import SearchBar from "./SearchBar";
 import SearchResults from "./SearchResults";
 import FavoriteList from "./FavoriteList";
+import ErrorPage from "./ErrorPage";
 
 function App() {
 
@@ -24,6 +25,7 @@ function App() {
             <Route exact path="/search/:searchValue" element={<SearchResults />} />
             <Route exact path="/artist/id/:artistID" element={<ArtistDetail />} />
             <Route exact path="/events" element={<FavoriteList />} />
+            <Route path="*" element={<ErrorPage />} />
           </Routes>
         <Footer/>
       </BrowserRouter>
