@@ -3,12 +3,13 @@ import styled from "styled-components"
 import {useNavigate} from "react-router-dom";
 import Category from "./AllCategories";
 import LoadingPage from './LoadingPage';
+import { BsFillArrowLeftCircleFill, BsFillArrowRightCircleFill } from 'react-icons/bs';
 
 const Home = () => {
   const [recommendations, setRecommendations] = useState(null);
 
   const titleRef = useRef();
-
+  const ref = useRef(null);
   const navigate = useNavigate();
   
   const handleClick = (id) => {
@@ -26,12 +27,20 @@ const Home = () => {
       }) 
   }, [])
 
+  const scrollLeft = () => {
+    ref.current.scrollLeft = ref.current.scrollLeft - 300;
+  };
+
+  const scrollRight = () => {
+      ref.current.scrollLeft = ref.current.scrollLeft + 300;
+  };
+
     return(
       <>
         <Category />
         <Main>
           <H1>Artists</H1>
-          <Slider>
+          <Slider ref={ref}>
             {recommendations !== null ? 
               <Artists>
                 {(recommendations !== null) && recommendations.map((data, index) => {
@@ -44,6 +53,8 @@ const Home = () => {
                     </Wrapper>
                   )
                 })}
+                <LeftButton onClick={() => scrollLeft()}><BsFillArrowLeftCircleFill size={30}/></LeftButton>
+                <RightButton  onClick={() => scrollRight()}><BsFillArrowRightCircleFill size={30}/></RightButton>
               </Artists>: <LoadingPage />}
           </Slider>
         </Main>
@@ -68,7 +79,8 @@ const Slider = styled.div`
     white-space: nowrap;
     scroll-snap-type: x mandatory;
     overscroll-behavior-inline: contain;
-    /* scroll-padding-left: 1px; */
+    scroll-behavior: smooth;
+    scroll-snap-type: x mandatory;
 
 &::-webkit-scrollbar{
     display: none;
@@ -81,7 +93,7 @@ const Wrapper = styled.div`
   border-radius: 15px;
   text-align: center;
   cursor: pointer;
-  width: 33%;
+  width: 34.3%;
   border-radius: 15px;
   box-shadow: 1px 1px 10px 1px #888888;
   height: fit-content;
@@ -133,6 +145,32 @@ const Title = styled.p`
 const Genre = styled.p`
   font-size: 18px;
   padding: 20px 0px;
+`
+
+const LeftButton = styled.button`
+  position: absolute;
+  right: 50px;
+  top: 5px;
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+
+  &:hover{
+    color: limegreen;
+  }
+`
+
+const RightButton = styled.button`
+  position: absolute;
+  right: 10px;
+  top: 5px;
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+
+  &:hover{
+      color: limegreen;
+  }
 `
 
 export default Home;

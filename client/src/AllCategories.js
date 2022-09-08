@@ -84,7 +84,7 @@ export default AllCategories;
 
 const Categories = styled.div`
     position: relative;
-    margin: 0px 60px 0px 67px;
+    margin: 80px 60px 0px 67px;
 `
 
 const Slider = styled.div`
@@ -117,64 +117,76 @@ const Wrapper = styled.div`
     border-radius: 15px;
     text-align: center;
     cursor: pointer;
-    width: 23.3%;
+    width: 24.7%;
     position: relative;
     height: fit-content;
     
     @media (max-width: 1050px) {
-    width: 35%;
-}
+        width: 35%;
+    }
 
-@media (max-width: 850px) {
-    width: 50%;
-}
+    @media (max-width: 850px) {
+        width: 50%;
+    }
 
-@media (max-width: 650px) {
-    width: 70%;
-}
+    @media (max-width: 650px) {
+        width: 70%;
+    }
 
-@media (max-width: 550px) {
-    width: 80%;
-}
+    @media (max-width: 550px) {
+        width: 80%;
+    }
 
-@media (max-width: 450px) {
-    width: 95%;
-}
+    @media (max-width: 450px) {
+        width: 95%;
+    }
 `
 
 const Img = styled.img`
-width: 100%;
-border-radius: 15px;
+    width: 100%;
+    border-radius: 15px;
 `
 
 const Title = styled.span`
-font-weight: bold;
-font-size: 18px;
-position: absolute;
-color: white;
-left: 5%;
-top: 80%;
-background-color: black;
-
-@media (max-width: 660px) {
-    font-size: 17px;
-}
-
-@media (max-width: 550px) {
+    font-weight: bold;
     font-size: 18px;
-}
+    position: absolute;
+    color: white;
+    left: 5%;
+    top: 80%;
+    background-color: black;
+
+    @media (max-width: 660px) {
+        font-size: 17px;
+    }
+
+    @media (max-width: 550px) {
+        font-size: 18px;
+    }
 `
 
 const LeftButton = styled.button`
-color: red;
-position: absolute;
-right: 55px;
-top: 0;
+    position: absolute;
+    right: 56px;
+    top: 5px;
+    border: none;
+    background-color: transparent;
+    cursor: pointer;
+
+    &:hover{
+        color: limegreen
+    }
 `
 
 const RightButton = styled.button`
-color: red;
-position: absolute;
-right: 16px;
-top: 0;
+    position: absolute;
+    right: 16px;
+    top: 5px;
+    border: none;
+    background-color: transparent;
+    cursor: pointer;
+
+    &:hover{
+        color: limegreen
+    }
 `

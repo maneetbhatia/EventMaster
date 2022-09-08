@@ -13,7 +13,7 @@ const SearchBar = () => {
 
     return(
         <Main>
-            <Input placeholder="Search events by name, artist, venue..." onChange={(e) => {setValue(e.target.value)}} />
+            <Input value={value} placeholder="Search events by name, artist, venue..." onChange={(e) => {setValue(e.target.value)}} />
             <Button onClick={handleSearch}>Search</Button>
         </Main>
     )

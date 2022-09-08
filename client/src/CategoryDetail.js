@@ -144,7 +144,7 @@ const CategoryDetail = () => {
             handleIncrement={IncrementPageCount} 
             handleDecrement={DecrementPageCount}/>
           }
-          <Div>
+          {(events !== undefined) && <Div>
             <Category>{category}</Category>
             <Sort>
               <LI onClick={handleTime}>By Date</LI>
@@ -153,7 +153,7 @@ const CategoryDetail = () => {
                 Lowest to Highest Price
               </LI>
             </Sort>
-          </Div>
+          </Div>}
           <Events>
               <Main>
                 {events !== null && !loading ?
@@ -176,7 +176,7 @@ const CategoryDetail = () => {
                             </Fav>
                           </Wrapper>
                     )
-                }) : <p>No events found, please look for different <span style={{color: "limegreen", cursor: "pointer"}} onClick={navigateToHome}>Category</span></p>
+                }) : <P>No events found, please look for different <span style={{color: "limegreen", cursor: "pointer"}} onClick={navigateToHome}>Category</span></P>
               : <LoadingPage />}
               </Main>
           </Events>
@@ -380,6 +380,11 @@ const AddToFavorite = styled.span`
   position: absolute;
   top: 25px;
   right: 0px;
+`
+
+const P = styled.p`
+margin: 40px 60px;
+font-size: 18px;
 `
 
 export default CategoryDetail;

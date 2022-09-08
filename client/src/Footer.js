@@ -30,6 +30,12 @@ const Footer = () => {
                     <LI>Billy Joel</LI>
                 </div>
                 <div>
+                    <UL>Social</UL>
+                    <LI>Twitter</LI>
+                    <LI>Facebook</LI>
+                    <LI>Pinterest</LI>
+                </div>
+                <div>
                     <UL>Contact Us</UL>
                     <p style={{marginTop: "20px"}}>Location: 123 Main Street</p>
                     <p>Montreal, Quebec Canada</p>
@@ -50,7 +56,7 @@ const Wrapper = styled.div`
     width: 90%;
     margin: auto;
     display: grid;
-    grid-template-columns: 33% 33% 33%;
+    grid-template-columns: 25% 25% 25% 30%;
     margin-top: 40px;
     padding: 4%;
 `

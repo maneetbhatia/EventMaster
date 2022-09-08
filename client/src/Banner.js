@@ -54,7 +54,7 @@ const Banner = () => {
       <>
         <Main>
             <Logo onClick={handleClick}> 
-              Events <br/>Master
+              EM
             </Logo>
           <Favorites onClick={handleFavorites}>
             {(isUserLoginIn === true) && "Favorites"}
@@ -99,7 +99,7 @@ const Logo = styled.p`
   top: 20px;
   left: 30px;
   font-size: 30px;
-  font-family: 'Courier New', Courier, monospace;
+  font-family: "helima";
 
   @media (max-width: 850px) {
     width: 70px;
