@@ -149,9 +149,9 @@ const SearchResults = () => {
                     return (
                       (eventData?.stats?.lowest_price !== null && eventData.performers[0].image !== null) &&
                         <Wrapper key={index} onClick={() => handleClick(eventData?.id)}>
-                          <Imgg>
+                         
                             <Img src={eventData.performers[0].image} />
-                          </Imgg>
+                          
                           <EventInfo>
                           {(eventData?.title.length >= 25) ? <Title>{eventData?.title.slice(0, 25)}...</Title> : <Title>{eventData?.title}</Title>}
                           <TitleTollTip>{eventData?.title}</TitleTollTip>
@@ -257,6 +257,11 @@ const Wrapper = styled.div`
   position: relative;
   padding-bottom: 10px;
 
+  &:hover{
+    transform: scale(1.05);
+    transition: 200ms transform ease-in-out;
+  }
+
   @media (max-width: 1250px) {
     width: 30%;
   }
@@ -277,6 +282,7 @@ const Wrapper = styled.div`
 const Img = styled.img`
   width: 100%;
   border-radius: 15px 15px 0px 1px;
+  object-fit: cover;
 `
 
 const Title = styled.p`
@@ -284,27 +290,27 @@ const Title = styled.p`
   font-size: 14.5px;
   padding-top: 15px;
 
-  /* @media (max-width: 650px) {
+  @media (max-width: 650px) {
     font-size: 16px;
-  } */
+  }
 `
 
 const Genre = styled.p`
   font-size: 15px;
   padding-top: 10px;
 
-  /* @media (max-width: 650px) {
+  @media (max-width: 650px) {
     font-size: 18px;
-  } */
+  }
 `
 
 const EventCount = styled.p`
   font-size: 15px;
   padding-top: 10px;
 
-  /* @media (max-width: 650px) {
+  @media (max-width: 650px) {
     font-size: 18px;
-  } */
+  }
 `
 
 const ErrorMessage = styled.p`
@@ -328,11 +334,6 @@ const EventInfo = styled.div`
   &:hover ${TitleTollTip} {
     opacity: 1;
   }
-`
-
-const Imgg = styled.div`
-  overflow: hidden;
-  height: 180px;
 `
 
 export default SearchResults;

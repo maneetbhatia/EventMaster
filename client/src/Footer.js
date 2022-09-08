@@ -37,9 +37,9 @@ const Footer = () => {
                 </div>
                 <div>
                     <UL>Contact Us</UL>
-                    <p style={{marginTop: "20px"}}>Location: 123 Main Street</p>
-                    <p>Montreal, Quebec Canada</p>
-                    <p style={{marginTop: "30px"}}>Phone: 123-123-1230</p>
+                    <p style={{marginTop: "20px", color:"silver"}}>Location: 123 Main Street</p>
+                    <p style={{color:"silver"}}>Montreal, Quebec Canada</p>
+                    <p style={{marginTop: "30px", color:"silver"}}>Phone: 123-123-1230</p>
                 </div>
             </Wrapper>
             <P>&copy; 2022 EventMaster, All rights reserved.</P>
@@ -59,18 +59,35 @@ const Wrapper = styled.div`
     grid-template-columns: 25% 25% 25% 30%;
     margin-top: 40px;
     padding: 4%;
+
+    @media (max-width: 800px) {
+        grid-template-columns: 50% 50%;
+    }
+
+    @media (max-width: 430px) {
+        grid-template-columns: 100%;
+        text-align: center;
+        font-size: 22px;
+    }
 `
 
 const UL = styled.h3`
     font-size: 20px;
     margin-bottom: 20px;
+
+    @media (max-width: 800px) {
+        margin-top: 20px;
+    }
+
+    @media (max-width: 430px) {
+        font-size: 25px;
+    }
 `
 
 const LI = styled.p`
     color: silver;
     margin-bottom: 13px;
     cursor: pointer;
-    width: fit-content;
 
     &:hover{
         color: white;
@@ -84,6 +101,7 @@ const P = styled.p`
     color: white;
     text-align: center;
     border-top: 1px solid white;
+
 `
 
 export default Footer;

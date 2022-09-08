@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from 'react';
+import { useContext, useEffect, useState, useRef } from 'react';
 import styled from "styled-components"
 import {useParams, useNavigate} from "react-router-dom";
 import { MdFavorite } from 'react-icons/md';
@@ -6,7 +6,8 @@ import { UserContext } from './UserContext';
 import Signin from './Signin';
 import moment from "moment";
 import Pagination from './Pagination';
-import LoadingPage from './LoadingPage'
+import LoadingPage from './LoadingPage';
+import { BsFillArrowLeftCircleFill, BsFillArrowRightCircleFill } from 'react-icons/bs';
 
 const CategoryDetail = () => {
     const [events, setEvents] = useState(null);
@@ -16,7 +17,7 @@ const CategoryDetail = () => {
     const [loading, setLoading] = useState(false)
 
     const navigate = useNavigate();
-
+    const ref = useRef(null);
     const {category} = useParams();
     
     useEffect(() => {
@@ -136,6 +137,14 @@ const CategoryDetail = () => {
       });
     }
     
+    const scrollLeft = () => {
+      ref.current.scrollLeft = ref.current.scrollLeft - 300;
+    };
+  
+    const scrollRight = () => {
+        ref.current.scrollLeft = ref.current.scrollLeft + 300;
+    };
+
     return( 
         <>
           {events !== null?
@@ -144,7 +153,8 @@ const CategoryDetail = () => {
             handleIncrement={IncrementPageCount} 
             handleDecrement={DecrementPageCount}/>
           }
-          {(events !== undefined) && <Div>
+          {(events !== undefined) && 
+          <Div>
             <Category>{category}</Category>
             <Sort>
               <LI onClick={handleTime}>By Date</LI>
@@ -160,11 +170,9 @@ const CategoryDetail = () => {
                   events !== undefined ?
                   events.map((data, index) => {
                     return (
-                      (data?.stats?.lowest_price !== null && data.performers[0].image !== null) && 
+                      (!moment(data?.datetime_local).fromNow().includes("ago") && data?.stats?.lowest_price !== null && data.performers[0].image !== null) && 
                           <Wrapper key={index} onClick={() => handleClick(data?.id)}>
-                          <Imgg>
                             <Img src={data.performers[0].image} />
-                          </Imgg>
                           <EventInfo>
                             {(data?.title.length >= 29) ? <Title>{data?.title.slice(0, 25)}...</Title> : <Title>{data?.title}</Title>}
                             <TitleTollTip>{data?.title}</TitleTollTip>
@@ -198,47 +206,48 @@ const TitleTollTip = styled.span`
   opacity: 0;
   border-radius: 15px;
   box-shadow: 1px 1px 5px 1px black;
-  `
+`
 
 const Div = styled.div`
-  display: grid;
-  grid-template-columns: 53% 47%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
   width: 87%;
   margin: auto;
   margin-top: 50px;
-
-  @media (max-width: 650px) {
-    grid-template-columns: 100%;
+  position: relative;
+  
+  @media (max-width: 850px) {
+    flex-direction: column;
   }
   `
 
 const Sort = styled.div`
-  margin-top: 1%;
-  overflow: auto;
-  display: flex;
-  white-space: nowrap;
-  scroll-snap-type: x mandatory;
-  overscroll-behavior-inline: contain;
-  /* background-color: red; */
-  height: fit-content;
+display: flex;
+justify-content: space-between;
+width: 60%;
 
-  &::-webkit-scrollbar{
-    display: none;
-  }
+@media (max-width: 1100px) {
+  width: 70%;
+}
 
-  @media (max-width: 650px) {
-    width: 90%;
-    margin: auto;
-    margin-top: 20px;
-    display: block;
-    text-align: center;
-  }
+@media (max-width: 950px) {
+  width: 75%;
+}
+
+@media (max-width: 850px) {
+  width: 90%;
+  margin: auto;
+  margin-top: 20px;
+  display: block;
+  text-align: center;
+}
 `
 
 const Category = styled.h1`
   font-size: 40px;
 
-  @media (max-width: 650px) {
+  @media (max-width: 850px) {
     text-align: center;
   }
 `
@@ -246,18 +255,24 @@ const Category = styled.h1`
 const LI = styled.p`
   background-color: whitesmoke;
   padding: 2% 5%;
-  margin: 0px 10px;
   cursor: pointer;
-  font-size: 18px;
+  font-size: 16px;
   color: grey;
   border-radius: 50px;
-  scroll-snap-align: start;
 
   &:hover{
     color: black;
   }
 
-  @media (max-width: 650px) {
+  @media (max-width: 1100px) {
+    padding: 2% 5%;
+  }
+
+  @media (max-width: 950px) {
+    padding: 2% 3%;
+  }
+
+  @media (max-width: 850px) {
     width: 80%;
     margin: auto;
     margin-top: 3%;
@@ -291,6 +306,11 @@ const Wrapper = styled.div`
   overflow: hidden;
   padding-bottom: 10px;
 
+  &:hover{
+    transform: scale(1.05);
+    transition: 200ms transform ease-in-out;
+  }
+
   @media (max-width: 1250px) {
     width: 30%;
   }
@@ -308,20 +328,10 @@ const Wrapper = styled.div`
   }
 `
 
-const Imgg = styled.div`
-  overflow: hidden;
-  height: 180px;
-`
-
 const Img = styled.img`
   width: 100%;
   border-radius: 15px 15px 0px 1px;
   object-fit: cover;
-
-  &:hover{
-    transform: scale(1.05);
-    transition: 200ms transform ease-in-out;
-  }
 `
 
 
@@ -332,7 +342,7 @@ const Genre = styled.p`
   @media (max-width: 650px) {
     font-size: 18px;
   }
-  `
+`
 
 const EventCount = styled.p`
   font-size: 15px;
@@ -349,15 +359,15 @@ const EventCount = styled.p`
     }
   `
 
-  const Title = styled.p`
-    font-weight: bold;
-    font-size: 15px;
-    padding-top: 15px;
+const Title = styled.p`
+  font-weight: bold;
+  font-size: 15px;
+  padding-top: 15px;
   
-    @media (max-width: 650px) {
-      font-size: 18px;
-    }
-  `
+  @media (max-width: 650px) {
+    font-size: 18px;
+  }
+`
 
 const Fav = styled.span`
   color: white;
@@ -370,7 +380,7 @@ const Fav = styled.span`
   &:hover{
     color: red;
   }
-  `
+`
 
 const AddToFavorite = styled.span`
   background-color: white;
@@ -383,8 +393,8 @@ const AddToFavorite = styled.span`
 `
 
 const P = styled.p`
-margin: 40px 60px;
-font-size: 18px;
+  margin: 40px 60px;
+  font-size: 18px;
 `
 
 export default CategoryDetail;

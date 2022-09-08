@@ -31,7 +31,6 @@ const Banner = () => {
       setIsModalOpen(true);
     }
 }
-// console.log(isModalOpen, "ismodal open ", isRegistrationModalOpen, "isRegistrationModalOpen")
 
   const handleLogout = () => {
     sessionStorage.setItem("isLogedIn", false)
@@ -48,27 +47,25 @@ const Banner = () => {
     setName(sessionStorage.getItem("name"));
   }, [isUserLoginIn])
 
-  console.log("isUserLoginIn ",isUserLoginIn, "name ", name)
-
     return(
       <>
         <Main>
             <Logo onClick={handleClick}> 
               EM
             </Logo>
-          <Favorites onClick={handleFavorites}>
-            {(isUserLoginIn === true) && "Favorites"}
-          </Favorites>
-          <Login onClick={handleLogin}>
-            {(isUserLoginIn === false) && "Login"}
-          </Login>
-            {(isUserLoginIn === true) && <Logout onClick={handleLogout}>Logout</Logout>}
-          <BannerImg src={bannerImg} alt="banner" />
-          <Heading>
-            <H2>Let the fun begins</H2>
-            <P>Your next best-night-ever is waiting.</P>
-            <P>And we have the tickets.</P>
-          </Heading>
+            <Favorites onClick={handleFavorites}>
+              {(isUserLoginIn === true) && "Favorites"}
+            </Favorites>
+            <Login onClick={handleLogin}>
+              {(isUserLoginIn === false) && "Login"}
+            </Login>
+              {(isUserLoginIn === true) && <Logout onClick={handleLogout}>Logout</Logout>}
+            <BannerImg src={bannerImg} alt="banner" />
+            <Heading>
+              <H2>Let the fun begins</H2>
+              <P>Your next best-night-ever is waiting.</P>
+              <P>And we have the tickets.</P>
+            </Heading>
         </Main>
         {(isModalOpen === true) && <Signin />}
         {(isRegistrationModalOpen === true) && <Signup />}
@@ -165,9 +162,9 @@ const Heading = styled.div`
 }
 
 @media (max-width: 600px) {
-  width: 60%;
-  top: 28%;
-  left: 20%;
+  width: 70%;
+  top: 32%;
+  left: 17%;
   padding: 10px 0px;
 }
 `
