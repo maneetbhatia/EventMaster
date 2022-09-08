@@ -32,8 +32,10 @@ const Signup = () => {
                     password: password,
                     confirmPassword: confirmPassword
                 };
+                setLoading(true)
         }else{
-            setErrorMessage("error");
+            setLoading(false)
+            setErrorMessage("password & confirm paswword must be same");
         }
         
         if(user !== undefined){
@@ -99,6 +101,7 @@ const Signup = () => {
                         onChange={(e) => setConfirmPassword(e.target.value)} 
                     /><br />
                     {(!loading) ? <Submit>Signin</Submit> : <Submit><Loading /></Submit>}
+                    <ErrorMessage>{errorMessage}</ErrorMessage>
                     <P>Have account? please <Span onClick={handleLogin}>Login</Span></P>
                     <Close onClick={closeModal}>X</Close>
                 </Form>
@@ -183,6 +186,10 @@ const Close = styled.button`
     &:hover{
         color: red;
     }
+`
+
+const ErrorMessage = styled.p`
+    color: red;
 `
 
 export default Signup;

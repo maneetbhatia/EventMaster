@@ -5,7 +5,6 @@ import LoadingPage from './LoadingPage'
 
 const AllCategories = () => {
     const [events, setEvents] = useState(null)
-    const [current, setCurrent] = useState(0)
 
     const ref = useRef(null);
 
@@ -48,21 +47,23 @@ const AllCategories = () => {
         }) 
     }, [])
 
+    const slideDistance = 20
+
     const scrollLeft = () => {
-       ref.current.scrollLeft = ref.current.scrollLeft - 20;
+        ref.current.scrollLeft = ref.current.scrollLeft - slideDistance;
+        console.log( "ref.current.scrollLeft", ref.current.scrollLeft)
     };
 
     const scrollRight = () => {
-        ref.current.scrollLeft = ref.current.scrollLeft + 20;
-     };
+        ref.current.scrollLeft = ref.current.scrollLeft + slideDistance;
+        console.log( "ref.current.scrollLeft", ref.current.scrollLeft)
+    };
 
-
-// console.log("current ", current)
     return( 
         <>
             <Categories>
                 <H1>{"Categories"}</H1>
-                <Slider ref={ref}>
+                <Slider data-test={"slider"} ref={ref}>
                     {events !== null ? <Main>
                         {events !== null && events.map((data, index) => {
                             return(
@@ -73,8 +74,8 @@ const AllCategories = () => {
                                     </Wrapper>
                                 )
                         })}
-                        <LeftButton onClick={() =>scrollLeft()}>L</LeftButton>
-                        <RightButton  onClick={() =>scrollRight()}>R</RightButton>
+                        <LeftButton onClick={() => scrollLeft()}>L</LeftButton>
+                        <RightButton  onClick={() => scrollRight()}>R</RightButton>
                     </Main>: <LoadingPage />}
                 </Slider>
             </Categories>
@@ -95,16 +96,16 @@ const Slider = styled.div`
     display: flex;
     white-space: nowrap;
     overflow: scroll;
-    scroll-snap-type: x mandatory;
-    overscroll-behavior-inline: contain;
+    width: 90%;
 
     &::-webkit-scrollbar{
-        display: none;
+        visibility: hidden;
+        
     }
 `
 
 const Main = styled.div`
-    width: 90%;
+    
 `
 
 const H1 = styled.h1`

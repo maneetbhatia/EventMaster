@@ -83,8 +83,8 @@ const Signin = () => {
                     /><br />
                     {(!loading) ? <Submit>Signin</Submit> : <Submit><Loading /></Submit>}
                     {(datas?.status === 404) && <ErrorMessage>{datas?.message}</ErrorMessage>}
-                    <P>If you don't have account, please <Span onClick={handleRegister}>Register</Span></P>
-                <Close onClick={closeModal}>X</Close>
+                    <Close onClick={closeModal}>X</Close>
+                    <P>Don't have EventMaster account, please <Span onClick={handleRegister}>Register</Span></P>
                 </Form>
             </Main>
         </>
@@ -111,7 +111,7 @@ const Form = styled.form`
     text-align: center;
     padding: 30px;
     border-radius: 15px;
-    position: fixed;
+    position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
@@ -144,7 +144,8 @@ const Submit = styled.button`
 `
 
 const P = styled.p`
-    margin-top: 20px;
+    /* border-top: 1px solid grey; */
+    margin-top: 30px;
 `
 
 const Span = styled.span`
