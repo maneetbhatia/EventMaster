@@ -2,6 +2,7 @@ import { useEffect, useState, useRef } from 'react';
 import styled from "styled-components"
 import {useNavigate} from "react-router-dom";
 import LoadingPage from './LoadingPage'
+import { BsFillArrowLeftCircleFill, BsFillArrowRightCircleFill } from 'react-icons/bs';
 
 const AllCategories = () => {
     const [events, setEvents] = useState(null)
@@ -47,16 +48,12 @@ const AllCategories = () => {
         }) 
     }, [])
 
-    const slideDistance = 20
-
     const scrollLeft = () => {
-        ref.current.scrollLeft = ref.current.scrollLeft - slideDistance;
-        console.log( "ref.current.scrollLeft", ref.current.scrollLeft)
+        ref.current.scrollLeft = ref.current.scrollLeft - 300;
     };
 
     const scrollRight = () => {
-        ref.current.scrollLeft = ref.current.scrollLeft + slideDistance;
-        console.log( "ref.current.scrollLeft", ref.current.scrollLeft)
+        ref.current.scrollLeft = ref.current.scrollLeft + 300;
     };
 
     return( 
@@ -74,8 +71,8 @@ const AllCategories = () => {
                                     </Wrapper>
                                 )
                         })}
-                        <LeftButton onClick={() => scrollLeft()}>L</LeftButton>
-                        <RightButton  onClick={() => scrollRight()}>R</RightButton>
+                        <LeftButton onClick={() => scrollLeft()}><BsFillArrowLeftCircleFill size={30}/></LeftButton>
+                        <RightButton  onClick={() => scrollRight()}><BsFillArrowRightCircleFill size={30}/></RightButton>
                     </Main>: <LoadingPage />}
                 </Slider>
             </Categories>
@@ -96,16 +93,16 @@ const Slider = styled.div`
     display: flex;
     white-space: nowrap;
     overflow: scroll;
-    width: 90%;
+    scroll-behavior: smooth;
+    scroll-snap-type: x mandatory;
 
     &::-webkit-scrollbar{
         visibility: hidden;
-        
     }
 `
 
 const Main = styled.div`
-    
+    width: 90%;
 `
 
 const H1 = styled.h1`
@@ -114,6 +111,7 @@ const H1 = styled.h1`
 `
 
 const Wrapper = styled.div`
+    scroll-snap-align: start;
     display: inline-block;
     margin: 20px 2%;
     border-radius: 15px;
@@ -122,7 +120,6 @@ const Wrapper = styled.div`
     width: 23.3%;
     position: relative;
     height: fit-content;
-    scroll-snap-align: start;
     
     @media (max-width: 1050px) {
     width: 35%;
@@ -171,13 +168,13 @@ background-color: black;
 const LeftButton = styled.button`
 color: red;
 position: absolute;
-right: 20px;
+right: 55px;
 top: 0;
 `
 
 const RightButton = styled.button`
 color: red;
 position: absolute;
-right: 0;
+right: 16px;
 top: 0;
 `
