@@ -53,11 +53,12 @@ const Input = styled.input`
 `
 
 const Button = styled.button`
-    background-color: black;
-    color: white;
-    padding: 1.2% 3%;
+    background-color: gray;
+    color: whitesmoke;
+    padding: 1.4% 3%;
     border-radius: 10px;
     margin-left: 1%;
+    border: none;
     cursor: pointer;
 `
 
@@ -65,8 +66,8 @@ const Span = styled.span`
   position: absolute;
   border: none;
   font-size: 18px;
-  top: 4px;
-  right: 100px;
+  top: 10px;
+  right: 16%;
   cursor: pointer;
 
   &:hover{

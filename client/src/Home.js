@@ -153,11 +153,7 @@ const LeftButton = styled.button`
   top: 5px;
   border: none;
   background-color: transparent;
-  cursor: pointer;
-
-  &:hover{
-    color: limegreen;
-  }
+  color: gray;
 `
 
 const RightButton = styled.button`
@@ -167,10 +163,7 @@ const RightButton = styled.button`
   border: none;
   background-color: transparent;
   cursor: pointer;
-
-  &:hover{
-      color: limegreen;
-  }
+  color: gray;
 `
 
 export default Home;
