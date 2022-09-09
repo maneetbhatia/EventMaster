@@ -175,7 +175,7 @@ const CategoryDetail = () => {
                             <Img src={data.performers[0].image} />
                           <EventInfo>
                             {(data?.title.length >= 29) ? <Title>{data?.title.slice(0, 25)}...</Title> : <Title>{data?.title}</Title>}
-                            <TitleTollTip>{data?.title}</TitleTollTip>
+                            {(data?.title.length >= 29) && <TitleTollTip>{data?.title}</TitleTollTip>}
                           </EventInfo>
                             <Genre> {moment(data?.datetime_local).format('MMM DD [at] h:mm a')}</Genre>
                             {data?.stats?.lowest_price !== null && <EventCount>From ${data?.stats?.lowest_price}</EventCount>}

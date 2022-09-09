@@ -12,7 +12,7 @@ const Footer = () => {
         <Main>
             <Wrapper>
                 <div>
-                    <UL>Categories</UL>
+                    <UL>CATEGORIES</UL>
                     <LI onClick={handleCategories}>Comedy</LI>
                     <LI onClick={handleCategories}>Concert</LI>
                     <LI onClick={handleCategories}>Sports</LI>
@@ -21,25 +21,21 @@ const Footer = () => {
                     <LI onClick={handleCategories}>WWE</LI>
                 </div>
                 <div>
-                    <UL>Artists</UL>
-                    <LI>Bad Bunny</LI>
-                    <LI>Elton John</LI>
-                    <LI>Lady Gaga</LI>
-                    <LI>Justin Bieber</LI>
-                    <LI>Daddy Yankee</LI>
-                    <LI>Billy Joel</LI>
+                    {/* SEND TO SEARCH */}
+                    <UL>TOP EVENTS</UL>
+                    <LI>SEND TO SEARCH</LI>
+
                 </div>
                 <div>
-                    <UL>Social</UL>
+                    <UL>SOCIAL</UL>
                     <LI>Twitter</LI>
                     <LI>Facebook</LI>
                     <LI>Pinterest</LI>
                 </div>
                 <div>
-                    <UL>Contact Us</UL>
-                    <p style={{marginTop: "20px", color:"silver"}}>Location: 123 Main Street</p>
-                    <p style={{color:"silver"}}>Montreal, Quebec Canada</p>
-                    <p style={{marginTop: "30px", color:"silver"}}>Phone: 123-123-1230</p>
+                    <UL>CUSTOMER SERVICE</UL>
+                    <p style={{marginTop: "20px", color:"silver"}}>support@eventmaster.ca</p>
+                    <p style={{marginTop: "10px", color:"silver"}}>1-800-EVENTMASTER</p>
                 </div>
             </Wrapper>
             <P>&copy; 2022 EventMaster, All rights reserved.</P>

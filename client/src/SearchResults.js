@@ -147,17 +147,15 @@ const SearchResults = () => {
                 {events !== undefined ?
                   events.map((eventData, index) => {
                     return (
-                      (eventData?.stats?.lowest_price !== null && eventData.performers[0].image !== null) &&
+                      (!moment(eventData?.datetime_local).fromNow().includes("ago") && eventData?.stats?.lowest_price !== null && eventData.performers[0].image !== null) &&
                         <Wrapper key={index} onClick={() => handleClick(eventData?.id)}>
-                         
-                            <Img src={eventData.performers[0].image} />
-                          
+                          <Img src={eventData.performers[0].image} />
                           <EventInfo>
                           {(eventData?.title.length >= 25) ? <Title>{eventData?.title.slice(0, 25)}...</Title> : <Title>{eventData?.title}</Title>}
-                          <TitleTollTip>{eventData?.title}</TitleTollTip>
+                          {(eventData?.title.length >= 25) && <TitleTollTip>{eventData?.title}</TitleTollTip>}
                           </EventInfo>
                           <Genre>{moment(eventData?.datetime_utc).format('MMM DD [at] h:mm a')}</Genre>
-                          <EventCount>${eventData?.stats?.lowest_price}</EventCount>
+                          <EventCount>From: ${eventData?.stats?.lowest_price}</EventCount>
                           <Fav onClick={(event) => {event.stopPropagation(); handlefav(eventData)}}><MdFavorite size={20}/></Fav>
                         </Wrapper>
                     )

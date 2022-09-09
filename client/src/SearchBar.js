@@ -3,7 +3,7 @@ import { useState } from "react";
 import {useNavigate} from "react-router-dom";
 
 const SearchBar = () => {
-    const [value, setValue] = useState(null);
+    const [value, setValue] = useState("");
     
     const navigate = useNavigate();
 
@@ -13,8 +13,9 @@ const SearchBar = () => {
 
     return(
         <Main>
-            <Input value={value} placeholder="Search events by name, artist, venue..." onChange={(e) => {setValue(e.target.value)}} />
-            <Button onClick={handleSearch}>Search</Button>
+            <Input value={value} placeholder="Search events by name..." onChange={(e) => {setValue(e.target.value)}} />
+            <Button disabled={!value} onClick={handleSearch}>Search</Button>
+            <Span onClick={() => {setValue("")}}>x</Span>
         </Main>
     )
 }
@@ -23,6 +24,7 @@ const Main = styled.div`
     width: 80%;
     margin: auto;
     margin-bottom: 40px;
+    position: relative;
 
     @media (max-width: 600px) {
         width: 90%;
@@ -39,6 +41,7 @@ const Input = styled.input`
     border-radius: 10px;
     outline: none;
     font-size: 15px;
+    position: relative;
 
     @media (max-width: 850px) {
         width: 80%;
@@ -56,6 +59,19 @@ const Button = styled.button`
     border-radius: 10px;
     margin-left: 1%;
     cursor: pointer;
+`
+
+const Span = styled.span`
+  position: absolute;
+  border: none;
+  font-size: 18px;
+  top: 4px;
+  right: 100px;
+  cursor: pointer;
+
+  &:hover{
+    color: red;
+  }
 `
 
 export default SearchBar;
