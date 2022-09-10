@@ -1,14 +1,18 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import moment from "moment";
 import styled from "styled-components";
-import Loading from './LoadingPage'
+import Loading from './LoadingPage';
+import { BsFillArrowUpCircleFill, BsFillArrowDownCircleFill } from 'react-icons/bs';
 
 const ArtistDetail = () => {
     const [artist, setArtist] =useState(null)
     const [eventList, setEventList] = useState(null)
     const {artistID} = useParams();
-    
+
+    const ref = useRef(null);
+    const navigate = useNavigate();
+
     useEffect(() => {
         fetch(`/artist/id/${artistID}`)
             .then((res) => res.json())
@@ -24,8 +28,6 @@ const ArtistDetail = () => {
     useEffect(() => {
         if(artist !== null){
             artistName=artist?.name
-        
-            // console.log(artistName)
             
                 fetch(`/artist/events/${artistName}`)
                     .then((res) => res.json())
@@ -38,35 +40,48 @@ const ArtistDetail = () => {
         }
     }, [artist]);
 
-    const navigate = useNavigate();
 
     const handleClick = (id) => {
         navigate(`/event/id/${id}`)
     }
 
+    const scrollLeft = () => {
+        console.log(ref.current.scrollTop)
+        ref.current.scrollTop = ref.current.scrollTop - 100;
+    };
+
+    const scrollRight = () => {
+        ref.current.scrollTop = ref.current.scrollTop + 100;
+    };
+
     return (
+        <>
+        {eventList !== null  && artist !== null ?
         <Wrapper>
             <H1>{artist?.name}</H1>
             <Main>
                 <Section1>
-                    {artist !== null ? <ArtistImg src={artist?.images?.huge} /> : <Loading />}
+                    <ArtistImg src={artist?.images?.huge} />
                 </Section1>
-                <Section2>
-                    {eventList !== null ?
-                        <>
-                            {eventList.map((data, index) => {
-                                return (
-                                    <Event key={index} onClick={() => handleClick(data?.id)}>
-                                        <h4>{moment(data?.datetime_local).format("MMM D YYYY")} - {data?.title}</h4>
-                                        <P>${data?.stats?.lowest_price} - {data?.venue?.name} - {data?.venue?.display_location}</P>
-                                    </Event>
-                                )
-                            })}
-                        </> : <Loading />
-                    }
-                </Section2>
+                <Slider>
+                    <Section2 ref={ref}>
+                        {eventList.map((data, index) => {
+                            return (
+                                <>
+                                {(data?.stats?.lowest_price !== null) && <Event key={index} onClick={() => handleClick(data?.id)}>
+                                    <h4>{moment(data?.datetime_local).format("MMM D YYYY")} - {data?.title}</h4>
+                                    <P>${data?.stats?.lowest_price} - {data?.venue?.name} - {data?.venue?.display_location}</P>
+                                </Event>}
+                                </>
+                            )
+                        })}
+                        <LeftButton onClick={() => scrollLeft()}><BsFillArrowUpCircleFill size={30}/></LeftButton>
+                        <RightButton  onClick={() => scrollRight()}><BsFillArrowDownCircleFill size={30}/></RightButton>
+                    </Section2>
+                </Slider>
             </Main>
-        </Wrapper>
+        </Wrapper> : <Loading />}
+        </>
     )
 }
 
@@ -110,44 +125,83 @@ width: 100%;
 border-radius: 15px;
 `
 
+
 const Section2 = styled.div`
-    width: 40%;
     height: 480px;
-    overflow: scroll;
     margin-bottom: 40px;
-    scroll-snap-type: y mandatory;
-    overscroll-behavior-inline: contain;
-    scroll-padding-top: 7px;
+    overflow-y: scroll;
     margin-right: 3%;
-
+    scroll-behavior: smooth;
+    scroll-snap-type: y mandatory;
+    
     &::-webkit-scrollbar{
-        display: none;
+        visibility: hidden;
     }
-
+    
     @media (max-width: 900px) {
         width: 100%;
     }
-`
+    `
 
 const Event = styled.div`
     margin: 30px 0px;
     padding: 3%;
     cursor: pointer;
     border-radius: 15px;
-    scroll-snap-align: start;
     background-color: whitesmoke;
+    scroll-snap-align: start;
     
     &:hover{
         border: 1px solid silver;
     }
-
-    &::-webkit-scrollbar{
-        display: none;
-    }
-`
+    `
 
 const P = styled.p`
-margin-top: 10px;
+    margin-top: 10px;
+    `
+
+const LeftButton = styled.button`
+    z-index: 1000;
+    position: absolute;
+    left: 45%;
+    top: -3%;
+    border: none;
+    background-color: transparent;
+    color: darkgray;
+    cursor: pointer;
+    opacity: 0;
+    
+    &:hover{
+        color: gray;
+    }
+    `
+
+const RightButton = styled.button`
+    position: absolute;
+    left: 45%;
+    bottom: 4%;
+    border: none;
+    background-color: transparent;
+    cursor: pointer;
+    color: darkgray;
+    opacity: 0;
+    
+    &:hover{
+        color: gray;
+    }
+    `
+
+const Slider = styled.div`
+    position: relative;
+
+    &:hover ${LeftButton} {
+        opacity: 1;
+        transform: 2s ease;
+    }
+
+    &:hover ${RightButton} {
+        opacity: 1;
+    }
 `
 
 export default ArtistDetail;

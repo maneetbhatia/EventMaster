@@ -6,7 +6,12 @@ import GoogleMapReact from 'google-map-react';
 import { SiGooglemaps } from 'react-icons/si';
 import LoadingPage from "./LoadingPage";
 
-const AnyReactComponent = ({ text }) => <div>{<SiGooglemaps size={30} color={"red"}/>}</div>;
+const AnyReactComponent = () => {
+    return <div>
+        <SiGooglemaps size={30} color={"red"}/>
+        <p style={{color:"coral"}}>EVENT ADDRESS</p>
+    </div>;
+}
 
 const EventDetails = () => {
     const [event, setEvent] =useState(null)
@@ -28,7 +33,7 @@ const EventDetails = () => {
             lat: event?.venue?.location?.lat,
             lng: event?.venue?.location?.lon
         },
-        zoom: 14
+        zoom: 16
     };
 
     return (
@@ -43,8 +48,11 @@ const EventDetails = () => {
                         <EventInfo>
                             <H2>{event.type.toUpperCase()}</H2>
                             <P>{event.title}</P>
-                            <P> {moment(event.datetime_local).format('MMM DD [at] hh:mm a')}</P>
-                            <A href={event?.url} target="_blank"> Find Tickets</A>
+                            {!moment(event?.datetime_local).fromNow().includes("ago") ?  
+                                <P> {moment(event.datetime_local).format('MMM DD [at] hh:mm a')}</P> :
+                                <P style={{fontSize: "20px",color:"red", margin: "40px 0px"}}>{"OUTDATED"}</P>
+                            }
+                            {!moment(event?.datetime_local).fromNow().includes("ago") && <A href={event?.url} target="_blank"> Find Tickets</A>}
                         </EventInfo>
                         <Venue>
                             <H2>Venue</H2>
@@ -87,8 +95,6 @@ const Wrapper = styled.div`
 `
 
 const Main = styled.div`
-
-
     @media (max-width: 850px) {
         display: block;
     }
@@ -115,7 +121,6 @@ const EventInfo = styled.div`
 
     @media (max-width: 850px) {
         text-align: center;
-        font-size: 20px;
         margin-top: 20px;
     }
 `
@@ -126,30 +131,29 @@ const Venue = styled.div`
     @media (max-width: 850px) {
         margin-top: 40px;
         text-align: center;
-        font-size: 20px;
     }
 `
 
 const P =styled.p`
     font-size: 18px;
 
-    @media (max-width: 850px) {
+    /* @media (max-width: 850px) {
         margin-top: 10px;
     }
 
     @media (max-width: 510px) {
         font-size: 18px;
-    }
+    } */
 `
 
 const H2 =styled.h2`
-    @media (max-width: 850px) {
+    /* @media (max-width: 850px) {
         margin-top: 10px;
     }
 
     @media (max-width: 510px) {
         font-size: 25px;
-    }
+    } */
 `
 
 const MapContainer = styled.div`

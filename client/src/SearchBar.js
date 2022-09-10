@@ -15,7 +15,7 @@ const SearchBar = () => {
         <Main>
             <Input value={value} placeholder="Search events by name..." onChange={(e) => {setValue(e.target.value)}} />
             <Button disabled={!value} onClick={handleSearch}>Search</Button>
-            <Span onClick={() => {setValue("")}}>x</Span>
+            {value && <Span onClick={() => {setValue("")}}>x</Span>}
         </Main>
     )
 }
@@ -63,16 +63,26 @@ const Button = styled.button`
 `
 
 const Span = styled.span`
-  position: absolute;
-  border: none;
-  font-size: 18px;
-  top: 10px;
-  right: 16%;
-  cursor: pointer;
+    border: none;
+    font-size: 18px;
+    position: absolute;
+    top: 20%;
+    right: 16%;
+    cursor: pointer;
 
-  &:hover{
-    color: red;
-  }
+    &:hover{
+        color: red;
+    }
+    
+    @media (max-width: 850px) {
+        top: 15%;
+        right: 20%;
+    }
+
+    @media (max-width: 525px) {
+        top: 15%;
+        right: 23%;
+    }
 `
 
 export default SearchBar;

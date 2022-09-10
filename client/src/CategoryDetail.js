@@ -7,7 +7,6 @@ import Signin from './Signin';
 import moment from "moment";
 import Pagination from './Pagination';
 import LoadingPage from './LoadingPage';
-import { BsFillArrowLeftCircleFill, BsFillArrowRightCircleFill } from 'react-icons/bs';
 
 const CategoryDetail = () => {
     const [events, setEvents] = useState(null);
@@ -136,14 +135,6 @@ const CategoryDetail = () => {
           console.log("error", e);
       });
     }
-    
-    const scrollLeft = () => {
-      ref.current.scrollLeft = ref.current.scrollLeft - 300;
-    };
-  
-    const scrollRight = () => {
-        ref.current.scrollLeft = ref.current.scrollLeft + 300;
-    };
 
     return( 
         <>
@@ -170,15 +161,18 @@ const CategoryDetail = () => {
                   events !== undefined ?
                   events.map((data, index) => {
                     return (
-                      (!moment(data?.datetime_local).fromNow().includes("ago") && data?.stats?.lowest_price !== null && data.performers[0].image !== null) && 
+                      (data?.stats?.lowest_price !== null && data.performers[0].image !== null) && 
                           <Wrapper key={index} onClick={() => handleClick(data?.id)}>
                             <Img src={data.performers[0].image} />
                           <EventInfo>
                             {(data?.title.length >= 29) ? <Title>{data?.title.slice(0, 25)}...</Title> : <Title>{data?.title}</Title>}
                             {(data?.title.length >= 29) && <TitleTollTip>{data?.title}</TitleTollTip>}
                           </EventInfo>
-                            <Genre> {moment(data?.datetime_local).format('MMM DD [at] h:mm a')}</Genre>
-                            {data?.stats?.lowest_price !== null && <EventCount>From ${data?.stats?.lowest_price}</EventCount>}
+                          {!moment(data?.datetime_local).fromNow().includes("ago") ?  
+                            <Genre>{moment(data?.datetime_local).format('MMM DD [at] h:mm a')}</Genre> :
+                            <Genre style={{fontSize: "20px",color:"red", margin: "10px 0px"}}>{"OUTDATED"}</Genre>
+                          }
+                            {(data?.stats?.lowest_price !== null && !moment(data?.datetime_local).fromNow().includes("ago"))  && <EventCount>From ${data?.stats?.lowest_price}</EventCount>}
                             <Fav
                               onClick={(event) => {event.stopPropagation(); handlefav(data)}}><MdFavorite  size={20}/>
                             </Fav>
@@ -223,9 +217,9 @@ const Div = styled.div`
   `
 
 const Sort = styled.div`
-display: flex;
-justify-content: space-between;
-width: 60%;
+  display: flex;
+  justify-content: space-between;
+  width: 60%;
 
 @media (max-width: 1100px) {
   width: 70%;
@@ -333,7 +327,6 @@ const Img = styled.img`
   border-radius: 15px 15px 0px 1px;
   object-fit: cover;
 `
-
 
 const Genre = styled.p`
   font-size: 15px;
