@@ -154,7 +154,7 @@ const SearchResults = () => {
                           {(eventData?.title.length >= 25) ? <Title>{eventData?.title.slice(0, 25)}...</Title> : <Title>{eventData?.title}</Title>}
                           {(eventData?.title.length >= 25) && <TitleTollTip>{eventData?.title}</TitleTollTip>}
                           </EventInfo>
-                          <Genre>{moment(eventData?.datetime_utc).format('MMM DD [at] h:mm a')}</Genre>
+                          <Genre>{moment(eventData?.datetime_utc).format('MMM DD YYYY [at] h:mm a')}</Genre>
                           <EventCount>From: ${eventData?.stats?.lowest_price}</EventCount>
                           <Fav onClick={(event) => {event.stopPropagation(); handlefav(eventData)}}><MdFavorite size={20}/></Fav>
                         </Wrapper>

@@ -8,6 +8,10 @@ const Footer = () => {
         navigate(`/category/${e.target.innerText}`)
     }
 
+    const handleArtists = (e) => {
+        navigate(`/search/${e.target.innerText}`)
+    }
+
     return (
         <Main>
             <Wrapper>
@@ -22,8 +26,13 @@ const Footer = () => {
                 </div>
                 <div>
                     {/* SEND TO SEARCH */}
-                    <UL>TOP EVENTS</UL>
-                    <LI>SEND TO SEARCH</LI>
+                    <UL>ARTISTS</UL>
+                    <LI onClick={handleArtists}>Bad Bunny</LI>
+                    <LI onClick={handleArtists}>Daddy Yankee</LI>
+                    <LI onClick={handleArtists}>Elton John</LI>
+                    <LI onClick={handleArtists}>Lady Gaga</LI>
+                    <LI onClick={handleArtists}>Justin Bieber</LI>
+                    <LI onClick={handleArtists}>Harry Styles</LI>
 
                 </div>
                 <div>
