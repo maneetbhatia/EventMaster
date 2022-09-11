@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useContext } from 'react';
 import styled from "styled-components"
 import {useParams, useNavigate} from "react-router-dom";
 import moment from 'moment';
@@ -6,15 +6,18 @@ import { MdFavorite } from 'react-icons/md';
 import Pagination from './Pagination';
 import Loading from './LoadingPage'
 import LoadingPage from './LoadingPage';
+import { UserContext } from './UserContext';
 
 const SearchResults = () => {
     const [events, setEvents] = useState(null)
     const [eventsArr, setEventsArr] = useState(null);
     const [pageCount, setPageCount] = useState(1)
     const {searchValue} = useParams();
+    const {name,isLogedIn, isModalOpen, setIsModalOpen, isUserLoginIn} = useContext(UserContext)
     const [loading, setLoading] = useState(false)
 
     useEffect(() => {
+      console.log("lisssssssssst")
         fetch(`/search/${searchValue}/${pageCount}`)
         .then((res) => res.json())
         .then((data) => {
@@ -109,6 +112,10 @@ const SearchResults = () => {
     }
 
     const handlefav =(data) => {
+      if(isUserLoginIn === false){
+        setIsModalOpen(true);
+      }
+
       // console.log("data", data)
       const event = {
         _id: data?.id,
@@ -128,6 +135,8 @@ const SearchResults = () => {
       });
     }
     
+    console.log("events", events)
+
     return( 
       <>
       {events !== null ?

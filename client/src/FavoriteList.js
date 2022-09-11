@@ -6,36 +6,47 @@ import Loading from './LoadingPage'
 
 const CategoryDetail = () => {
     const [favorite, setFavorite] = useState(null);
+    const [favoriteList, setFavoriteList] = useState(null);
     const [isLoading, setIsLoading] = useState(false)
     const navigate = useNavigate();
 
       useEffect(() => {
+        console.log("list")
         getFavoriteList()
       }, [])
 
     const getFavoriteList = () => {
+      console.log("list")
         fetch(`/events`)
         .then((res) => res.json())
         .then((data) => {
-          // console.log(data)
             setFavorite(data)
+            setFavoriteList(data)
         }).catch((err) => {
             console.log("error", err);
         }) 
     }
 
+    let newFavList = favoriteList;
     const deleteEvent = async(id) => {
+      console.log("delete")
       await fetch(`/favorite/event/${id}`, {method: "DELETE"})
-      .then((res) => { res.json(); setIsLoading(true); getFavoriteList()})
+      .then((res) => { 
+        res.json();
+        getFavoriteList() 
+      })
       .catch(e => {
         console.log("error", e);
       });
+
+      // newFavList.pop(id)
+      console.log(newFavList?.data, "new")
     }
 
     const handleClick = (id) => {
       navigate(`/event/id/${id}`)
     }
-// console.log("favorite", favorite)
+console.log("favorite", favorite)
     return( 
         <>
           <Events>

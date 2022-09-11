@@ -38,8 +38,14 @@ const Banner = () => {
     setIsUserLoginIn(false)
   }
 
+  useEffect(() => {
+    if(!isUserLoginIn){
+        navigate("/");
+    }
+  }, [isUserLoginIn])
+
   const handleFavorites =() => {
-    navigate("/events");
+    navigate("/favorite");
   }
 
   useEffect(() => {

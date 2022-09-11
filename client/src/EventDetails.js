@@ -6,7 +6,7 @@ import GoogleMapReact from 'google-map-react';
 import { SiGooglemaps } from 'react-icons/si';
 import LoadingPage from "./LoadingPage";
 
-const AnyReactComponent = () => {
+const AnyReactComponent = (props) => {
     return <div>
         <SiGooglemaps size={30} color={"red"}/>
         <p style={{color:"coral"}}>EVENT ADDRESS</p>
@@ -18,10 +18,10 @@ const EventDetails = () => {
     const {eventID} = useParams();
     
     useEffect(() => {
+        console.log("lists")
         fetch(`/event/id/${eventID}`)
             .then((res) => res.json())
             .then((data) => {
-                console.log(data.data.events[0].url)
                 setEvent(data.data.events[0])
             }).catch((err) => {
                 console.log("error", err);
@@ -35,7 +35,7 @@ const EventDetails = () => {
         },
         zoom: 16
     };
-
+console.log("event", event)
     return (
         <>
             {event !== null ? 
@@ -71,7 +71,7 @@ const EventDetails = () => {
                             defaultCenter={defaultProps.center}
                             defaultZoom={defaultProps.zoom}
                         >
-                        <AnyReactComponent
+                        <AnyReactComponent venueAddress = {event.venue.address}
                             lat={event?.venue?.location?.lat}
                             lng={event?.venue?.location?.lon}
                             text="EVENT"
@@ -92,6 +92,10 @@ const Wrapper = styled.div`
     margin-top: 80px;
     grid-gap: 3%;
     margin-bottom: 30px;
+
+    @media (max-width: 850px) {
+        grid-template-columns: 100%;
+    }
 `
 
 const Main = styled.div`
@@ -157,8 +161,8 @@ const H2 =styled.h2`
 `
 
 const MapContainer = styled.div`
-    height: 100%;
-    width: 100%;
+    height: 50vh;
+    width: 90vw;
 `
 
 const A = styled.a`

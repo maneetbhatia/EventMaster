@@ -12,14 +12,14 @@ const CategoryDetail = () => {
     const [events, setEvents] = useState(null);
     const [eventsArr, setEventsArr] = useState(null);
     const [pageCount, setPageCount] = useState(1)
-    const {name,isLogedIn, isModalOpen, setIsModalOpen} = useContext(UserContext)
+    const {name,isLogedIn, isModalOpen, setIsModalOpen, isUserLoginIn} = useContext(UserContext)
     const [loading, setLoading] = useState(false)
 
     const navigate = useNavigate();
-    const ref = useRef(null);
     const {category} = useParams();
     
     useEffect(() => {
+      console.log("lissiiiiiiiiiit")
         fetch(`/event/category/${category}/${pageCount}`)
         .then((res) => res.json())
         .then((data) => {
@@ -114,7 +114,7 @@ const CategoryDetail = () => {
     }
 
     const handlefav =(data) => {
-      if(name === null || isLogedIn === false){
+      if(isUserLoginIn === false){
         setIsModalOpen(true);
       }
 
@@ -135,6 +135,8 @@ const CategoryDetail = () => {
           console.log("error", e);
       });
     }
+
+    console.log("events", events)
 
     return( 
         <>

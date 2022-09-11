@@ -24,7 +24,7 @@ function App() {
             <Route exact path="/category/:category" element={<CategoryDetail />} />
             <Route exact path="/search/:searchValue" element={<SearchResults />} />
             <Route exact path="/artist/id/:artistID" element={<ArtistDetail />} />
-            <Route exact path="/events" element={<FavoriteList />} />
+            <Route exact path="/favorite" element={<FavoriteList />} />
             <Route path="*" element={<ErrorPage />} />
           </Routes>
         <Footer/>

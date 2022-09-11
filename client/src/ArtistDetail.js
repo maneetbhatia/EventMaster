@@ -14,6 +14,7 @@ const ArtistDetail = () => {
     const navigate = useNavigate();
 
     useEffect(() => {
+        console.log("listssss")
         fetch(`/artist/id/${artistID}`)
             .then((res) => res.json())
             .then((data) => {
@@ -28,7 +29,7 @@ const ArtistDetail = () => {
     useEffect(() => {
         if(artist !== null){
             artistName=artist?.name
-            
+            console.log("listsssssssssssssssssssssssss")
                 fetch(`/artist/events/${artistName}`)
                     .then((res) => res.json())
                     .then((data) => {
@@ -54,6 +55,8 @@ const ArtistDetail = () => {
         ref.current.scrollTop = ref.current.scrollTop + 100;
     };
 
+    console.log("eventList", eventList)
+
     return (
         <>
         {eventList !== null  && artist !== null ?
@@ -67,16 +70,16 @@ const ArtistDetail = () => {
                     <Section2 ref={ref}>
                         {eventList.map((data, index) => {
                             return (
-                                <>
+                                <div key={index}>
                                 {(data?.stats?.lowest_price !== null) && <Event key={index} onClick={() => handleClick(data?.id)}>
                                     <h4>{moment(data?.datetime_local).format("MMM D YYYY")} - {data?.title}</h4>
                                     <P>${data?.stats?.lowest_price} - {data?.venue?.name} - {data?.venue?.display_location}</P>
                                 </Event>}
-                                </>
+                                </div>
                             )
                         })}
-                        <LeftButton onClick={() => scrollLeft()}><BsFillArrowUpCircleFill size={30}/></LeftButton>
-                        <RightButton  onClick={() => scrollRight()}><BsFillArrowDownCircleFill size={30}/></RightButton>
+                        {eventList.length > 6 &&<LeftButton onClick={() => scrollLeft()}><BsFillArrowUpCircleFill size={30}/></LeftButton>}
+                        {eventList.length > 6 &&<RightButton  onClick={() => scrollRight()}><BsFillArrowDownCircleFill size={30}/></RightButton>}
                     </Section2>
                 </Slider>
             </Main>
@@ -127,7 +130,7 @@ border-radius: 15px;
 
 
 const Section2 = styled.div`
-    height: 480px;
+    height: 650px;
     margin-bottom: 40px;
     overflow-y: scroll;
     margin-right: 3%;
@@ -137,10 +140,8 @@ const Section2 = styled.div`
     &::-webkit-scrollbar{
         visibility: hidden;
     }
+
     
-    @media (max-width: 900px) {
-        width: 100%;
-    }
     `
 
 const Event = styled.div`
@@ -193,6 +194,7 @@ const RightButton = styled.button`
 
 const Slider = styled.div`
     position: relative;
+    width: 43%;
 
     &:hover ${LeftButton} {
         opacity: 1;
@@ -201,6 +203,10 @@ const Slider = styled.div`
 
     &:hover ${RightButton} {
         opacity: 1;
+    }
+
+    @media (max-width: 900px) {
+        width: 105%;
     }
 `
 
