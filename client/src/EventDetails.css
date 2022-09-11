@@ -1,0 +1,9 @@
+.tooltip{
+    color: red;
+    background-color: white;
+    border: 1px solid red;
+    width: fit-content;
+    padding: 5px;
+    margin-top: 10px;
+    font-size: 14px;
+}

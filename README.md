@@ -1,4 +1,4 @@
-# EventsMaster
+# EventMaster
 Bootcamp Final Project Full Stack Web App
 <br/>
 <br/>

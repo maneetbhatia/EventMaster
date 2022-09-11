@@ -5,12 +5,14 @@ import styled from "styled-components";
 import GoogleMapReact from 'google-map-react';
 import { SiGooglemaps } from 'react-icons/si';
 import LoadingPage from "./LoadingPage";
+import "./EventDetails.css";
 
 const AnyReactComponent = (props) => {
     return <div>
         <SiGooglemaps size={30} color={"red"}/>
-        <p style={{color:"coral"}}>EVENT ADDRESS</p>
+        <p className="tooltip">{props?.venueAddress}</p>
     </div>;
+
 }
 
 const EventDetails = () => {
@@ -56,10 +58,10 @@ console.log("event", event)
                         </EventInfo>
                         <Venue>
                             <H2>Venue</H2>
-                            <P>Venue: {event.venue.name}</P>
-                            <P>Address: {event.venue.address+" "}
-                            {event.venue.extended_address} {event.venue.country}</P>
-                            <P>Time-zone: {event.venue.timezone}</P>
+                            <P>Venue: {event?.venue?.name}</P>
+                            <P>Address: {event?.venue?.address+" "}
+                            {event?.venue?.extended_address} {event?.venue?.country}</P>
+                            <P>Time-zone: {event?.venue?.timezone}</P>
                         </Venue>
                     </div>
                 </Main> 
@@ -71,10 +73,9 @@ console.log("event", event)
                             defaultCenter={defaultProps.center}
                             defaultZoom={defaultProps.zoom}
                         >
-                        <AnyReactComponent venueAddress = {event.venue.address}
+                        <AnyReactComponent venueAddress = {event?.venue?.address +" "+event?.venue?.extended_address}
                             lat={event?.venue?.location?.lat}
                             lng={event?.venue?.location?.lon}
-                            text="EVENT"
                         />
                         </GoogleMapReact>
                 </MapContainer>
