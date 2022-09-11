@@ -161,8 +161,15 @@ const H2 =styled.h2`
 `
 
 const MapContainer = styled.div`
-    height: 50vh;
-    width: 90vw;
+    width: 100%;
+    height: 100%;
+
+    @media (max-width: 850px) {
+        height: 50vh;
+        width: 90vw;
+        margin-top: 10px;
+        margin-bottom: 40px;
+    }
 `
 
 const A = styled.a`

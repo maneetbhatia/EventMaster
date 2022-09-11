@@ -75,7 +75,11 @@ console.log("favorite", favorite)
 }
 
 const H1 = styled.h1`
-  margin-left: 1.5%;
+  margin-left: 2.5%;
+
+  @media (max-width: 800px) {
+    text-align: center;
+  }
 `
 
 const Events = styled.div`
@@ -106,12 +110,12 @@ const Wrapper = styled.div`
 
   @media (max-width: 980px) {
     width: 45%;
-    margin: auto;
-    margin-bottom: 30px;
   }
 
   @media (max-width: 800px) {
     width: 70%;
+    margin: auto;
+    margin-bottom: 40px;
   }
 
   @media (max-width: 550px) {
