@@ -1,33 +1,31 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled, { keyframes } from "styled-components";
 import { MdDelete } from 'react-icons/md';
 import Loading from './LoadingPage'
+import './Favorite.css'
 
 const CategoryDetail = () => {
     const [favorite, setFavorite] = useState(null);
-    const [favoriteList, setFavoriteList] = useState(null);
-    const [isLoading, setIsLoading] = useState(false)
+    const [isDeleted, setIsDeleted] = useState(false)
+    const [activeclass, isActiveclass] = useState(null)
     const navigate = useNavigate();
+    const ref = useRef(null);
 
       useEffect(() => {
-        console.log("list")
         getFavoriteList()
       }, [])
 
     const getFavoriteList = () => {
-      console.log("list")
         fetch(`/events`)
         .then((res) => res.json())
         .then((data) => {
             setFavorite(data)
-            setFavoriteList(data)
         }).catch((err) => {
             console.log("error", err);
         }) 
     }
 
-    let newFavList = favoriteList;
     const deleteEvent = async(id) => {
       console.log("delete")
       await fetch(`/favorite/event/${id}`, {method: "DELETE"})
@@ -39,14 +37,12 @@ const CategoryDetail = () => {
         console.log("error", e);
       });
 
-      // newFavList.pop(id)
-      console.log(newFavList?.data, "new")
     }
 
     const handleClick = (id) => {
       navigate(`/event/id/${id}`)
     }
-console.log("favorite", favorite)
+    
     return( 
         <>
           <Events>
@@ -56,18 +52,18 @@ console.log("favorite", favorite)
                   <Main>
                       {favorite?.data?.map((data, index) => {
                         return (
-                            (data.image !== null) && 
+                            (data.image !== null && data.isFavorite) && 
                                 <Wrapper key={index} onClick={() => handleClick(data?._id)}>
                                   <Img src={data.image} />
                                   {(data?.title.length >= 17) ?<Title>{data?.title.slice(0, 30)}...</Title>:<Title>{data?.title}</Title>}
                                   {(data?.venue.length >= 27) ? <Genre>{data?.venue.slice(0, 30)}...</Genre>: <Genre>{data?.venue}</Genre>}
                                   {data.ticket !== null ? <EventCount>${data?.ticket}</EventCount>: <EventCount>Find Tickets</EventCount>}
-                                  <Delete onClick={(event) => {event.stopPropagation(); deleteEvent(data._id)}}><MdDelete size={20} /></Delete>
+                                  <Delete onClick={(event) => {event.stopPropagation(); deleteEvent(data.eventId, data._id);}}><MdDelete size={20} /></Delete>
                                 </Wrapper>
                         )
                       })}
                   </Main>
-                : <p>{favorite?.message} </p>
+                : <P>{favorite?.message} </P>
               : <Loading />}
           </Events>
         </>
@@ -103,6 +99,7 @@ const Wrapper = styled.div`
   width: 30%;
   box-shadow: 1px 1px 8px 1px grey;
   position: relative;
+  
   
   @media (max-width: 1250px) {
     width: 45%;
@@ -176,6 +173,10 @@ const Delete = styled.span`
   &:hover{
     color: red;
   }
+`
+
+const P = styled.p`
+  margin: 40px 0px 140px 80px;
 `
 
 export default CategoryDetail;

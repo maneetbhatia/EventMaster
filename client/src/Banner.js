@@ -9,7 +9,6 @@ import Signup from './Signup'
 const Banner = () => {
 
   const {
-    name, 
     isLogedIn, 
     setName, 
     setIsModalOpen, 
@@ -26,8 +25,7 @@ const Banner = () => {
       navigate("/");
   }
   const handleLogin = () => {
-    if(name === null || isLogedIn === false){
-      console.log("islogedin", isLogedIn)
+    if(isUserLoginIn === false){
       setIsModalOpen(true);
     }
 }
@@ -52,7 +50,7 @@ const Banner = () => {
     setIsLogedIn(sessionStorage.getItem("isLogedIn"));
     setName(sessionStorage.getItem("name"));
   }, [isUserLoginIn])
-
+  console.log("isLogedIn", isLogedIn, "isUserLoginIn", isUserLoginIn)
     return(
       <>
         <Main>
@@ -60,12 +58,12 @@ const Banner = () => {
               EM
             </Logo>
             <Favorites onClick={handleFavorites}>
-              {(isUserLoginIn === true) && "Favorites"}
+              {(isUserLoginIn === true || isLogedIn === true) && "Favorites"}
             </Favorites>
             <Login onClick={handleLogin}>
-              {(isUserLoginIn === false) && "Login"}
+              {(isUserLoginIn === false || isLogedIn === false) && "Login"}
             </Login>
-              {(isUserLoginIn === true) && <Logout onClick={handleLogout}>Logout</Logout>}
+              {(isUserLoginIn === true || isLogedIn === true) && <Logout onClick={handleLogout}>Logout</Logout>}
             <BannerImg src={bannerImg} alt="banner" />
             <Heading>
               <H2>Let the fun begins</H2>

@@ -13,8 +13,8 @@ const SearchResults = () => {
     const [eventsArr, setEventsArr] = useState(null);
     const [pageCount, setPageCount] = useState(1)
     const {searchValue} = useParams();
-    const {name,isLogedIn, isModalOpen, setIsModalOpen, isUserLoginIn} = useContext(UserContext)
     const [loading, setLoading] = useState(false)
+    const {isLogedIn, setIsModalOpen, isUserLoginIn} = useContext(UserContext)
 
     useEffect(() => {
       console.log("lisssssssssst")
@@ -112,7 +112,7 @@ const SearchResults = () => {
     }
 
     const handlefav =(data) => {
-      if(isUserLoginIn === false){
+      if(isUserLoginIn === false && !isLogedIn){
         setIsModalOpen(true);
       }
 
@@ -134,8 +134,6 @@ const SearchResults = () => {
           console.log("error", e);
       });
     }
-    
-    console.log("events", events)
 
     return( 
       <>
@@ -165,7 +163,9 @@ const SearchResults = () => {
                           </EventInfo>
                           <Genre>{moment(eventData?.datetime_utc).format('MMM DD YYYY [at] h:mm a')}</Genre>
                           <EventCount>From: ${eventData?.stats?.lowest_price}</EventCount>
-                          <Fav onClick={(event) => {event.stopPropagation(); handlefav(eventData)}}><MdFavorite size={20}/></Fav>
+                          <Fav onClick={(event) => {event.stopPropagation(); 
+                            handlefav(eventData)
+                            }}><MdFavorite size={20}/></Fav>
                         </Wrapper>
                     )
                   }) : <ErrorMessage>No events found, please search something else...</ErrorMessage>}

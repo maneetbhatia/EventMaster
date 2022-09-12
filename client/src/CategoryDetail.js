@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState, useRef } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import styled from "styled-components"
 import {useParams, useNavigate} from "react-router-dom";
 import { MdFavorite } from 'react-icons/md';
@@ -12,14 +12,13 @@ const CategoryDetail = () => {
     const [events, setEvents] = useState(null);
     const [eventsArr, setEventsArr] = useState(null);
     const [pageCount, setPageCount] = useState(1)
-    const {name,isLogedIn, isModalOpen, setIsModalOpen, isUserLoginIn} = useContext(UserContext)
     const [loading, setLoading] = useState(false)
+    const {isModalOpen, setIsModalOpen, isUserLoginIn, isLogedIn} = useContext(UserContext)
 
     const navigate = useNavigate();
     const {category} = useParams();
     
     useEffect(() => {
-      console.log("lissiiiiiiiiiit")
         fetch(`/event/category/${category}/${pageCount}`)
         .then((res) => res.json())
         .then((data) => {
@@ -114,7 +113,8 @@ const CategoryDetail = () => {
     }
 
     const handlefav =(data) => {
-      if(isUserLoginIn === false){
+      console.log(isLogedIn, isUserLoginIn)
+      if(isUserLoginIn === false || isLogedIn === false){
         setIsModalOpen(true);
       }
 
@@ -125,18 +125,18 @@ const CategoryDetail = () => {
         image: data.performers[0].image,
         ticket: data.stats.lowest_price,
       };
+      
 
       fetch("/event", {
         method: "POST",
         headers: {"Accept": "application/json","Content-Type": "application/json"},
         body: JSON.stringify(event),
-      }).then(res =>  res.json())
+      }).then(res =>  {console.log("event", res)})
       .catch(e => {
           console.log("error", e);
       });
     }
 
-    console.log("events", events)
 
     return( 
         <>
@@ -176,7 +176,9 @@ const CategoryDetail = () => {
                           }
                             {(data?.stats?.lowest_price !== null && !moment(data?.datetime_local).fromNow().includes("ago"))  && <EventCount>From ${data?.stats?.lowest_price}</EventCount>}
                             <Fav
-                              onClick={(event) => {event.stopPropagation(); handlefav(data)}}><MdFavorite  size={20}/>
+                              onClick={(event) => {event.stopPropagation();
+                               handlefav(data)
+                               }}><MdFavorite  size={20}/>
                             </Fav>
                           </Wrapper>
                     )
@@ -375,16 +377,6 @@ const Fav = styled.span`
   &:hover{
     color: red;
   }
-`
-
-const AddToFavorite = styled.span`
-  background-color: white;
-  color: red;
-  padding: 2px;
-  border-radius: 10px;
-  position: absolute;
-  top: 25px;
-  right: 0px;
 `
 
 const P = styled.p`

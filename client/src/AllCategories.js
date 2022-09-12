@@ -55,7 +55,7 @@ const AllCategories = () => {
     const scrollRight = () => {
         ref.current.scrollLeft = ref.current.scrollLeft + 300;
     };
-console.log("events", events)
+    
     return( 
         <>
             <Categories>

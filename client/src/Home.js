@@ -17,7 +17,6 @@ const Home = () => {
   }
 
   useEffect(() => {
-    console.log("listo")
       fetch(`/event/recommendations`)
           .then((res) => res.json())
           .then((data) => {
@@ -35,8 +34,6 @@ const Home = () => {
   const scrollRight = () => {
       ref.current.scrollLeft = ref.current.scrollLeft + 300;
   };
-
-  console.log("recommendations", recommendations)
 
     return(
       <>

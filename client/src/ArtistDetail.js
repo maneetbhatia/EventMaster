@@ -14,7 +14,6 @@ const ArtistDetail = () => {
     const navigate = useNavigate();
 
     useEffect(() => {
-        console.log("listssss")
         fetch(`/artist/id/${artistID}`)
             .then((res) => res.json())
             .then((data) => {
@@ -29,7 +28,6 @@ const ArtistDetail = () => {
     useEffect(() => {
         if(artist !== null){
             artistName=artist?.name
-            console.log("listsssssssssssssssssssssssss")
                 fetch(`/artist/events/${artistName}`)
                     .then((res) => res.json())
                     .then((data) => {
@@ -54,8 +52,6 @@ const ArtistDetail = () => {
     const scrollRight = () => {
         ref.current.scrollTop = ref.current.scrollTop + 100;
     };
-
-    console.log("eventList", eventList)
 
     return (
         <>

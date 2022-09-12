@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useParams, Link } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import moment from "moment";
 import styled from "styled-components";
 import GoogleMapReact from 'google-map-react';
@@ -20,7 +20,6 @@ const EventDetails = () => {
     const {eventID} = useParams();
     
     useEffect(() => {
-        console.log("lists")
         fetch(`/event/id/${eventID}`)
             .then((res) => res.json())
             .then((data) => {
@@ -37,7 +36,7 @@ const EventDetails = () => {
         },
         zoom: 16
     };
-console.log("event", event)
+    
     return (
         <>
             {event !== null ? 

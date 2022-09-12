@@ -8,12 +8,13 @@ const options = {
     useUnifiedTopology: true,
 };
 
+const client = new MongoClient(MONGO_URI, options);
+
 const GetEventFromFavorites = async (req, res) => {
     const _id = Number(req.params.id);
     
-    const client = new MongoClient(MONGO_URI, options);
-    
     let result;
+
     try{
         await client.connect();
     
@@ -32,7 +33,6 @@ const GetEventFromFavorites = async (req, res) => {
 
 // POST EVENT IN FAVORITE-LIST COLLECTION
 const getFavoriteList = async(req, res) => {
-    const client = new MongoClient(MONGO_URI, options);
     let result;
 
     // connect to the client
@@ -53,42 +53,47 @@ const getFavoriteList = async(req, res) => {
 
 // POST EVENT IN FAVORITE-LIST COLLECTION
 const addedNewEvent = async(req, res) => {
-    const client = new MongoClient(MONGO_URI, options);
     let result;
 
     // connect to the client
     await client.connect();
+
     // connect to the database (db name is provided as an argument to the function)
     const db = client.db("final-project");
-    
+
     try{
-        result = await db.collection("favorite-list").insertOne({ _id: req.body._id,
+        result = await db.collection("favorite-list").insertOne({ eventId: req.body._id,
             title: req.body.title,
             venue: req.body.venue,
             image: req.body.image,
-            ticket: req.body.ticket});
+            ticket: req.body.ticket,
+            isFavorite: true
+        });
 
         // send error
         }catch{(err) => 
-            console.log(err)
+            console.log("err", err)
+        }
+
+        console.log("result", result)
+        if(result){
+            res.status(200).json({ status: 200, result, message:"Added to Favorite List" })
+        }else{
+            res.status(404).json({ status: 404, message: "not added to fav list" });
         }
 
      // close the connection to the database server
     client.close();
-    return result;
 };
 
 
 const deleteEvent = async (req, res) => {
-    const _id = Number(req.params.id);
+    const _id = Number(req.params.id)
 
-    console.log(_id)
-
-    const client = new MongoClient(MONGO_URI, options);
     await client.connect();
-
+console.log(_id)
     const db = client.db("final-project");
-    const result = await db.collection("favorite-list").deleteOne({ "_id": _id });
+    const result = await db.collection("favorite-list").deleteOne({ eventId: _id });
     
     if(result.deletedCount >= 1){
         res.status(200).json({ status: 200, result, message:"event deleted" })

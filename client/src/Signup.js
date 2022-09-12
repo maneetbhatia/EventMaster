@@ -68,7 +68,7 @@ const Signup = () => {
         setIsModalOpen(true)
     }
 
-    const closeModal  = () => {
+    const closeModal = () => {
         setIsRegistrationModalOpen(false)
     }
     
