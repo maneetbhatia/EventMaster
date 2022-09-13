@@ -19,6 +19,7 @@ const EventDetails = () => {
     const [event, setEvent] =useState(null)
     const {eventID} = useParams();
     
+    const API_KEY = process.env.REACT_APP_API_KEY
     useEffect(() => {
         fetch(`/event/id/${eventID}`)
             .then((res) => res.json())
@@ -66,7 +67,7 @@ const EventDetails = () => {
                 </Main> 
                 <MapContainer>
                         <GoogleMapReact
-                            bootstrapURLKeys={{ key: "AIzaSyCxJEsl_5nBTaCJoXmHLgsdsLy-lzpgacE",
+                            bootstrapURLKeys={{ key: API_KEY,
                             language: "en-US",
                             region: "us" }}
                             defaultCenter={defaultProps.center}
