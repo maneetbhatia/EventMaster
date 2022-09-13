@@ -24,14 +24,15 @@ const Banner = () => {
   const handleClick = () => {
       navigate("/");
   }
+
   const handleLogin = () => {
-    if(isUserLoginIn === false){
+    if(isLogedIn === false || isLogedIn === null){
       setIsModalOpen(true);
     }
-}
+  }
 
   const handleLogout = () => {
-    sessionStorage.setItem("isLogedIn", false)
+    sessionStorage.removeItem("isLogedIn")
     sessionStorage.removeItem("name")
     setIsUserLoginIn(false)
   }
@@ -49,8 +50,9 @@ const Banner = () => {
   useEffect(() => {
     setIsLogedIn(sessionStorage.getItem("isLogedIn"));
     setName(sessionStorage.getItem("name"));
-  }, [isUserLoginIn])
+  }, [isUserLoginIn, isLogedIn])
   console.log("isLogedIn", isLogedIn, "isUserLoginIn", isUserLoginIn)
+
     return(
       <>
         <Main>
@@ -58,12 +60,12 @@ const Banner = () => {
               EM
             </Logo>
             <Favorites onClick={handleFavorites}>
-              {(isUserLoginIn === true || isLogedIn === true) && "Favorites"}
+              {(isLogedIn !== null) ? "Favorites": ""}
             </Favorites>
             <Login onClick={handleLogin}>
-              {(isUserLoginIn === false || isLogedIn === false) && "Login"}
+              {(isLogedIn === null) && "Login"}
             </Login>
-              {(isUserLoginIn === true || isLogedIn === true) && <Logout onClick={handleLogout}>Logout</Logout>}
+            <Logout onClick={handleLogout}>{(isLogedIn !== null ) && "Logout"}</Logout>
             <BannerImg src={bannerImg} alt="banner" />
             <Heading>
               <H2>Let the fun begins</H2>

@@ -4,7 +4,6 @@ import {useParams, useNavigate} from "react-router-dom";
 import moment from 'moment';
 import { MdFavorite } from 'react-icons/md';
 import Pagination from './Pagination';
-import Loading from './LoadingPage'
 import LoadingPage from './LoadingPage';
 import { UserContext } from './UserContext';
 
@@ -14,7 +13,7 @@ const SearchResults = () => {
     const [pageCount, setPageCount] = useState(1)
     const {searchValue} = useParams();
     const [loading, setLoading] = useState(false)
-    const {isLogedIn, setIsModalOpen, isUserLoginIn} = useContext(UserContext)
+    const {isLogedIn, setIsModalOpen} = useContext(UserContext)
 
     useEffect(() => {
       console.log("lisssssssssst")
@@ -112,11 +111,10 @@ const SearchResults = () => {
     }
 
     const handlefav =(data) => {
-      if(isUserLoginIn === false && !isLogedIn){
+      if(isLogedIn === null){
         setIsModalOpen(true);
       }
-
-      // console.log("data", data)
+      
       const event = {
         _id: data?.id,
         title: data?.title,
@@ -170,7 +168,7 @@ const SearchResults = () => {
                     )
                   }) : <ErrorMessage>No events found, please search something else...</ErrorMessage>}
               </Main> 
-            </> :<Loading /> }
+            </> :<LoadingPage /> }
           </Events>
         </>: <LoadingPage />}
         </>

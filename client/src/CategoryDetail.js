@@ -1,12 +1,11 @@
 import { useContext, useEffect, useState } from 'react';
 import styled from "styled-components"
 import {useParams, useNavigate} from "react-router-dom";
-import { MdFavorite } from 'react-icons/md';
-import { UserContext } from './UserContext';
-import Signin from './Signin';
 import moment from "moment";
+import { MdFavorite } from 'react-icons/md';
 import Pagination from './Pagination';
 import LoadingPage from './LoadingPage';
+import { UserContext } from './UserContext';
 
 const CategoryDetail = () => {
     const [events, setEvents] = useState(null);
@@ -114,7 +113,7 @@ const CategoryDetail = () => {
 
     const handlefav =(data) => {
       console.log(isLogedIn, isUserLoginIn)
-      if(isUserLoginIn === false || isLogedIn === false){
+      if(isLogedIn === null){
         setIsModalOpen(true);
       }
 
@@ -186,7 +185,6 @@ const CategoryDetail = () => {
               : <LoadingPage />}
               </Main>
           </Events>
-          {(isModalOpen === true) && <Signin />}
           </>: <LoadingPage />}
           </>
     )

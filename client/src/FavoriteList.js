@@ -1,16 +1,12 @@
-import { useEffect, useState, useRef } from 'react';
+import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import styled, { keyframes } from "styled-components";
+import styled from "styled-components";
 import { MdDelete } from 'react-icons/md';
-import Loading from './LoadingPage'
-import './Favorite.css'
+import Loading from './LoadingPage';
 
 const CategoryDetail = () => {
     const [favorite, setFavorite] = useState(null);
-    const [isDeleted, setIsDeleted] = useState(false)
-    const [activeclass, isActiveclass] = useState(null)
     const navigate = useNavigate();
-    const ref = useRef(null);
 
       useEffect(() => {
         getFavoriteList()
@@ -31,17 +27,29 @@ const CategoryDetail = () => {
       await fetch(`/favorite/event/${id}`, {method: "DELETE"})
       .then((res) => { 
         res.json();
-        getFavoriteList() 
       })
       .catch(e => {
         console.log("error", e);
       });
+    
+      if(favorite !== null){
+        const newFavArr = favorite.data.filter(event => {
+          return event.eventId !== id})
 
+        let message;
+        if(newFavArr.length === 0){
+          message = "There are no events in your favorite list";
+        }
+          setFavorite(v =>({...v, data: newFavArr, message}))
+        }
     }
+    
 
     const handleClick = (id) => {
       navigate(`/event/id/${id}`)
     }
+
+    console.log(favorite)
     
     return( 
         <>
@@ -58,12 +66,12 @@ const CategoryDetail = () => {
                                   {(data?.title.length >= 17) ?<Title>{data?.title.slice(0, 30)}...</Title>:<Title>{data?.title}</Title>}
                                   {(data?.venue.length >= 27) ? <Genre>{data?.venue.slice(0, 30)}...</Genre>: <Genre>{data?.venue}</Genre>}
                                   {data.ticket !== null ? <EventCount>${data?.ticket}</EventCount>: <EventCount>Find Tickets</EventCount>}
-                                  <Delete onClick={(event) => {event.stopPropagation(); deleteEvent(data.eventId, data._id);}}><MdDelete size={20} /></Delete>
+                                  <Delete onClick={(event) => {event.stopPropagation(); deleteEvent(data.eventId);}}><MdDelete size={20} /></Delete>
                                 </Wrapper>
                         )
                       })}
                   </Main>
-                : <P>{favorite?.message} </P>
+                : <P>{favorite?.message}</P>
               : <Loading />}
           </Events>
         </>
@@ -132,11 +140,11 @@ const Title = styled.p`
 
   @media (max-width: 800px) {
     font-size: 22px;
-}
+  }
 
-@media (max-width: 650px) {
-    font-size: 18px;
-}
+  @media (max-width: 650px) {
+      font-size: 18px;
+  }
 `
 
 const Genre = styled.p`
@@ -145,11 +153,11 @@ const Genre = styled.p`
 
   @media (max-width: 800px) {
     font-size: 20px;
-}
+  }
 
   @media (max-width: 650px) {
     font-size: 18px;
-}
+  }
 `
 
 const EventCount = styled.p`
@@ -158,7 +166,7 @@ const EventCount = styled.p`
 
   @media (max-width: 650px) {
     font-size: 18px;
-}
+  }
 `
 
 const Delete = styled.span`
@@ -176,7 +184,11 @@ const Delete = styled.span`
 `
 
 const P = styled.p`
-  margin: 40px 0px 140px 80px;
+  width: fit-content;
+  margin: auto;
+  color: coral;
+  padding: 80px 0px 140px 0px;
+  font-size: 18px;
 `
 
 export default CategoryDetail;
