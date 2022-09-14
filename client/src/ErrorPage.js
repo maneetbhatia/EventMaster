@@ -16,7 +16,7 @@ const ErrorPage = () => {
             <Img src={gif404} alt="broken chain" />
             <H1>Page Not Found...</H1>
             <H3>The page you requested does not exist.</H3>
-            <Button onClick={handleClick}>Go Back To Home</Button>
+            <Button onClick={handleClick}>Go Back</Button>
         </Div>
     )
     
