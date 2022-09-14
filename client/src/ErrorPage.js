@@ -1,7 +1,5 @@
 import styled from "styled-components";
 import  {useNavigate} from 'react-router-dom';
-import LoadingPage from "./LoadingPage";
-import { useContext } from "react";
 import gif404 from "./Assests/kGwR3uDrUKPI.gif"
 
 // declare errorPage function
@@ -18,7 +16,7 @@ const ErrorPage = () => {
             <Img src={gif404} alt="broken chain" />
             <H1>Page Not Found...</H1>
             <H3>The page you requested does not exist.</H3>
-            <Button onClick={handleClick}>Categories</Button>
+            <Button onClick={handleClick}>Go Back To Home</Button>
         </Div>
     )
     
@@ -65,7 +63,6 @@ const H3 = styled.h3`
 const Button = styled.button`
     border: none;
     cursor: pointer;
-    /* color: white; */
     font-size: 20px;
     padding: 2% 5%;
     margin: 20px 0px;

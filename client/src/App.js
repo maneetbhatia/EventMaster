@@ -10,21 +10,23 @@ import SearchBar from "./SearchBar";
 import SearchResults from "./SearchResults";
 import FavoriteList from "./FavoriteList";
 import ErrorPage from "./ErrorPage";
+import ScrollToTop from "./ScrollToTop";
 
 function App() {
 
   return (
     <>
       <BrowserRouter>
+        <ScrollToTop />
         <Banner />
         <SearchBar />
           <Routes>
             <Route exact path="/" element={<Home />} />
-            <Route exact path="/event/id/:eventID" element={<EventDetails />} />
-            <Route exact path="/category/:category" element={<CategoryDetail />} />
-            <Route exact path="/search/:searchValue" element={<SearchResults />} />
-            <Route exact path="/artist/id/:artistID" element={<ArtistDetail />} />
-            <Route exact path="/favorite" element={<FavoriteList />} />
+            <Route path="/event/id/:eventID" element={<EventDetails />} />
+            <Route path="/category/:category" element={<CategoryDetail />} />
+            <Route path="/search/:searchValue" element={<SearchResults />} />
+            <Route path="/artist/id/:artistID" element={<ArtistDetail />} />
+            <Route path="/favorite" element={<FavoriteList />} />
             <Route path="*" element={<ErrorPage />} />
           </Routes>
         <Footer/>

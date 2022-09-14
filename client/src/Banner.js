@@ -37,20 +37,14 @@ const Banner = () => {
     setIsUserLoginIn(false)
   }
 
-  useEffect(() => {
-    if(!isUserLoginIn){
-        navigate("/");
-    }
-  }, [isUserLoginIn])
-
-  const handleFavorites =() => {
+  const handleFavorites = () => {
     navigate("/favorite");
   }
 
   useEffect(() => {
     setIsLogedIn(sessionStorage.getItem("isLogedIn"));
     setName(sessionStorage.getItem("name"));
-  }, [isUserLoginIn, isLogedIn])
+  }, [isUserLoginIn])
   console.log("isLogedIn", isLogedIn, "isUserLoginIn", isUserLoginIn)
 
     return(

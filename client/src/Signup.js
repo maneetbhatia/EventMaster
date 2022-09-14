@@ -100,7 +100,7 @@ const Signup = () => {
                         value={confirmPassword}
                         onChange={(e) => setConfirmPassword(e.target.value)} 
                     /><br />
-                    {(!loading) ? <Submit>Signin</Submit> : <Submit><Loading /></Submit>}
+                    {(!loading) ? <Submit>Signup</Submit> : <Submit><Loading /></Submit>}
                     <ErrorMessage>{errorMessage}</ErrorMessage>
                     <P>Have account? please <Span onClick={handleLogin}>Login</Span></P>
                     <Close onClick={closeModal}>X</Close>

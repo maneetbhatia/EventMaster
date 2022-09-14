@@ -39,7 +39,6 @@ const Signin = () => {
             body: JSON.stringify(user),
         }).then(res =>  res.json())
         .then(data => {
-            // console.log(data); 
             setDatas(data)})
         .catch(e => {
             console.log("error", e);
@@ -93,7 +92,7 @@ const Signin = () => {
 
 const Main = styled.div`
     width: 100%;
-    background-color: rgba(255,255,255,0.55);
+    background-color: rgba(255,255,255,0.8);
     position: fixed;
     top: 0;
     left: 0;

@@ -16,7 +16,6 @@ const SearchResults = () => {
     const {isLogedIn, setIsModalOpen} = useContext(UserContext)
 
     useEffect(() => {
-      console.log("lisssssssssst")
         fetch(`/search/${searchValue}/${pageCount}`)
         .then((res) => res.json())
         .then((data) => {
@@ -153,7 +152,7 @@ const SearchResults = () => {
                   events.map((eventData, index) => {
                     return (
                       (!moment(eventData?.datetime_local).fromNow().includes("ago") && eventData?.stats?.lowest_price !== null && eventData.performers[0].image !== null) &&
-                        <Wrapper key={index} onClick={() => handleClick(eventData?.id)}>
+                        <Wrapper key={index} onClick={() => handleClick(eventData?.eventId)}>
                           <Img src={eventData.performers[0].image} />
                           <EventInfo>
                           {(eventData?.title.length >= 25) ? <Title>{eventData?.title.slice(0, 25)}...</Title> : <Title>{eventData?.title}</Title>}

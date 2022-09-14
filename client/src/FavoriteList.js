@@ -3,12 +3,21 @@ import { useNavigate } from 'react-router-dom';
 import styled from "styled-components";
 import { MdDelete } from 'react-icons/md';
 import Loading from './LoadingPage';
+import { useContext } from 'react';
+import { UserContext } from "./UserContext";
 
 const CategoryDetail = () => {
     const [favorite, setFavorite] = useState(null);
+    const {isUserLoginIn} = useContext(UserContext)
     const navigate = useNavigate();
 
-      useEffect(() => {
+    useEffect(() => {
+      if(isUserLoginIn === false){
+          navigate("/");
+      }
+    }, [isUserLoginIn])  
+    
+    useEffect(() => {
         getFavoriteList()
       }, [])
 
@@ -23,7 +32,6 @@ const CategoryDetail = () => {
     }
 
     const deleteEvent = async(id) => {
-      console.log("delete")
       await fetch(`/favorite/event/${id}`, {method: "DELETE"})
       .then((res) => { 
         res.json();
@@ -48,8 +56,6 @@ const CategoryDetail = () => {
     const handleClick = (id) => {
       navigate(`/event/id/${id}`)
     }
-
-    console.log(favorite)
     
     return( 
         <>
@@ -61,7 +67,7 @@ const CategoryDetail = () => {
                       {favorite?.data?.map((data, index) => {
                         return (
                             (data.image !== null && data.isFavorite) && 
-                                <Wrapper key={index} onClick={() => handleClick(data?._id)}>
+                                <Wrapper key={index} onClick={() => handleClick(data?.eventId)}>
                                   <Img src={data.image} />
                                   {(data?.title.length >= 17) ?<Title>{data?.title.slice(0, 30)}...</Title>:<Title>{data?.title}</Title>}
                                   {(data?.venue.length >= 27) ? <Genre>{data?.venue.slice(0, 30)}...</Genre>: <Genre>{data?.venue}</Genre>}

@@ -12,7 +12,7 @@ const CategoryDetail = () => {
     const [eventsArr, setEventsArr] = useState(null);
     const [pageCount, setPageCount] = useState(1)
     const [loading, setLoading] = useState(false)
-    const {isModalOpen, setIsModalOpen, isUserLoginIn, isLogedIn} = useContext(UserContext)
+    const { setIsModalOpen, isLogedIn} = useContext(UserContext)
 
     const navigate = useNavigate();
     const {category} = useParams();
@@ -21,7 +21,6 @@ const CategoryDetail = () => {
         fetch(`/event/category/${category}/${pageCount}`)
         .then((res) => res.json())
         .then((data) => {
-            // console.log(data);
             setEventsArr(data)
             setEvents(data?.data?.events)
         }).catch((err) => {
@@ -112,7 +111,6 @@ const CategoryDetail = () => {
     }
 
     const handlefav =(data) => {
-      console.log(isLogedIn, isUserLoginIn)
       if(isLogedIn === null){
         setIsModalOpen(true);
       }
@@ -130,7 +128,7 @@ const CategoryDetail = () => {
         method: "POST",
         headers: {"Accept": "application/json","Content-Type": "application/json"},
         body: JSON.stringify(event),
-      }).then(res =>  {console.log("event", res)})
+      }).then(res =>  res.json())
       .catch(e => {
           console.log("error", e);
       });
@@ -176,8 +174,8 @@ const CategoryDetail = () => {
                             {(data?.stats?.lowest_price !== null && !moment(data?.datetime_local).fromNow().includes("ago"))  && <EventCount>From ${data?.stats?.lowest_price}</EventCount>}
                             <Fav
                               onClick={(event) => {event.stopPropagation();
-                               handlefav(data)
-                               }}><MdFavorite  size={20}/>
+                                handlefav(data)
+                                }}><MdFavorite  size={20}/>
                             </Fav>
                           </Wrapper>
                     )
