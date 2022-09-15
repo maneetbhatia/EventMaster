@@ -24,41 +24,37 @@ const GetEventFromFavorites = async (req, res) => {
         console.log(err.errmsg);
     }
     
-        result
-        ? res.status(200).json({ status: 200, _id, data: result })
-        : res.status(404).json({ status: 404, _id, message: "ID Not Found" });
+    result
+    ? res.status(200).json({ status: 200, _id, data: result })
+    : res.status(404).json({ status: 404, _id, message: "ID Not Found" });
     
-        client.close();
+    client.close();
 };
 
-// POST EVENT IN FAVORITE-LIST COLLECTION
+
 const getFavoriteList = async(req, res) => {
     let result;
 
-    // connect to the client
     await client.connect();
-    // connect to the database (db name is provided as an argument to the function)
+    
     const db = client.db("final-project");
     
-        result = await db.collection("favorite-list").find().toArray();
+    result = await db.collection("favorite-list").find().toArray();
 
     result.length > 0
         ? res.status(200).send({status: 200, data: result})
         : res.status(404).send({status: 404, message: "There are no events in your favorite list"})
         
 
-     // close the connection to the database server
     client.close();
 };
 
-// POST EVENT IN FAVORITE-LIST COLLECTION
+
 const addedNewEvent = async(req, res) => {
     let result;
 
-    // connect to the client
     await client.connect();
 
-    // connect to the database (db name is provided as an argument to the function)
     const db = client.db("final-project");
 
     try{
@@ -70,19 +66,16 @@ const addedNewEvent = async(req, res) => {
             isFavorite: true
         });
 
-        // send error
         }catch{(err) => 
             console.log("err", err)
         }
 
-        console.log("result", result)
         if(result){
             res.status(200).json({ status: 200, result, message:"Added to Favorite List" })
         }else{
             res.status(404).json({ status: 404, message: "not added to fav list" });
         }
 
-     // close the connection to the database server
     client.close();
 };
 
@@ -91,7 +84,7 @@ const deleteEvent = async (req, res) => {
     const _id = Number(req.params.id)
 
     await client.connect();
-console.log(_id)
+
     const db = client.db("final-project");
     const result = await db.collection("favorite-list").deleteOne({ eventId: _id });
     

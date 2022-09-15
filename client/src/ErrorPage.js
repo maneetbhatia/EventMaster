@@ -2,11 +2,9 @@ import styled from "styled-components";
 import  {useNavigate} from 'react-router-dom';
 import gif404 from "./Assests/kGwR3uDrUKPI.gif"
 
-// declare errorPage function
 const ErrorPage = () => {
     const navigate = useNavigate()
 
-    // declare handleClick function which redirects user to homepage
     const handleClick = () => {
         navigate("/");
     }
@@ -16,7 +14,7 @@ const ErrorPage = () => {
             <Img src={gif404} alt="broken chain" />
             <H1>Page Not Found...</H1>
             <H3>The page you requested does not exist.</H3>
-            <Button onClick={handleClick}>Go Back</Button>
+            <Button onClick={handleClick}>Go To Homepage</Button>
         </Div>
     )
     

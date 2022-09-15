@@ -17,7 +17,6 @@ const ArtistDetail = () => {
         fetch(`/artist/id/${artistID}`)
             .then((res) => res.json())
             .then((data) => {
-                // console.log(data.data);
                 setArtist(data.data)
             }).catch((err) => {
                 console.log("error", err);
@@ -31,7 +30,6 @@ const ArtistDetail = () => {
                 fetch(`/artist/events/${artistName}`)
                     .then((res) => res.json())
                     .then((data) => {
-                        // console.log(data.data.events);
                         setEventList(data.data.events)
                     }).catch((err) => {
                         console.log("error", err);
@@ -120,8 +118,8 @@ const Section1 = styled.div`
 `
 
 const ArtistImg = styled.img`
-width: 100%;
-border-radius: 15px;
+    width: 100%;
+    border-radius: 15px;
 `
 
 

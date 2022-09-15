@@ -141,24 +141,9 @@ const Venue = styled.div`
 
 const P =styled.p`
     font-size: 18px;
-
-    /* @media (max-width: 850px) {
-        margin-top: 10px;
-    }
-
-    @media (max-width: 510px) {
-        font-size: 18px;
-    } */
 `
 
 const H2 =styled.h2`
-    /* @media (max-width: 850px) {
-        margin-top: 10px;
-    }
-
-    @media (max-width: 510px) {
-        font-size: 25px;
-    } */
 `
 
 const MapContainer = styled.div`

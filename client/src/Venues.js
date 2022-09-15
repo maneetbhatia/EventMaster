@@ -65,11 +65,10 @@ const Slider = styled.div`
     white-space: nowrap;
     scroll-snap-type: x mandatory;
     overscroll-behavior-inline: contain;
-    /* scroll-padding-left: 1px; */
 
-&::-webkit-scrollbar{
-    display: none;
-}
+  &::-webkit-scrollbar{
+      display: none;
+  }
 `
 
 const Wrapper = styled.div`
@@ -86,34 +85,34 @@ const Wrapper = styled.div`
 
   @media (max-width: 1050px) {
     width: 35%;
-}
+  }
 
-@media (max-width: 980px) {
-    width: 50%;
-    margin: 20px 3% 20px 2%;
-}
+  @media (max-width: 980px) {
+      width: 50%;
+      margin: 20px 3% 20px 2%;
+  }
 
-@media (max-width: 730px) {
-    width: 70%;
-    margin: 20px 6% 20px 2%;
-}
+  @media (max-width: 730px) {
+      width: 70%;
+      margin: 20px 6% 20px 2%;
+  }
 
-@media (max-width: 560px) {
-    width: 80%;
-    margin: 20px 7% 20px 2%;
-}
+  @media (max-width: 560px) {
+      width: 80%;
+      margin: 20px 7% 20px 2%;
+  }
 
-@media (max-width: 500px) {
-    width: 95%;
-}
+  @media (max-width: 500px) {
+      width: 95%;
+  }
 
-@media (max-width: 450px) {
-    width: 99%;
-}
+  @media (max-width: 450px) {
+      width: 99%;
+  }
 `
 
 const H1 = styled.h1`
-margin-left: 1px;
+  margin-left: 1px;
 `
 
 const Img = styled.img`

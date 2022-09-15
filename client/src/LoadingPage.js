@@ -3,13 +3,9 @@ import styled, { keyframes }from 'styled-components';
 const LoadingPage = () => {
 
     return (
-            <Icon> </Icon>
+        <Icon> </Icon>
     )
 }
-
-const Main = styled.div`
-
-`
 
 const flash = keyframes`
     0% { transform: rotate(0deg); }

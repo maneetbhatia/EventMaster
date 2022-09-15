@@ -41,7 +41,6 @@ const AllCategories = () => {
         fetch(`/taxonomies`)
         .then((res) => res.json())
         .then((data) => {
-            // console.log(data);
             setEvents(data.data.taxonomies)
         }).catch((err) => {
             console.log("error", err);

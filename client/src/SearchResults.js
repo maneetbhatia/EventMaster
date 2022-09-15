@@ -195,7 +195,6 @@ const Sort = styled.div`
   margin: auto;
   margin-top: 50px;
   display: flex;
-  /* background-color: red; */
   justify-content: space-evenly;
 
   @media (max-width: 930px) {

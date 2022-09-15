@@ -20,7 +20,6 @@ const Home = () => {
       fetch(`/event/recommendations`)
           .then((res) => res.json())
           .then((data) => {
-            // console.log(data.data.recommendations);
             setRecommendations(data.data.recommendations)
           }).catch((err) => {
             console.log("error", err);
@@ -82,9 +81,9 @@ const Slider = styled.div`
     scroll-behavior: smooth;
     scroll-snap-type: x mandatory;
 
-&::-webkit-scrollbar{
-    display: none;
-}
+  &::-webkit-scrollbar{
+      display: none;
+  }
 `
 
 const Wrapper = styled.div`
@@ -101,34 +100,34 @@ const Wrapper = styled.div`
 
   @media (max-width: 1050px) {
     width: 35%;
-}
+  }
 
-@media (max-width: 980px) {
-    width: 50%;
-    margin: 20px 3% 20px 2%;
-}
+  @media (max-width: 980px) {
+      width: 50%;
+      margin: 20px 3% 20px 2%;
+  }
 
-@media (max-width: 730px) {
-    width: 70%;
-    margin: 20px 6% 20px 2%;
-}
+  @media (max-width: 730px) {
+      width: 70%;
+      margin: 20px 6% 20px 2%;
+  }
 
-@media (max-width: 560px) {
-    width: 80%;
-    margin: 20px 7% 20px 2%;
-}
+  @media (max-width: 560px) {
+      width: 80%;
+      margin: 20px 7% 20px 2%;
+  }
 
-@media (max-width: 500px) {
-    width: 95%;
-}
+  @media (max-width: 500px) {
+      width: 95%;
+  }
 
-@media (max-width: 450px) {
-    width: 99%;
-}
+  @media (max-width: 450px) {
+      width: 99%;
+  }
 `
 
 const H1 = styled.h1`
-margin-left: 1px;
+  margin-left: 1px;
 `
 
 const Img = styled.img`

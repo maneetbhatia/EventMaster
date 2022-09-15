@@ -38,18 +38,18 @@ const getEventByCategory = async (req, res) => {
   }catch (err){
     console.log(err)
   }
-  console.log("result", result.events.length)
+  
   if(result === null || result?.events.length === 0){
     res.status(404).send({
         status: 404,
         message: "No upcoming events, please look for different category"
     })
-}else{
-    res.status(200).send({
-        status: 200,
-        data: result
-    })
-}
+  }else{
+      res.status(200).send({
+          status: 200,
+          data: result
+      })
+  }
 };
 
 
@@ -96,12 +96,12 @@ const getEventsRecommendation = async (req, res) => {
         status: 404,
         message: "No recommendations found"
     })
-}else{
-    res.status(200).send({
-        status: 200,
-        data: result
-    })
-}
+  }else{
+      res.status(200).send({
+          status: 200,
+          data: result
+      })
+  }
 
 };
 
@@ -171,17 +171,17 @@ const getSearchValue = async (req, res) => {
       result = await response.json();
     }
 
-  if(result.events.length === 0){
-    res.status(404).send({
-        status: 404,
-        message: "No events found, search something else"
-    })
-  }else{
-      res.status(200).send({
-          status: 200,
-          data: result
+    if(result.events.length === 0){
+      res.status(404).send({
+          status: 404,
+          message: "No events found, search something else"
       })
-  }
+    }else{
+        res.status(200).send({
+            status: 200,
+            data: result
+        })
+    }
 
 };
 
@@ -189,24 +189,24 @@ const getSearchValue = async (req, res) => {
 const getVenues = async (req, res) => {
   let result;
 
-try{
-  const response = await fetch(`https://api.seatgeek.com/2/venues?client_id=${API_KEY}`);
-  result = await response.json();
-}catch (err){
-  console.log(err)
-}
+  try{
+    const response = await fetch(`https://api.seatgeek.com/2/venues?client_id=${API_KEY}`);
+    result = await response.json();
+  }catch (err){
+    console.log(err)
+  }
 
-if(result === null){
-  res.status(404).send({
-      status: 404,
-      message: "no venues found"
-  })
-}else{
-  res.status(200).send({
-      status: 200,
-      data: result
-  })
-}
+  if(result === null){
+    res.status(404).send({
+        status: 404,
+        message: "no venues found"
+    })
+  }else{
+    res.status(200).send({
+        status: 200,
+        data: result
+    })
+  }
 
 };
   

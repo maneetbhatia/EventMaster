@@ -67,7 +67,7 @@ const Signin = () => {
         <>
             <Main>
                 <Form onSubmit={handleSubmit}>
-                    <h1>Signin</h1>
+                    <h1 style={{paddingBottom: "20px"}}>Signin</h1>
                     <Input 
                         placeholder='Email' 
                         type="email" required
@@ -83,7 +83,7 @@ const Signin = () => {
                     {(!loading) ? <Submit>Signin</Submit> : <Submit><Loading /></Submit>}
                     {(datas?.status === 404) && <ErrorMessage>{datas?.message}</ErrorMessage>}
                     <Close onClick={closeModal}>X</Close>
-                    <P>Don't have EventMaster account, please <Span onClick={handleRegister}>Register</Span></P>
+                    <P>Don't have EventMaster account? please <Span onClick={handleRegister}>Register</Span></P>
                 </Form>
             </Main>
         </>
@@ -129,6 +129,7 @@ const Input = styled.input`
     padding: 2%;
     margin: 10px;
     border: 1px solid grey;
+    border-radius: 10px;
 `
 
 const Submit = styled.button`
@@ -139,11 +140,12 @@ const Submit = styled.button`
     color: black;
     background-color: white;
     font-size: large;
+    border-radius: 10px;
     cursor: pointer;
+    border: 1px solid grey;
 `
 
 const P = styled.p`
-    /* border-top: 1px solid grey; */
     margin-top: 30px;
 `
 
