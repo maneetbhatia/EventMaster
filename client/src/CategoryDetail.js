@@ -179,7 +179,7 @@ const CategoryDetail = () => {
                             </Fav>
                           </Wrapper>
                     )
-                }) : <P>No events found, please look for different <span style={{color: "limegreen", cursor: "pointer"}} onClick={navigateToHome}>Category</span></P>
+                }) : <P>No events found, please look for different <span style={{color: "limegreen", cursor: "pointer"}} onClick={navigateToHome}>Go To Homepage</span></P>
               : <LoadingPage />}
               </Main>
           </Events>
@@ -190,7 +190,7 @@ const CategoryDetail = () => {
 
 const TitleTollTip = styled.span`
   position: absolute;
-  top: 72%;
+  top: 45%;
   left: 50%;
   width: 90%;
   padding: 5px;
@@ -200,6 +200,7 @@ const TitleTollTip = styled.span`
   opacity: 0;
   border-radius: 15px;
   box-shadow: 1px 1px 5px 1px black;
+  z-index: -1;
 `
 
 const Div = styled.div`
@@ -347,8 +348,10 @@ const EventCount = styled.p`
   `
 
   const EventInfo = styled.div`
+  position: relative;
     &:hover ${TitleTollTip} {
       opacity: 1;
+      z-index: 100;
     }
   `
 
@@ -376,7 +379,9 @@ const Fav = styled.span`
 `
 
 const P = styled.p`
-  margin: 40px 60px;
+  width: fit-content;
+  margin: auto;
+  padding: 40px 0px 140px 0px;
   font-size: 18px;
 `
 

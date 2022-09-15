@@ -15,7 +15,7 @@ const SearchBar = () => {
         <Main>
             <Input value={value} placeholder="Search events by name..." onChange={(e) => {setValue(e.target.value)}} />
             <Button disabled={!value} onClick={handleSearch}>Search</Button>
-            {value && <Span onClick={() => {setValue("")}}>x</Span>}
+            {value && <Span onClick={() => {setValue("")}}>X</Span>}
         </Main>
     )
 }
@@ -66,17 +66,32 @@ const Span = styled.span`
     border: none;
     font-size: 18px;
     position: absolute;
-    top: 20%;
+    top: 26%;
     right: 16%;
     cursor: pointer;
 
     &:hover{
         color: red;
     }
+
+    @media (max-width: 1250px) {
+        top: 23%;
+        right: 16%;
+    }
+
+    @media (max-width: 1100px) {
+        top: 22%;
+        right: 16%;
+    }
+
+    @media (max-width: 1000px) {
+        top: 20%;
+        right: 16%;
+    }
     
-    @media (max-width: 850px) {
-        top: 15%;
-        right: 20%;
+    @media (max-width: 860px) {
+        top: 17.5%;
+        right: 19%;
     }
 
     @media (max-width: 525px) {

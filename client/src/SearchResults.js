@@ -85,7 +85,6 @@ const SearchResults = () => {
       })
 
       const sortedEvents = await newEventsArr.sort(byPrice);
-
       setEvents(sortedEvents)
     }
 
@@ -95,7 +94,6 @@ const SearchResults = () => {
       })
 
       const sortedEvents = await newEventsArr.sort(byHighestToLowest);
-
       setEvents(sortedEvents)
     }
 
@@ -105,7 +103,6 @@ const SearchResults = () => {
       })
 
       const sortedEvents = await newEventsArr.sort(byTime);
-
       setEvents(sortedEvents)
     }
 
@@ -130,6 +127,11 @@ const SearchResults = () => {
       .catch(e => {
           console.log("error", e);
       });
+    }
+
+
+    const navigateToHome =() => {
+      navigate("/")
     }
 
     return( 
@@ -165,7 +167,7 @@ const SearchResults = () => {
                             }}><MdFavorite size={20}/></Fav>
                         </Wrapper>
                     )
-                  }) : <ErrorMessage>No events found, please search something else...</ErrorMessage>}
+                  }) : <ErrorMessage>No events found, please search something else or <span style={{color: "limegreen", cursor: "pointer"}} onClick={navigateToHome}>Go To Homepage</span></ErrorMessage>}
               </Main> 
             </> :<LoadingPage /> }
           </Events>
@@ -318,9 +320,10 @@ const EventCount = styled.p`
 `
 
 const ErrorMessage = styled.p`
-  color: red;
-  margin-left: 60px;
-  margin-bottom: 40px;
+  width: fit-content;
+  margin: auto;
+  font-size: 18px;
+  padding: 40px 0px 140px 0px;
 `
 
 const Fav = styled.span`

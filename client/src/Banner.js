@@ -32,9 +32,11 @@ const Banner = () => {
   }
 
   const handleLogout = () => {
+    console.log("logout")
     sessionStorage.removeItem("isLogedIn")
     sessionStorage.removeItem("name")
     setIsUserLoginIn(false)
+    setIsLogedIn(false);
   }
 
   const handleFavorites = () => {
@@ -44,8 +46,7 @@ const Banner = () => {
   useEffect(() => {
     setIsLogedIn(sessionStorage.getItem("isLogedIn"));
     setName(sessionStorage.getItem("name"));
-  }, [isUserLoginIn])
-  console.log("isLogedIn", isLogedIn, "isUserLoginIn", isUserLoginIn)
+  }, [isUserLoginIn, isLogedIn])
 
     return(
       <>
@@ -53,13 +54,15 @@ const Banner = () => {
             <Logo onClick={handleClick}> 
               EM
             </Logo>
-            <Favorites onClick={handleFavorites}>
-              {(isLogedIn !== null) ? "Favorites": ""}
-            </Favorites>
-            <Login onClick={handleLogin}>
-              {(isLogedIn === null) && "Login"}
-            </Login>
-            <Logout onClick={handleLogout}>{(isLogedIn !== null ) && "Logout"}</Logout>
+            {(isLogedIn) && <Favorites onClick={handleFavorites}>
+              Favorites
+            </Favorites>}
+            {(!isLogedIn) && <Login onClick={handleLogin}>
+              Login
+            </Login>}
+            {(isLogedIn) && <Logout onClick={handleLogout}> 
+              Logout
+            </Logout>}
             <BannerImg src={bannerImg} alt="banner" />
             <Heading>
               <H2>Let the fun begins</H2>
@@ -78,7 +81,7 @@ const Main = styled.div`
   margin-bottom: 20px;
 `
 
-const Login = styled.p`
+const Login = styled.button`
   font-size: 20px;
   cursor: pointer;
   color: white;
@@ -103,7 +106,7 @@ const Logo = styled.p`
   }
 `
 
-const Logout = styled.p`
+const Logout = styled.button`
   font-size: 20px;
   cursor: pointer;
   color: white;
