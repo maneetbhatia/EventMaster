@@ -52,7 +52,7 @@ const Banner = () => {
       <>
         <Main>
             <Logo onClick={handleClick}> 
-              EM
+              EventMaster
             </Logo>
             {(isLogedIn) && <Favorites onClick={handleFavorites}>
               Favorites
@@ -99,7 +99,8 @@ const Logo = styled.p`
   top: 20px;
   left: 30px;
   font-size: 30px;
-  font-family: "helima";
+  font-family: "Impact";
+  font-style: italic;
 
   @media (max-width: 850px) {
     width: 70px;
