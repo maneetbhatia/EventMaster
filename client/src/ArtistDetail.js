@@ -43,7 +43,6 @@ const ArtistDetail = () => {
     }
 
     const scrollLeft = () => {
-        console.log(ref.current.scrollTop)
         ref.current.scrollTop = ref.current.scrollTop - 100;
     };
 
