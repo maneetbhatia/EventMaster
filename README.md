@@ -1,5 +1,5 @@
 # EventMaster
-Bootcamp Final Project Full Stack Web App
+Events based full stack web app
 <br/>
 <br/>
 **MADE WITH**
