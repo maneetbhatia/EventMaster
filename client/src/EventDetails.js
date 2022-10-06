@@ -20,6 +20,7 @@ const EventDetails = () => {
     const {eventID} = useParams();
     
     const API_KEY = process.env.REACT_APP_API_KEY
+    
     useEffect(() => {
         fetch(`/event/id/${eventID}`)
             .then((res) => res.json())

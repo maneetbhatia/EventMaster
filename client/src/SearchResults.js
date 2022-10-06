@@ -32,6 +32,7 @@ const SearchResults = () => {
 
     const navigate = useNavigate();
     const handleClick = (id) => {
+      console.log(id)
       navigate(`/event/id/${id}`)
     }
 
@@ -154,7 +155,7 @@ const SearchResults = () => {
                   events.map((eventData, index) => {
                     return (
                       (!moment(eventData?.datetime_local).fromNow().includes("ago") && eventData?.stats?.lowest_price !== null && eventData.performers[0].image !== null) &&
-                        <Wrapper key={index} onClick={() => handleClick(eventData?.eventId)}>
+                        <Wrapper key={index} onClick={() => {handleClick(eventData?.id)}}>
                           <Img src={eventData.performers[0].image} />
                           <EventInfo>
                           {(eventData?.title.length >= 25) ? <Title>{eventData?.title.slice(0, 25)}...</Title> : <Title>{eventData?.title}</Title>}

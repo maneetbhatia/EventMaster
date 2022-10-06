@@ -9,6 +9,7 @@ const Footer = () => {
     }
 
     const handleArtists = (e) => {
+        console.log(e.target.innerText)
         navigate(`/search/${e.target.innerText}`)
     }
 
