@@ -1,9 +1,0 @@
-{
-  "name": "finalProject",
-  "version": "1.0.0",
-  "main": "index.js",
-  "repository": "https://github.com/maneetbhatia/Events-App.git",
-  "author": "Maneet Bhatia <78784779+maneetbhatia@users.noreply.github.com>",
-  "license": "MIT",
-  "dependencies": {}
-}
