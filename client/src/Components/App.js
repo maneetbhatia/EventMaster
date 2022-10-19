@@ -9,7 +9,7 @@ import CategoryDetail from "./CategoryDetail";
 import SearchBar from "./SearchBar";
 import SearchResults from "./SearchResults";
 import FavoriteList from "./FavoriteList";
-import ErrorPage from "./ErrorPage";
+import ErrorPage from "./ErrorPage.js";
 import ScrollToTop from "./ScrollToTop";
 
 function App() {

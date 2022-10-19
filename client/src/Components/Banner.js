@@ -1,5 +1,5 @@
 import styled from "styled-components"
-import bannerImg from './Assests/bannerjpg.jpg'
+import bannerImg from '../Assests/banner.jpg'
 import { useNavigate } from "react-router-dom"
 import { useContext, useEffect } from "react"
 import { UserContext } from "./UserContext";

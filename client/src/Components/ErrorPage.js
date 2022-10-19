@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import  {useNavigate} from 'react-router-dom';
-import gif404 from "./Assests/kGwR3uDrUKPI.gif"
+import gif404 from "../Assests/kGwR3uDrUKPI.gif"
 
 const ErrorPage = () => {
     const navigate = useNavigate()
