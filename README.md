@@ -6,8 +6,23 @@ API – SeatGeek & Google Maps
 <br />
 <br />
 
+<img src="client/src/Assests/eventmaster-pic1.jpg" alt="EventMaster Screenshots">
+<br /><br />
+
+<img src="client/src/Assests/eventmaster-pic2.jpg" alt="EventMaster Screenshots">
+<br /><br />
+
+<img src="client/src/Assests/eventmaster-pic3.jpg" alt="EventMaster Screenshots">
+<br /><br />
+
+<img src="client/src/Assests/eventmaster-pic4.jpg" alt="EventMaster Screenshots">
+<br /><br />
+
+<img src="client/src/Assests/eventmaster-pic5.jpg" alt="EventMaster Screenshots">
+<br /><br />
 
 **MADE WITH**
+
 HTML<br/>
 CSS<br/>
 JavaScript<br/>
