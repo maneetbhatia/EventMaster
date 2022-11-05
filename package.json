@@ -1,0 +1,19 @@
+{
+  "name": "eventmaster",
+  "version": "1.0.0",
+  "description": "Event Master App",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/maneetbhatia/EventMaster.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/maneetbhatia/EventMaster/issues"
+  },
+  "homepage": "https://github.com/maneetbhatia/EventMaster#readme"
+}
