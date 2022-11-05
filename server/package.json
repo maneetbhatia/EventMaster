@@ -21,6 +21,7 @@
     "nodemon": "^2.0.19"
   },
   "scripts": {
-    "start": "node ./server.js"
+    "start": "node ./server.js",
+    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix client && npm run build --prefix client"
   }
 }
